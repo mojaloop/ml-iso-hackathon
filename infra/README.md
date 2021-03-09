@@ -28,10 +28,6 @@ make init
 ## Deploy infrastructure
 
 ```bash
-# sync the terraform state to local - do this if someone else
-# has made changes
-make sync
-
 make plan
 # check the output for nothing outrageous
 
