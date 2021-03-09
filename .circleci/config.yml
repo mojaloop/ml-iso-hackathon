@@ -110,135 +110,6 @@ jobs:
       - store_test_results:
           path: ./test/results
 
-  test-bdd:
-    executor: default-docker
-    steps:
-      - run:
-          name: Install general dependencies
-          command: *defaults_Dependencies
-      - checkout
-      - restore_cache:
-          keys:
-            - dependency-cache-{{ checksum "package-lock.json" }}
-      - run:
-          name: Execute unit tests
-          command: npm run test:bdd
-      - run:
-          name: prepare test/results
-          command: |
-            mkdir -p test/results
-            mv junit.xml test/results
-      - store_artifacts:
-          path: ./test/results
-          prefix: test
-      - store_test_results:
-          path: ./test/results
-
-  test-coverage:
-    executor: default-docker
-    steps:
-      - run:
-          name: Install general dependencies
-          command: *defaults_Dependencies
-      - checkout
-      - run:
-          name: Install AWS CLI dependencies
-          command: *defaults_awsCliDependencies
-      - restore_cache:
-          keys:
-            - dependency-cache-{{ checksum "package-lock.json" }}
-      - run:
-          name: Execute code coverage check
-          command: npm run test:coverage-check
-      - store_artifacts:
-          path: coverage
-          prefix: test
-      - store_test_results:
-          path: coverage
-      - run:
-          name: Copy code coverage to SonarQube
-          command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ];
-            then
-                echo "Sending lcov.info to SonarQube..."
-                aws s3 cp coverage/lcov.info $AWS_S3_DIR_SONARQUBE/$CIRCLE_PROJECT_REPONAME/lcov.info
-            else
-                echo "Not a release (env CIRCLE_BRANCH != 'master'), skipping sending lcov.info to SonarQube."
-            fi
-
-  test-integration:
-    executor: default-machine
-    steps:
-      - checkout
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
-      - run:
-          name: Create dir for test results
-          command: mkdir -p ./test/results
-      - run:
-          name: Execute integration tests
-          command: npm -s run test:integration
-          no_output_timeout: 25m
-      - store_artifacts:
-          path: ./test/results
-          prefix: test
-      - store_test_results:
-          path: ./test/results
-
-  linting-check:
-    executor: default-docker
-    steps:
-      - run:
-          name: Install general dependencies
-          command: *defaults_Dependencies
-      - checkout
-      - restore_cache:
-          keys:
-            - dependency-cache-{{ checksum "package-lock.json" }}
-      - run:
-          name: Execute eslint
-          command: npm run lint
-
-  vulnerability-check:
-    executor: default-docker
-    steps:
-      - run:
-          name: Install general dependencies
-          command: *defaults_Dependencies
-      - checkout
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
-      - run:
-          name: Create dir for test results
-          command: mkdir -p ./audit/results
-      - run:
-          name: Check for new npm vulnerabilities
-          command: npm run audit:check --silent -- --json > ./audit/results/auditResults.json
-      - store_artifacts:
-          path: ./audit/results
-          prefix: audit
-
-  audit-licenses:
-    executor: default-docker
-    steps:
-      - run:
-          name: Install general dependencies
-          command: *defaults_Dependencies
-      - checkout
-      - run:
-          <<: *defaults_license_scanner
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
-      - run:
-          name: Prune non-production packages before running license-scanner
-          command: npm prune --production
-      - run:
-          name: Run the license-scanner
-          command: cd /tmp/license-scanner && pathToRepo=$CIRCLE_WORKING_DIRECTORY make run
-      - store_artifacts:
-          path: /tmp/license-scanner/results
-          prefix: licenses
-
   build-local:
     executor: default-machine
     steps:
@@ -261,171 +132,6 @@ jobs:
           paths:
             - ./docker-image.tar
 
-  release:
-    executor: default-docker
-    steps:
-      - run:
-          name: Install general dependencies
-          command: *defaults_Dependencies
-      - checkout
-      - restore_cache:
-          keys:
-          - dependency-cache-{{ checksum "package-lock.json" }}
-      - run:
-          name: Configure git + ssh
-          command: |
-            git config user.email ${GIT_CI_EMAIL}
-            git config user.name ${GIT_CI_USER}
-            git checkout ${CIRCLE_BRANCH}
-            mkdir -p ~/.ssh
-            ssh-keyscan -p 443 ssh.github.com >> ~/.ssh/known_hosts
-            ssh-keyscan github.com >> ~/.ssh/known_hosts
-      - run:
-          name: Generate changelog and bump package version
-          command: npm run release
-      - run:
-          name: Push the release
-          command: git push --follow-tags origin ${CIRCLE_BRANCH}
-
-  github-release:
-    executor: default-machine
-    steps:
-      - checkout
-      - run:
-          name: Install git
-          command: |
-            sudo apt-get update && sudo apt-get install -y git
-      - checkout
-      - run:
-          name: Fetch updated release branch
-          command: |
-            git config user.email ${GIT_CI_EMAIL}
-            git config user.name ${GIT_CI_USER}
-            git fetch origin
-            git checkout origin/${CIRCLE_BRANCH}
-      - run:
-          # Note: this is rather imperfect, but will do for now
-          name: Format the changelog into the github release body and get release tag
-          command: |
-            git diff --no-indent-heuristic master~1 HEAD CHANGELOG.md | sed -n '/^+[^+]/ s/^+//p' > /tmp/changes
-            echo 'export RELEASE_CHANGES=`cat /tmp/changes`' >> $BASH_ENV
-            echo 'export RELEASE_TAG=`cat package.json | jq -r .version`' >> $BASH_ENV
-      - run:
-          name: check the release changes
-          command: |
-            echo "Changes are: ${RELEASE_CHANGES}"
-      - github-release/create:
-          github-token-variable: ${GITHUB_TOKEN}
-          tag: v${RELEASE_TAG}
-          title: v${RELEASE_TAG} Release
-          description: ${RELEASE_CHANGES}
-          file-path: CHANGELOG.md
-      - slack/status:
-          webhook: "$SLACK_WEBHOOK_ANNOUNCEMENT"
-          success_message: '*"${CIRCLE_PROJECT_REPONAME}"* - Release \`"v${RELEASE_TAG}"\` \nhttps://github.com/mojaloop/"${CIRCLE_PROJECT_REPONAME}"/releases/tag/"v${RELEASE_TAG}"'
-
-  publish:
-    executor: default-machine
-    steps:
-      - run:
-          name: Install git
-          command: |
-            sudo apt-get update && sudo apt-get install -y git
-      - checkout
-      - attach_workspace:
-          at: /tmp
-      - run:
-          name: Load the pre-built docker image from workspace
-          command: docker load -i /tmp/docker-image.tar
-      - run:
-          name: Login to Docker Hub
-          command: docker login -u $DOCKER_USER -p $DOCKER_PASS
-      - run:
-          name: Re-tag pre built image
-          command: |
-            docker tag $DOCKER_ORG/$CIRCLE_PROJECT_REPONAME:local $DOCKER_ORG/$CIRCLE_PROJECT_REPONAME:latest
-            docker tag $DOCKER_ORG/$CIRCLE_PROJECT_REPONAME:local $DOCKER_ORG/$CIRCLE_PROJECT_REPONAME:${CIRCLE_TAG}
-      - run:
-          name: Publish Docker image latest tag to Docker Hub
-          command: |
-            echo "Publishing $DOCKER_ORG/$CIRCLE_PROJECT_REPONAME:latest"
-            docker push $DOCKER_ORG/$CIRCLE_PROJECT_REPONAME:latest
-            echo "Publishing $DOCKER_ORG/$CIRCLE_PROJECT_REPONAME:${CIRCLE_TAG}"
-            docker push $DOCKER_ORG/$CIRCLE_PROJECT_REPONAME:${CIRCLE_TAG}
-      - slack/status:
-          fail_only: true
-          webhook: "$SLACK_WEBHOOK_ANNOUNCMENT_CI_CD"
-          failure_message: 'Publishing docker image failed for: \`"${DOCKER_ORG}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_TAG}"\`'
-
-  license-scan:
-    executor: default-machine
-    steps:
-      - attach_workspace:
-          at: /tmp
-      - run:
-          name: Load the pre-built docker image from workspace
-          command: docker load -i /tmp/docker-image.tar
-      - run:
-          <<: *defaults_license_scanner
-      - run:
-          name: Run the license-scanner
-          command: cd /tmp/license-scanner && mode=docker dockerImages=$DOCKER_ORG/$CIRCLE_PROJECT_REPONAME:local make run
-      - store_artifacts:
-          path: /tmp/license-scanner/results
-          prefix: licenses
-
-  image-scan:
-    executor: anchore/anchore_engine
-    steps:
-      - setup_remote_docker
-      - checkout
-      - run:
-          name: Install docker dependencies for anchore
-          command: |
-            apk add --update python3 py3-pip docker python3-dev libffi-dev openssl-dev gcc libc-dev make jq npm
-      - run:
-          name: Install AWS CLI dependencies
-          command: *defaults_awsCliDependencies
-      - attach_workspace:
-          at: /tmp
-      - run:
-          name: Load the pre-built docker image from workspace
-          command: docker load -i /tmp/docker-image.tar
-      - run:
-          name: Download the mojaloop/ci-config repo
-          command: |
-            git clone https://github.com/mojaloop/ci-config /tmp/ci-config
-            # Generate the mojaloop anchore-policy
-            cd /tmp/ci-config/container-scanning && ./mojaloop-policy-generator.js /tmp/mojaloop-policy.json
-      - run:
-          name: Pull base image locally
-          command: |
-            docker pull node:12.16.1-alpine
-      # Analyze the base and derived image
-      # Note: It seems images are scanned in parallel, so preloading the base image result doesn't give us any real performance gain
-      - anchore/analyze_local_image:
-          # Force the older version, version 0.7.0 was just published, and is broken
-          anchore_version: v0.6.1
-          image_name: "docker.io/node:12.16.1-alpine $DOCKER_ORG/$CIRCLE_PROJECT_REPONAME:local"
-          policy_failure: false
-          timeout: '1000'
-          # Note: if the generated policy is invalid, this will fallback to the default policy, which we don't want!
-          policy_bundle_file_path: /tmp/mojaloop-policy.json
-      - run:
-          name: Upload Anchore reports to s3
-          command: |
-            aws s3 cp anchore-reports ${AWS_S3_DIR_ANCHORE_REPORTS}/${CIRCLE_PROJECT_REPONAME}/ --recursive
-            aws s3 rm ${AWS_S3_DIR_ANCHORE_REPORTS}/latest/ --recursive --exclude "*" --include "${CIRCLE_PROJECT_REPONAME}*"
-            aws s3 cp anchore-reports ${AWS_S3_DIR_ANCHORE_REPORTS}/latest/ --recursive
-      - run:
-          name: Evaluate failures
-          command: /tmp/ci-config/container-scanning/anchore-result-diff.js anchore-reports/node_12.16.1-alpine-policy.json anchore-reports/${CIRCLE_PROJECT_REPONAME}*-policy.json
-      - slack/status:
-          fail_only: true
-          webhook: "$SLACK_WEBHOOK_ANNOUNCMENT_CI_CD"
-          failure_message: 'Anchore Image Scan failed  for: \`"${DOCKER_ORG}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_TAG}"\`'
-      - store_artifacts:
-          path: anchore-reports
 
 ##
 # Workflows
@@ -448,13 +154,6 @@ workflows:
             tags:
               only: /.*/
 
-      - test-bdd:
-          context: org-global
-          requires:
-            - setup
-          filters:
-            tags:
-              only: /.*/
 
       - test-unit:
           context: org-global
@@ -464,111 +163,36 @@ workflows:
             tags:
               only: /.*/
 
-      - vulnerability-check:
-          context: org-global
-          requires:
-            - setup
-          filters:
-            tags:
-              only: /.*/
+      # - test-integration:
+      #     context: org-global
+      #     requires:
+      #       - setup
+      #     filters:
+      #       tags:
+      #         only: /.*/
 
-      - audit-licenses:
-          context: org-global
-          requires:
-            - setup
-          filters:
-            tags:
-              only: /.*/
-            branches:
-              ignore:
-                - /feature*/
-                - /bugfix*/
+      # # New commits to master release automatically
+      # - release:
+      #     context: org-global
+      #     requires:
+      #       - test-unit
+      #     filters:
+      #       branches:
+      #         only:
+      #           - master
 
-      - test-integration:
-          context: org-global
-          requires:
-            - setup
-          filters:
-            tags:
-              only: /.*/
-
-      - test-coverage:
-          context: org-global
-          requires:
-            - setup
-          filters:
-            tags:
-              only: /.*/
-
-      - linting-check:
-          context: org-global
-          requires:
-            - setup
-          filters:
-            tags:
-              only: /.*/
-
-      - license-scan:
-          context: org-global
-          requires:
-            - build-local
-          filters:
-            tags:
-              only: /.*/
-            branches:
-              only:
-                - master
-
-      - image-scan:
-          context: org-global
-          requires:
-            - build-local
-          filters:
-            tags:
-              only: /.*/
-            branches:
-              only:
-                - master
-
-      # New commits to master release automatically
-      - release:
+      - deploy-dev:
           context: org-global
           requires:
             - test-unit
-            - test-coverage
-            - test-integration
-            - test-bdd
-            - audit-licenses
-            - linting-check
-            - vulnerability-check
-            - image-scan
-            - license-scan
           filters:
             branches:
               only:
                 - master
 
-
-      - github-release:
-          context: org-global
-          requires:
-            - release
-          filters:
-            branches:
-              only:
-                - master
-
-      # New Tags are built and deployed as docker artifacts
-      - publish:
-          context: org-global
-          requires:
-            - license-scan
-            - image-scan
-            - test-unit
-            - test-coverage
-          filters:
-            tags:
-              only: /.*/
-            branches:
-              ignore:
-                - /.*/
+      # - deploy-prod:
+      #     context: org-global
+      #     filters:
+      #       branches:
+      #         only:
+      #           - production
