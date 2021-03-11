@@ -49,7 +49,7 @@ export const sayHello = (message: string, appConfig: any, logger: ILogger, metri
   )
   const histTimer = metric.startTimer()
 
-  logger.info(`Hello ${String(appConfig.example.name)} - ${message}`)
+  logger.info(`Hello ${appConfig.example.name as string} - ${message}`)
 
   histTimer({ success: 'true' })
   logger.isDebugEnabled() && logger.debug('sayHello::end')
