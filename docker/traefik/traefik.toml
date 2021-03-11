@@ -1,6 +1,6 @@
 debug = false
 
-logLevel = "DEBUG"
+logLevel = "ERROR"
 defaultEntryPoints = ["https","http"]
 
 [entryPoints]
@@ -16,12 +16,14 @@ defaultEntryPoints = ["https","http"]
 
 [docker]
 endpoint = "unix:///var/run/docker.sock"
-domain = "my-awesome-app.org"
+domain = "hackathon2.moja-lab.live"
+# domain = "hackathon.moja-lab.live"
+# domain = "thingo.moja-lab.live"
 watch = true
 exposedByDefault = false
 
 [acme]
-email = "test@hackathon.moja-lab.live"
+email = "lewisdaly@me.com"
 storage = "acme.json"
 entryPoint = "https"
 onHostRule = true

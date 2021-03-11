@@ -61,23 +61,25 @@ services:
       - "6061:80"
     networks:
       - web
-      - default
     environment: 
-      - MESSAGE=hello
+      - MESSAGE=Welcome to Mojaloop's Entry to the ISO 20022 Hackathon
     labels:
       - "traefik.docker.network=web"
       - "traefik.enable=true"
-      - "traefik.basic.frontend.rule=Host:hackathon.moja-lab.live"
+      - "traefik.basic.frontend.rule=Host:hackathon2.moja-lab.live"
+      # - "traefik.basic.frontend.rule=Host:thingo.moja-lab.live"
       - "traefik.basic.port=80"
       - "traefik.basic.protocol=http"
-      - "traefik.admin.frontend.rule=Host:hackathon.moja-lab.live"
+      - "traefik.admin.frontend.rule=Host:hackathon2.moja-lab.live"
+      # - "traefik.admin.frontend.rule=Host:thingo.moja-lab.live"
       - "traefik.admin.protocol=https"
       - "traefik.admin.port=80"
 
   traefik:
     # image: traefik:<stable v1.7 from https://hub.docker.com/_/traefik>
-    # image: traefik:1.7
-    image: traefik:1.6.0-alpine
+    image: traefik:1.7
+    # image: traefik:1.6.0-alpine
+    # image: traefik:v2.2
     container_name: traefik
     restart: always
     ports:
