@@ -1,0 +1,7 @@
+{
+  "reject": [
+    "@mojaloop-poc/lib-domain",
+    "@mojaloop-poc/lib-infrastructure",
+    "@mojaloop-poc/lib-utilities"
+  ]
+}

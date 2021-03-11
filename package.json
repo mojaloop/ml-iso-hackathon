@@ -1,0 +1,63 @@
+{
+  "name": "mojaloop-iso-hackathon",
+  "version": "0.0.1",
+  "description": "mojaloop iso hackathon - all-in-one.",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/mojaloop/ml-iso-hackathon",
+  "bugs": {
+    "url": "https://github.com/mojaloop/ml-iso-hackathon/issues"
+  },
+  "author": "Mojaloop ISO Hackathon Team",
+  "contributors": [
+    "Miguel de Barros <miguel.debarros@modusbox.com>"
+  ],
+  "pre-commit": [
+    "dep:check",
+    "build",
+    "lint",
+    "test:pre-commit"
+  ],
+  "scripts": {
+    "start": "npx lerna run --no-progress --stream  start",
+    "start:example": "npm run build --scope='@mojaloop-iso-hackathon/example' && npx lerna run --no-progress --stream --scope='@mojaloop-iso-hackathon/example' start",
+    "build": "npx lerna run --stream build",
+    "watch": "npx lerna run --no-progress --stream --parallel watch",
+    "clean": "npm run clean:dist && npm run clean:npm",
+    "clean:npm": "npx lerna clean",
+    "clean:dist": "npx lerna run clean",
+    "postinstall": "npm run bootstrap",
+    "bootstrap": "npx lerna bootstrap",
+    "pretest": "echo 'FIX ME'",
+    "standard": "npm run lint'",
+    "lint": "npx lerna run lint",
+    "lint:example": "npx lerna run lint --scope='@mojaloop-iso-hackathon/example'",
+    "lint:fix": "npx lerna run lint:fix",
+    "test:pre-commit": "echo 'no tests yet'",
+    "test:unit": "npx lerna run test:unit",
+    "test:coverage": "npx lerna run test:coverage",
+    "test:coverage-check": "npx lerna run test:coverage-check",
+    "test:integration": "npx lerna run test:integration",
+    "audit:resolve": "npx lerna run audit:resolve",
+    "audit:check": "npx lerna run audit:check",
+    "dep:check": "npx lerna run --no-progress --stream dep:check",
+    "dep:update": "npx lerna run --no-progress --stream dep:update",
+    "docker:start": "docker-compose start",
+    "docker:stop": "docker-compose stop",
+    "docker:logs": "docker-compose logs -f ",
+    "docker:rm": "docker-compose rm -s -f",
+    "docker:redis:up": "docker-compose up -d activity-report-redis",
+    "docker:redis:start": "docker-compose start activity-report-redis",
+    "docker:redis:stop": "docker-compose stop activity-report-redis",
+    "docker:redis:logs": "docker-compose logs -f activity-report-redis",
+    "docker:ttk:up": "docker-compose up -d ml-testing-toolkit ml-testing-toolkit-ui",
+    "docker:ttk:start": "docker-compose start ml-testing-toolkit ml-testing-toolkit-ui",
+    "docker:ttk:stop": "docker-compose stop ml-testing-toolkit ml-testing-toolkit-ui",
+    "docker:ttk:logs": "docker-compose logs -f ml-testing-toolkit ml-testing-toolkit-ui"
+  },
+  "dependencies": {
+    "lerna": "^3.22.0"
+  },
+  "devDependencies": {
+    "pre-commit": "^1.2.2"
+  }
+}
