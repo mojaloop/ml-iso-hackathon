@@ -32,7 +32,7 @@
     "lint": "npx lerna run lint",
     "lint:example": "npx lerna run lint --scope='@mojaloop-iso-hackathon/example'",
     "lint:fix": "npx lerna run lint:fix",
-    "test:pre-commit": "echo 'no tests yet'",
+    "test:pre-commit": "npx lerna run test:pre-commit",
     "test:unit": "npx lerna run test:unit",
     "test:coverage": "npx lerna run test:coverage",
     "test:coverage-check": "npx lerna run test:coverage-check",
