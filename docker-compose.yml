@@ -76,7 +76,8 @@ services:
 
   traefik:
     # image: traefik:<stable v1.7 from https://hub.docker.com/_/traefik>
-    image: traefik:1.7
+    # image: traefik:1.7
+    image: traefik:1.6.0-alpine
     container_name: traefik
     restart: always
     ports:

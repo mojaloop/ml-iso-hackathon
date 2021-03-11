@@ -1,13 +1,23 @@
 #!/usr/bin/env bash
 
 cd /home/ubuntu
-rm -rf /home/ubuntu/app
-mkdir -p /home/ubuntu/app
 
+# Stop an existing deployment
+docker stop `docker ps -aq`
+rm -rf /home/ubuntu/app
+
+
+mkdir -p /home/ubuntu/app
 ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
 # note: I added a deploy key here: https://github.com/mojaloop/ml-iso-hackathon/settings/keys
 # in order to get this to work for a private repo
-git clone git@github.com:mojaloop/ml-iso-hackathon.git app
+git clone --branch feat/traefic-proxy  git@github.com:mojaloop/ml-iso-hackathon.git app
+# TODO: switch back to this one!
+# git clone --branch master git@github.com:mojaloop/ml-iso-hackathon.git app
+
 cd app
+
+# hmm we need to fix some permissions issues...
+chmod 600 ./docker/traefik/acme.json
 
 docker-compose up -d traefik landing-page
