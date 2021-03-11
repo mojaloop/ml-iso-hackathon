@@ -17,6 +17,12 @@ apply:
 	aws-mfa
 	terraform apply
 
+# Sometimes we may want to make changes to userdata.sh
+# and just re-run it, instead of destroying and recreating our instance
+run-userdata:
+	scp -i ${SSH_KEY_PATH} ./userdata.sh ubuntu@${EC2_IP}:/home/ubuntu/userdata.sh
+	ssh -i ${SSH_KEY_PATH} ubuntu@${EC2_IP} "chmod 755 /home/ubuntu/userdata.sh && sudo /home/ubuntu/userdata.sh"
+
 install-app:
 	scp -i ${SSH_KEY_PATH} ./playbooks/deploy_app.sh ubuntu@${EC2_IP}:/home/ubuntu/deploy_app.sh
 	ssh -i ${SSH_KEY_PATH} ubuntu@${EC2_IP}  "/home/ubuntu/deploy_app.sh"

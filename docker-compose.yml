@@ -1,8 +1,8 @@
 version: "3.7"
 
 networks:
-  mojaloop-net:
-    name: mojaloop-net
+  web:
+    name: web
 
 services:
   ml-testing-toolkit:
@@ -20,7 +20,7 @@ services:
     depends_on:
       - mongo
     networks:
-      - mojaloop-net
+      - web
     extra_hosts:
       - "pisp-sim-scheme-adapter:172.17.0.1"
       - "ml-testing-toolkit:172.17.0.1"
@@ -40,11 +40,53 @@ services:
       - AUTH_ENABLED=FALSE
     command: nginx -g "daemon off;"
     networks:
-      - mojaloop-net
+      - web
 
   activity-report-redis:
     container_name: activity-report-redis
     image: "redis:5.0.4-alpine"
     networks:
-      - mojaloop-net
+      - web
     restart: always
+
+  ##
+  # This is just a default landing page to test out our website.
+  # please replace with something more useful as a demo
+  ##
+  landing-page:
+    image: sroze/landing-page:latest
+    container_name: landing-page
+    restart: always
+    ports:
+      - "6061:80"
+    networks:
+      - web
+      - default
+    environment: 
+      - MESSAGE=hello
+    labels:
+      - "traefik.docker.network=web"
+      - "traefik.enable=true"
+      - "traefik.basic.frontend.rule=Host:hackathon.moja-lab.live"
+      - "traefik.basic.port=80"
+      - "traefik.basic.protocol=http"
+      - "traefik.admin.frontend.rule=Host:hackathon.moja-lab.live"
+      - "traefik.admin.protocol=https"
+      - "traefik.admin.port=80"
+
+  traefik:
+    # image: traefik:<stable v1.7 from https://hub.docker.com/_/traefik>
+    image: traefik:1.7
+    container_name: traefik
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - web
+    volumes:
+    # hmm not sure about this...
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./docker/traefik/traefik.toml:/traefik.toml
+      - ./docker/traefik/acme.json:/acme.json
+
