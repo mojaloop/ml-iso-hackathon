@@ -7,7 +7,7 @@ networks:
 services:
   ml-testing-toolkit:
     image: mojaloop/ml-testing-toolkit:v11.9.0
-    container_name: dl_ml-testing-toolkit
+    container_name: hack_ml-testing-toolkit
     volumes:
       - "./docker/spec_files:/opt/mojaloop-testing-toolkit/spec_files"
       - "./docker/secrets:/opt/mojaloop-testing-toolkit/secrets"
@@ -24,23 +24,40 @@ services:
     extra_hosts:
       - "pisp-sim-scheme-adapter:172.17.0.1"
       - "ml-testing-toolkit:172.17.0.1"
+    labels:
+      - "traefik.docker.network=web"
+      - "traefik.enable=true"
+      - "traefik.basic.frontend.rule=Host:ttk-backend.hackathon2.moja-lab.live"
+      - "traefik.basic.port:5050"
+      - "traefik.basic.protocol=http"
 
   mongo:
     image: mongo
     ports:
       - "27018:27017"
 
+  # Hmm this isn't reachable at ttk.hackathon2.moja-lab.live
+  # I suspect is has something to do with how the ttk is running nginx...
+  # and perhaps the request isn't being forwarded by traefik in 
+  # a way it likes
   ml-testing-toolkit-ui:
     image: mojaloop/ml-testing-toolkit-ui:v11.8.5
-    container_name: dl_ml-testing-toolkit-ui
+    container_name: hack_ml-testing-toolkit-ui
     ports:
       - "6060:6060"
     environment:
-      - API_BASE_URL=http://ml-testing-toolkit:5050
+      - API_BASE_URL=http://ttk-backend.hackathon2.moja-lab.live
       - AUTH_ENABLED=FALSE
     command: nginx -g "daemon off;"
     networks:
       - web
+    labels:
+      - "traefik.docker.network=web"
+      - "traefik.enable=true"
+      - "traefik.basic.frontend.rule=Host:ttk.hackathon2.moja-lab.live"
+      - "traefik.basic.port:6060"
+      - "traefik.basic.protocol=http"
+      - "traefik.admin.port=6060"
 
   activity-report-redis:
     container_name: activity-report-redis
@@ -70,16 +87,14 @@ services:
       # - "traefik.basic.frontend.rule=Host:thingo.moja-lab.live"
       - "traefik.basic.port=80"
       - "traefik.basic.protocol=http"
-      - "traefik.admin.frontend.rule=Host:hackathon2.moja-lab.live"
+      # https disabled for now... 
+      # - "traefik.admin.frontend.rule=Host:hackathon2.moja-lab.live"
       # - "traefik.admin.frontend.rule=Host:thingo.moja-lab.live"
-      - "traefik.admin.protocol=https"
-      - "traefik.admin.port=80"
+      # - "traefik.admin.protocol=https"
+      # - "traefik.admin.port=80"
 
   traefik:
-    # image: traefik:<stable v1.7 from https://hub.docker.com/_/traefik>
     image: traefik:1.7
-    # image: traefik:1.6.0-alpine
-    # image: traefik:v2.2
     container_name: traefik
     restart: always
     ports:
@@ -88,7 +103,6 @@ services:
     networks:
       - web
     volumes:
-    # hmm not sure about this...
       - /var/run/docker.sock:/var/run/docker.sock
       - ./docker/traefik/traefik.toml:/traefik.toml
       - ./docker/traefik/acme.json:/acme.json
