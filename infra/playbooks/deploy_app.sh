@@ -16,6 +16,7 @@ git clone --branch master git@github.com:mojaloop/ml-iso-hackathon.git app
 cd app
 
 # hmm we need to fix some permissions issues...
+touch ./docker/traefik/acme.json
 chmod 600 ./docker/traefik/acme.json
 
 docker-compose up -d
