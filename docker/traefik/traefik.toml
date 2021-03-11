@@ -1,6 +1,6 @@
 debug = false
 
-logLevel = "ERROR"
+logLevel = "DEBUG"
 defaultEntryPoints = ["https","http"]
 
 [entryPoints]
@@ -21,7 +21,7 @@ watch = true
 exposedByDefault = false
 
 [acme]
-email = "your-email-here@my-awesome-app.org"
+email = "test@hackathon.moja-lab.live"
 storage = "acme.json"
 entryPoint = "https"
 onHostRule = true
