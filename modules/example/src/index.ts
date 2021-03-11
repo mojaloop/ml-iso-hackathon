@@ -23,14 +23,13 @@
  - Name Surname <name.surname@gatesfoundation.com>
 
  * Coil
- - Donovan Changfoot <donovan.changfoot@coil.com>
+ - ..
 
  * Crosslake
- - Pedro Sousa Barreto <pedrob@crosslaketech.com>
+ - ..
 
  * ModusBox
  - Miguel de Barros <miguel.debarros@modusbox.com>
- - Roman Pietrzak <roman.pietrzak@modusbox.com>
 
  --------------
 ******/
