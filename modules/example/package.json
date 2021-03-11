@@ -24,9 +24,9 @@
   ],
   "scripts": {
     "start": "npm run start:example",
-    "start:example": "tsc && node dist/index.js hello --config ../../.env",
-    "start:example1": "tsc && node dist/index.js hello --config ../../.env --hello1",
-    "start:example2": "tsc && node dist/index.js hello --config ../../.env --hello1",
+    "start:example": "tsc && node dist/index.js hello --config ../../default.env",
+    "start:example1": "tsc && node dist/index.js hello --config ../../default.env --hello1",
+    "start:example2": "tsc && node dist/index.js hello --config ../../default.env --hello1",
     "build": "tsc",
     "watch": "tsc -w",
     "clean": "rm -Rf dist",
