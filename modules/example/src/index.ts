@@ -48,7 +48,7 @@ import * as dotenv from 'dotenv'
 import { Command } from 'commander'
 import { resolve as Resolve } from 'path'
 
-import * as Hello from './hello'
+import * as Hello from './application/hello'
 
 /* eslint-disable-next-line @typescript-eslint/no-var-requires */
 // const pckg = require('../package.json')
