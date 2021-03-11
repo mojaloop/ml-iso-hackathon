@@ -25,6 +25,8 @@ run-userdata:
 
 install-app:
 	scp -i ${SSH_KEY_PATH} ./playbooks/deploy_app.sh ubuntu@${EC2_IP}:/home/ubuntu/deploy_app.sh
+	# Copy the key across - that will give the script access to the private github repo
+	scp -i ${SSH_KEY_PATH} ${SSH_KEY_PATH} ubuntu@${EC2_IP}:/home/ubuntu/.ssh/id_rsa
 	ssh -i ${SSH_KEY_PATH} ubuntu@${EC2_IP}  "/home/ubuntu/deploy_app.sh"
 
 ##
