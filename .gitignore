@@ -1,5 +1,7 @@
 # Terraform
 .terraform
+.env
+acme.json
 
 # Logs
 **/*logs

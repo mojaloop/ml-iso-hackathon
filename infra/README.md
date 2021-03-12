@@ -42,3 +42,15 @@ make apply
 # which clones the repo, and runs `docker-compose up -d`
 make install-app
 ```
+
+
+## Handy Snippets
+
+### Testing the traefik load balancer:
+
+
+```bash
+docker-compose up -d 
+curl -k -H "Host: hackathon2.moja-lab.live" http://localhost
+curl -k -H "Host: ttk.hackathon2.moja-lab.live" http://localhost
+```

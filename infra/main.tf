@@ -84,7 +84,15 @@ resource "aws_key_pair" "admin-key" {
 resource "aws_route53_record" "dns-record" {
   # You can grab this manually from the console
   zone_id = "ZI6YUDJG99KZL"
-  name    = "hackathon.moja-lab.live"
+  name    = "hackathon2.moja-lab.live"
+  type    = "A"
+  ttl     = "300"
+  records = [aws_instance.ml-iso-hackathon-ec2.public_ip]
+}
+resource "aws_route53_record" "dns-record-wildcard" {
+  # You can grab this manually from the console
+  zone_id = "ZI6YUDJG99KZL"
+  name    = "*.hackathon2.moja-lab.live"
   type    = "A"
   ttl     = "300"
   records = [aws_instance.ml-iso-hackathon-ec2.public_ip]
