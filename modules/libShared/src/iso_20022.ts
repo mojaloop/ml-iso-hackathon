@@ -1,3 +1,4 @@
+
 /*****
  License
  --------------
@@ -22,12 +23,6 @@
  * Gates Foundation
  - Name Surname <name.surname@gatesfoundation.com>
 
- * Coil
- - ..
-
- * Crosslake
- - ..
-
  * ModusBox
  - Miguel de Barros <miguel.debarros@modusbox.com>
 
@@ -35,22 +30,13 @@
 ******/
 
 'use strict'
-import {
-  ILogger,
-  IMetricsFactory
-} from '@mojaloop-iso-hackathon/lib-shared'
 
-export const sayHello = (message: string, appConfig: any, logger: ILogger, metrics: IMetricsFactory): void => {
-  logger.isDebugEnabled() && logger.debug(`sayHello::start - appConfig=${JSON.stringify(appConfig)}`)
-  const metric = metrics.getHistogram( // Create a new Histogram instrumentation
-    'sayHellp', // Name of metric. Note that this name will be concatenated after the prefix set in the config. i.e. '<PREFIX>_exampleFunctionMetric'
-    'Instrumentation for sayHello example', // Description of metric
-    ['success', 'error'] // Define a custom label 'success'
-  )
-  const histTimer = metric.startTimer()
-
-  logger.info(`Hello ${appConfig.example.name as string} - ${message}`)
-
-  histTimer({ success: 'true' })
-  logger.isDebugEnabled() && logger.debug('sayHello::end')
+export const ISO20022 = {
+  Models: {
+    Validation: {
+      Regex: {
+        PhoneNumber: /^\+[0-9]{1,3}-[0-9()+\-]{1,30}$/g /* eslint-disable-line */
+      }
+    }
+  }
 }

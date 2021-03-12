@@ -41,27 +41,27 @@ import {
   MojaLogger,
   Metrics,
   TMetricOptionsType,
-  getEnvValueOrDefault
+  getEnvValueOrDefault,
+  getEnvIntegerOrDefault
 } from '@mojaloop-iso-hackathon/lib-shared'
 import * as dotenv from 'dotenv'
 import { Command } from 'commander'
 import { resolve as Resolve } from 'path'
+import { Server } from './api'
 
-import * as Hello from './application/hello'
-
-/* eslint-disable-next-line @typescript-eslint/no-var-requires */
+// /* eslint-disable-next-line @typescript-eslint/no-var-requires */
 // const pckg = require('../package.json')
 
 const Program = new Command()
 Program
   .version('0.1')
   .description('CLI example')
-Program.command('hello')
+Program.command('api')
   .alias('h')
   .description('Start hello example') // command description
   .option('-c, --config [configFilePath]', '.env config file')
-  .option('--hello1', 'Start hello1 example') // TODO: change this to the proper name
-  .option('--hello2', 'Start hello2 example')
+  // .option('--hello1', 'Start hello1 example') // TODO: change this to the proper name
+  // .option('--hello2', 'Start hello2 example')
 
   // function to execute when command is uses
   .action(async (args: any): Promise<void> => {
@@ -80,40 +80,38 @@ Program.command('hello')
       metrics: {
         prefix: getEnvValueOrDefault('METRIC_PREFIX', 'hackiso_') as string
       },
-      example: {
-        name: getEnvValueOrDefault('EXAMPLE_NAME', 'DEFAULT NAME') as string
+      api: {
+        host: getEnvValueOrDefault(process.env.GALS_API_HOST as string, '0.0.0.0') as string,
+        port: getEnvIntegerOrDefault(process.env.GALS_API_PORT as string, 3003) as number
+      },
+      account: {
+        mapStringList: getEnvValueOrDefault('GALS_PARTY_LIST', null)
       }
     }
 
     // Instantiate logger
     const logger: ILogger = new MojaLogger()
 
-    // Instantiate metrics factory
+    // logger.isDebugEnabled() && logger.debug(`appConfig loaded: ${JSON.stringify(appConfig)}`)
 
+    // Instantiate metrics factory
     const metricsConfig: TMetricOptionsType = {
       timeout: 5000, // Set the timeout in ms for the underlying prom-client library. Default is '5000'.
       prefix: appConfig.metrics.prefix, // Set prefix for all defined metrics names
       defaultLabels: { // Set default labels that will be applied to all metrics
-        serviceName: 'participants'
+        serviceName: 'GALS'
       }
     }
 
     const metrics = new Metrics(metricsConfig)
     await metrics.init()
 
-    logger.isDebugEnabled() && logger.debug(`appConfig=${JSON.stringify(appConfig)}`)
+    logger.isDebugEnabled() && logger.debug(`Loaded config=${JSON.stringify(appConfig)}`)
 
-    const sayAllHellows = args.hello1 === undefined && args.hello2 === undefined
+    // Instantiate Server
+    const server = new Server(appConfig, logger, metrics)
 
-    // start example1
-    if (sayAllHellows || args.hello1 != null) {
-      Hello.sayHello('This is param 1', appConfig, logger, metrics)
-    }
-
-    // start example2
-    if (sayAllHellows || args.hello2 != null) {
-      Hello.sayHello('This is param 2', appConfig, logger, metrics)
-    }
+    await server.init()
 
     // lets clean up
     /* eslint-disable-next-line @typescript-eslint/no-misused-promises */
@@ -121,6 +119,8 @@ Program.command('hello')
       logger.isInfoEnabled() && logger.info('Exiting process...')
 
       // Insert cleanup code here
+      logger.isInfoEnabled() && logger.info('Destroying API Server...')
+      await server.destroy()
 
       logger.isInfoEnabled() && logger.info('Exit complete!')
       process.exit(0)

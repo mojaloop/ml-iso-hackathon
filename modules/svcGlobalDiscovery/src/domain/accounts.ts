@@ -40,17 +40,37 @@ import {
   IMetricsFactory
 } from '@mojaloop-iso-hackathon/lib-shared'
 
-export const sayHello = (message: string, appConfig: any, logger: ILogger, metrics: IMetricsFactory): void => {
-  logger.isDebugEnabled() && logger.debug(`sayHello::start - appConfig=${JSON.stringify(appConfig)}`)
-  const metric = metrics.getHistogram( // Create a new Histogram instrumentation
-    'sayHellp', // Name of metric. Note that this name will be concatenated after the prefix set in the config. i.e. '<PREFIX>_exampleFunctionMetric'
-    'Instrumentation for sayHello example', // Description of metric
-    ['success', 'error'] // Define a custom label 'success'
-  )
-  const histTimer = metric.startTimer()
+type TAccount = {
+  dfspId: string
+  type: string
+  finId: string
+  finName: string
+}
 
-  logger.info(`Hello ${appConfig.example.name as string} - ${message}`)
+type TAccountMap = { [key: string]: TAccount }
 
-  histTimer({ success: 'true' })
-  logger.isDebugEnabled() && logger.debug('sayHello::end')
+export class Accounts {
+  protected _logger: ILogger
+  protected _metrics: IMetricsFactory
+  protected _accountMap: TAccountMap
+
+  constructor (accountStringMap: string, logger: ILogger, metrics: IMetricsFactory) {
+    this._logger = logger
+    this._accountMap = JSON.parse(accountStringMap)
+    this._metrics = metrics
+  }
+
+  async getAccount (id: string): Promise<TAccount> {
+    this._logger.isDebugEnabled() && this._logger.debug(`getAccount::start - id=${id}`)
+    const metric = this._metrics.getHistogram( // Create a new Histogram instrumentation
+      'getAccount', // Name of metric. Note that this name will be concatenated after the prefix set in the config. i.e. '<PREFIX>_exampleFunctionMetric'
+      'Instrumentation for getAccount', // Description of metric
+      ['success', 'error'] // Define a custom label 'success'
+    )
+    const histTimer = metric.startTimer()
+    const account: TAccount = this._accountMap[id]
+    histTimer({ success: 'true' })
+    this._logger.isDebugEnabled() && this._logger.debug(`getAccount::end - return = ${JSON.stringify(account)}`)
+    return account
+  }
 }

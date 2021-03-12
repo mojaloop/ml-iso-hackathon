@@ -30,7 +30,9 @@ docker-compose up
 
 This Mono-repo is managed by [Lerna](https://github.com/lerna/lerna), but we have abstracted all Lerna specific commands where possible.
 
-Most standard NPM commands will work normally, except for __install__ command. See more information in the next section.
+Most standard NPM commands will work normally, except for __install__ command. The usual `build`, `lint`, `start` commands can be run from both the project root and inside each of the module folders. Check the __package.json__ for avaialable scripts.
+
+See more information in the next section.
 
 ### Installing dependencies
 
@@ -43,16 +45,9 @@ This will install:
 2. run the bootstrap to symbolically link project modules, and
 3. run install for each of the project modules
 
----
-**NOTE**
-
-Do not run `npm install` directly in a modules folder. This will break the symbolic links created by the mono-repo tools (lerna). 
-
-Instead, run `npm install` from the project root!
-
-The usual `build`, `lint`, `start` commands can be run from both the project root and inside each of the module folders. Check the __package.json__ for avaialable scripts.
-
----
+> **NOTE**:<br/>
+> Do not run `npm install` directly in a modules folder. This will break the symbolic links created by the mono-repo tools (lerna). <br/><br/>
+> Instead, run `npm install` from the project root!<br/><br/>
 
 ###  Build
 
@@ -63,6 +58,9 @@ The usual `build`, `lint`, `start` commands can be run from both the project roo
 `$ cd ./modules/<MODULE_NAME>`
 `$ npm run build`
 `$ npm start`
+
+> **NOTE**:<br/>
+> `npm run watch`is supported at root or for each module. <br/><br/>
 
 ### Running application(s)
 
