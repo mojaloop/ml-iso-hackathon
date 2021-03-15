@@ -1,0 +1,148 @@
+{
+	"info": {
+		"_postman_id": "c7eff5b0-af5b-449a-8716-c54574bb2389",
+		"name": "ISO Hackathon",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Global ALS",
+			"item": [
+				{
+					"name": "Global ALS - POST /participants",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<!-- PUT /parties/MSISDN/(+250)788301607 -->\n<Document xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"urn:iso:std:iso:20022:tech:xsd:camt.003.001.07\">\n\t<GetAcct>\n\t\t<MsgHdr>\n\t\t\t<MsgId>575b3623-5adf-4752-8da9-a159a179ec9f</MsgId>\t<!-- Required by ISO, not used by Moja -->\n\t\t\t<CreDtTm>2020-05-14T15:07:38.6875000+03:00</CreDtTm>\t<!-- Required by ISO, not used by Moja -->\n\t\t</MsgHdr>\n\t\t<AcctQryDef>\n\t\t\t<AcctCrit>\n\t\t\t\t<NewCrit>\n\t\t\t\t\t<SchCrit>\n\t\t\t\t\t\t<AcctOwnr>\n\t\t\t\t\t\t\t<CtctDtls>\n\t\t\t\t\t\t\t\t<MobNb>+250-788301607</MobNb>\t\t<!--\tWe want to know about this mobile number\t-->\n\t\t\t\t\t\t\t</CtctDtls>\n\t\t\t\t\t\t</AcctOwnr>\n\t\t\t\t\t</SchCrit>\n\t\t\t\t</NewCrit>\n\t\t\t</AcctCrit>\n\t\t</AcctQryDef>\n\t</GetAcct>\n</Document>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3003/v1/participants",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3003",
+							"path": [
+								"v1",
+								"participants"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Global ALS - POST /participants - XSD validation Failure",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<!-- PUT /parties/MSISDN/(+250)788301607 -->\n<Document xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"urn:iso:std:iso:20022:tech:xsd:camt.003.001.07\">\n\t<GetAcct>\n\t\t<MsgHdr>\n\t\t\t<MsgId>575b3623-5adf-4752-8da9-a159a179ec9f</MsgId>\t<!-- Required by ISO, not used by Moja -->\n\t\t\t<CreDtTm>2020-05-14T15:07:38.6875000+03:00</CreDtTm>\t<!-- Required by ISO, not used by Moja -->\n\t\t</MsgHdr>\n\t\t<AcctQryDef>\n\t\t\t<AcctCrit>\n\t\t\t\t<NewCrit>\n\t\t\t\t\t<SchCrit>\n\t\t\t\t\t\t<AcctOwnr>\n\t\t\t\t\t\t\t<CtctDtls>\n\t\t\t\t\t\t\t\t<MobNb>+(250-788301607</MobNb>\t\t<!--\tWe want to know about this mobile number\t-->\n\t\t\t\t\t\t\t</CtctDtls>\n\t\t\t\t\t\t</AcctOwnr>\n\t\t\t\t\t</SchCrit>\n\t\t\t\t</NewCrit>\n\t\t\t</AcctCrit>\n\t\t</AcctQryDef>\n\t</GetAcct>\n</Document>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3003/v1/participants",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3003",
+							"path": [
+								"v1",
+								"participants"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Global ALS - POST /participants - response in JSON",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<!-- PUT /parties/MSISDN/(+250)788301607 -->\n<Document xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"urn:iso:std:iso:20022:tech:xsd:camt.003.001.07\">\n\t<GetAcct>\n\t\t<MsgHdr>\n\t\t\t<MsgId>575b3623-5adf-4752-8da9-a159a179ec9f</MsgId>\t<!-- Required by ISO, not used by Moja -->\n\t\t\t<CreDtTm>2020-05-14T15:07:38.6875000+03:00</CreDtTm>\t<!-- Required by ISO, not used by Moja -->\n\t\t</MsgHdr>\n\t\t<AcctQryDef>\n\t\t\t<AcctCrit>\n\t\t\t\t<NewCrit>\n\t\t\t\t\t<SchCrit>\n\t\t\t\t\t\t<AcctOwnr>\n\t\t\t\t\t\t\t<CtctDtls>\n\t\t\t\t\t\t\t\t<MobNb>+250-788301607</MobNb>\t\t<!--\tWe want to know about this mobile number\t-->\n\t\t\t\t\t\t\t</CtctDtls>\n\t\t\t\t\t\t</AcctOwnr>\n\t\t\t\t\t</SchCrit>\n\t\t\t\t</NewCrit>\n\t\t\t</AcctCrit>\n\t\t</AcctQryDef>\n\t</GetAcct>\n</Document>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3003/v1/participants",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3003",
+							"path": [
+								"v1",
+								"participants"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
