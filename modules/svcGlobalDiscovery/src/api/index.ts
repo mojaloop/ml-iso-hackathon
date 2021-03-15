@@ -89,7 +89,7 @@ export class Server {
     await this._apiServer!.get('/metrics', this._getMetrics.bind(this))
 
     // await this._apiServer!.post('/v1/account:get', this._cmdGetAccount.bind(this))
-    await this._apiServer!.post('/v1/parties', this._cmdGetAccount.bind(this))
+    await this._apiServer!.post('/v1/participants', this._cmdGetAccount.bind(this))
   }
 
   private async _getHealth (request: any, reply: any): Promise<any> {
