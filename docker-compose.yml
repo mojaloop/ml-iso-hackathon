@@ -68,7 +68,7 @@ services:
     restart: always
 
   svc-global-discovery:
-    image: mojaloop/iso-hackathon:snapshot
+    image: mojaloop/ml-iso-hackathon:snapshot
     container_name: hack_svc_global_disc
     env_file:
       - default.env
