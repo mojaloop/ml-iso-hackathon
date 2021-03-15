@@ -28,14 +28,14 @@
 
  --------------
 ******/
-
 'use strict'
+
+import { resolve as Resolve } from 'path'
 
 /* eslint-disable-next-line @typescript-eslint/no-var-requires */
 const XmlParser = require('fast-xml-parser')
 /* eslint-disable-next-line @typescript-eslint/no-var-requires */
-var xsd = require('libxmljs2-xsd')
-
+const xsd = require('libxmljs2-xsd')
 
 // could move this to config
 const Options = {
@@ -93,11 +93,21 @@ export const XML = {
 }
 
 export const XSD = {
-  validate: (xsdPath: string, xml: string): any | null => {
-    const schema = xsd.parseFile(xsdPath)
-    // throws in case of technical error, returns a list of validation errors, 
+  validate: (xsdPath: string, xml: string): string[] | null => {
+    const reslvedXsdPath = Resolve(process.cwd(), xsdPath)
+
+    const schema = xsd.parseFile(reslvedXsdPath)
+    // throws in case of technical error, returns a list of validation errors,
     // or null if the document is valid
     const validationErrors = schema.validate(xml)
-    return validationErrors
+    let result: string[] | null = null
+    if (validationErrors != null) {
+      const errMsgSet = new Set<string>()
+      validationErrors.forEach((res: any) => {
+        errMsgSet.add(`line[${res.line as string}] - ${res.message as string}`)
+      })
+      result = Array.from(errMsgSet)
+    }
+    return result
   }
 }

@@ -42,16 +42,16 @@ export const ISO20022 = {
   },
   Messages: {
     Camt004: (
-      RtrAcctMsgHdrOrgnlBizQryMsgId: string | undefined, 
-      RtrAcctRptOrErrAcctRptAcctIdOthrNm: string | undefined, 
-      RtrAcctRptOrErrAcctRptAcctIdOthrSchmeNm: string | undefined, 
-      RtrAcctRptOrErrAcctRptAcctOrErrAcctSvcrFinInstnIdBICFI: string | undefined, 
-      RtrAcctRptOrErrAcctRptAcctOrErrAcctSvcrFinInstnIdNm: string | undefined, 
+      RtrAcctMsgHdrOrgnlBizQryMsgId: string | undefined,
+      RtrAcctRptOrErrAcctRptAcctIdOthrNm: string | undefined,
+      RtrAcctRptOrErrAcctRptAcctIdOthrSchmeNm: string | undefined,
+      RtrAcctRptOrErrAcctRptAcctOrErrAcctSvcrFinInstnIdBICFI: string | undefined,
+      RtrAcctRptOrErrAcctRptAcctOrErrAcctSvcrFinInstnIdNm: string | undefined,
       RtrAcctRptOrErrAcctRptAcctOrErrBizErrErrCd: string | null = null
-      ) => {
+    ) => {
       const xmlAcctId: any = {}
       if (RtrAcctRptOrErrAcctRptAcctIdOthrNm != null && RtrAcctRptOrErrAcctRptAcctIdOthrSchmeNm != null) {
-        xmlAcctId['Othr'] = {
+        xmlAcctId.Othr = {
           Nm: RtrAcctRptOrErrAcctRptAcctIdOthrNm,
           SchmeNm: RtrAcctRptOrErrAcctRptAcctIdOthrSchmeNm
         }
@@ -59,14 +59,14 @@ export const ISO20022 = {
 
       const xmlAcctOrErr: any = {}
       if (RtrAcctRptOrErrAcctRptAcctOrErrBizErrErrCd != null) {
-        xmlAcctOrErr['BizErr'] = {
+        xmlAcctOrErr.BizErr = {
           Err: {
             Cd: RtrAcctRptOrErrAcctRptAcctOrErrBizErrErrCd
           }
         }
       }
       if (RtrAcctRptOrErrAcctRptAcctOrErrAcctSvcrFinInstnIdBICFI != null && RtrAcctRptOrErrAcctRptAcctOrErrAcctSvcrFinInstnIdNm != null) {
-        xmlAcctOrErr['Acct'] = {
+        xmlAcctOrErr.Acct = {
           Svcr: {
             FinInstnId: {
               BICFI: RtrAcctRptOrErrAcctRptAcctOrErrAcctSvcrFinInstnIdBICFI,

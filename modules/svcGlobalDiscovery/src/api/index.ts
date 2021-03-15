@@ -46,9 +46,7 @@ import {
   ISO20022
 } from '@mojaloop-iso-hackathon/lib-shared'
 import { Accounts } from '../domain/accounts'
-import { v4 as uuidv4 } from 'uuid'
 import { JSONPath } from 'jsonpath-plus'
-import { resolve as Resolve } from 'path'
 
 /* eslint-disable-next-line @typescript-eslint/no-var-requires */
 const pckg = require('../../package.json')
@@ -105,28 +103,19 @@ export class Server {
   private async _getMetrics (request: any, reply: any): Promise<string> {
     return await this._metrics.getMetricsForPrometheus()
   }
-  
 
   private async _cmdGetAccount (request: any, reply: any): Promise<void> {
     this._logger.debug(`request.body=${JSON.stringify(request.body)}`)
 
+    // TODO: Correctly map errors to the appropriate XSD message
     let xmlResponse: any = {}
 
-    const xsdPath = Resolve(process.cwd(), this._config.xsd.camt003)
-    const validateXsd = (xsdPath: string) => {
-      const validationResults = XSD.validate(xsdPath, request.body.raw)
-      if (validationResults != null) {
-        const errMsgSet = new Set()
-        validationResults.forEach( (res: any) => {
-          errMsgSet.add(`line[${res.line}] - ${res.message}`)
-        })
-  
-        const err = new ApiServerError(JSON.stringify(Array.from(errMsgSet)))
-        err.statusCode = 400
-        throw err
-      }
+    const validationResults = XSD.validate(this._config.xsd.camt003, request.body.raw)
+    if (validationResults != null) {
+      const err = new ApiServerError(JSON.stringify(Array.from(validationResults)))
+      err.statusCode = 400
+      throw err
     }
-    validateXsd(xsdPath)
 
     const requestPayload = request.body.parsed
 
@@ -134,7 +123,7 @@ export class Server {
     const resMsgIdResult = JSONPath({ path: '$..MsgId', json: requestPayload })
     this._logger.debug(`resMsgId=${JSON.stringify(resMsgIdResult)}`)
     const resMsgId: string | undefined = (resMsgIdResult.length > 0) ? resMsgIdResult[0] : undefined
-    
+
     const idResult = JSONPath({ path: '$..MobNb', json: requestPayload })
     this._logger.debug(`idResult=${JSON.stringify(idResult)}`)
     const id: string | undefined = (idResult.length > 0) ? idResult[0] : undefined
@@ -153,9 +142,9 @@ export class Server {
     }
 
     // Retrieve Account information
-    this._logger.debug(`Retreiving account for ID=${id as string}`)
+    this._logger.debug(`Retreiving account for ID=${id}`)
     const account = await this._accountsAgg.getAccount(id)
-    this._logger.debug(`Retreived account[${id as string}] for ID=${JSON.stringify(account)}`)
+    this._logger.debug(`Retreived account[${id}] for ID=${JSON.stringify(account)}`)
 
     if (account == null) {
       const err = new ApiServerError(`Account with id:${id} was not found`)
@@ -164,7 +153,7 @@ export class Server {
     }
 
     xmlResponse = ISO20022.Messages.Camt004(resMsgId, account.dfspId, account.type, account.finId, account.finName, null)
-    
+
     return reply
       .code(200)
       .send(xmlResponse)
