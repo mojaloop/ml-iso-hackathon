@@ -1,7 +1,7 @@
 {
-  "name": "@mojaloop-iso-hackathon/lib-utilities",
+  "name": "@mojaloop-iso-hackathon/lib-shared",
   "version": "0.1.0",
-  "description": "mojaloop iso hackathon - utilities library",
+  "description": "mojaloop iso hackathon - shared library",
   "license": "Apache-2.0",
   "homepage": "https://github.com/mojaloop/ml-iso-hackathon",
   "bugs": {
@@ -45,13 +45,15 @@
   "dependencies": {
     "@mojaloop/central-services-logger": "^10.6.0",
     "base64url": "^3.0.1",
+    "fast-xml-parser": "^3.18.0",
+    "fastify": "^3.14.0",
     "prom-client": "^13.1.0"
   },
   "devDependencies": {
-    "@types/node": "^14.14.33",
+    "@types/node": "^14.14.34",
     "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^4.17.0",
-    "eslint": "^7.21.0",
+    "eslint": "^7.22.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-config-standard-with-typescript": "^20.0.0",
     "eslint-plugin-import": "^2.22.1",
@@ -62,7 +64,7 @@
     "jest": "^26.6.3",
     "jest-junit": "^12.0.0",
     "npm-audit-resolver": "^2.2.1",
-    "npm-check-updates": "^11.2.1",
+    "npm-check-updates": "^11.3.0",
     "nyc": "^15.1.0",
     "pre-commit": "^1.2.2",
     "ts-jest": "^26.5.3",
