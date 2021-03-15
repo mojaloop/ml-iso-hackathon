@@ -85,7 +85,7 @@ Program.command('api')
         port: getEnvIntegerOrDefault(process.env.GALS_API_PORT as string, 3003) as number
       },
       account: {
-        mapStringList: getEnvValueOrDefault('GALS_PARTY_LIST', null)
+        mapStringList: getEnvValueOrDefault('GALS_PARTY_MAP', null)
       },
       xsd: {
         camt003: getEnvValueOrDefault('GALS_XSD_CAMT003', null)
