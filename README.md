@@ -3,7 +3,7 @@
 Team Mojaloop's Incredible Submission for the ISO 2022 Hackathon
 
 <!-- TODO: replace with better url -->
-Go to http://hackathon.moja-lab.live:6060 to see a live demo.
+Go to http://hackathon2.moja-lab.live to see a live demo.
 
 ![](./docs/arch.png)
 
