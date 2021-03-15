@@ -64,7 +64,7 @@ const validate = (payload: TPayload): ValidateResponse => {
   return XmlParser.validate(payload, Options)
 }
 
-const jsonify = (payload: TPayload, isValidationEnabled: boolean = true): ValidateResponse => {
+const jsonify = (payload: TPayload, isValidationEnabled: boolean = true): any => {
   if (isValidationEnabled) {
     const result = validate(payload)
     if (result.err !== undefined) {

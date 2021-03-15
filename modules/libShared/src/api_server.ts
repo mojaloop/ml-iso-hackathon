@@ -89,7 +89,7 @@ export class ApiServer {
     this._server.addContentTypeParser(['text/xml', 'application/xml'], { parseAs: 'string' }, async (request: FastifyRequest, payload: string | Buffer) => {
       try {
         let body: object | null = null
-        body = XML.jsonify(payload)
+        body = XML.jsonify(payload, true)
         return body
       } catch (err) {
         err.statusCode = 400
