@@ -47,7 +47,7 @@
     "docker:stop": "docker-compose stop",
     "docker:logs": "docker-compose logs -f ",
     "docker:rm": "docker-compose rm -s -f",
-    "docker:build": "docker build --no-cache -t mojaloop/iso-hackathon:snapshot -f ./docker/build/Dockerfile .",
+    "docker:build": "docker build -t mojaloop/iso-hackathon:snapshot -f ./docker/build/Dockerfile .",
     "docker:push": "docker push mojaloop/iso-hackathon:snapshot",
     "docker:gds:up": "docker-compose up -d svc-global-discovery",
     "docker:gds:start": "docker-compose start svc-global-discovery",
