@@ -41,12 +41,14 @@ import {
   IMetricsFactory,
   ApiServer,
   TApiServerOptions,
-  ApiServerError
-  // ISO20022
+  ApiServerError,
+  XSD,
+  ISO20022
 } from '@mojaloop-iso-hackathon/lib-shared'
 import { Accounts } from '../domain/accounts'
 import { v4 as uuidv4 } from 'uuid'
 import { JSONPath } from 'jsonpath-plus'
+import { resolve as Resolve } from 'path'
 
 /* eslint-disable-next-line @typescript-eslint/no-var-requires */
 const pckg = require('../../package.json')
@@ -88,7 +90,8 @@ export class Server {
 
     await this._apiServer!.get('/metrics', this._getMetrics.bind(this))
 
-    await this._apiServer!.post('/v1/account:get', this._cmdGetAccount.bind(this))
+    // await this._apiServer!.post('/v1/account:get', this._cmdGetAccount.bind(this))
+    await this._apiServer!.post('/v1/parties', this._cmdGetAccount.bind(this))
   }
 
   private async _getHealth (request: any, reply: any): Promise<any> {
@@ -102,44 +105,57 @@ export class Server {
   private async _getMetrics (request: any, reply: any): Promise<string> {
     return await this._metrics.getMetricsForPrometheus()
   }
+  
 
   private async _cmdGetAccount (request: any, reply: any): Promise<void> {
     this._logger.debug(`request.body=${JSON.stringify(request.body)}`)
 
-    // const accounts = new Accounts(appConfig.account.mapStringList, logger, metrics)
+    let xmlResponse: any = {}
 
-    const idResult = JSONPath({ path: '$..MobNb', json: request.body })
+    const xsdPath = Resolve(process.cwd(), this._config.xsd.camt003)
+    const validateXsd = (xsdPath: string) => {
+      const validationResults = XSD.validate(xsdPath, request.body.raw)
+      if (validationResults != null) {
+        const errMsgSet = new Set()
+        validationResults.forEach( (res: any) => {
+          errMsgSet.add(`line[${res.line}] - ${res.message}`)
+        })
+  
+        const err = new ApiServerError(JSON.stringify(Array.from(errMsgSet)))
+        err.statusCode = 400
+        throw err
+      }
+    }
+    validateXsd(xsdPath)
+
+    const requestPayload = request.body.parsed
+
+    // Find data from request message
+    const resMsgIdResult = JSONPath({ path: '$..MsgId', json: requestPayload })
+    this._logger.debug(`resMsgId=${JSON.stringify(resMsgIdResult)}`)
+    const resMsgId: string | undefined = (resMsgIdResult.length > 0) ? resMsgIdResult[0] : undefined
+    
+    const idResult = JSONPath({ path: '$..MobNb', json: requestPayload })
     this._logger.debug(`idResult=${JSON.stringify(idResult)}`)
-
     const id: string | undefined = (idResult.length > 0) ? idResult[0] : undefined
 
-    // replace validations with XSD schema checks
+    // Validate data from request message
+    if (resMsgId === undefined) {
+      const err = new ApiServerError('MsgId is missing from request')
+      err.statusCode = 400
+      throw err
+    }
+
     if (id === undefined) {
       const err = new ApiServerError('MobNb is missing from request')
       err.statusCode = 400
       throw err
     }
 
-    // // replace validations with XSD schema checks
-    // if (!ISO20022.Models.Validation.Regex.PhoneNumber.test(id)){
-    //   const err = new ApiServerError(`MobNb:${id} failed regex test against ${ISO20022.Models.Validation.Regex.PhoneNumber}`)
-    //   err.statusCode=400
-    //   throw err
-    // }
-
-    const resMsgIdResult = JSONPath({ path: '$..MsgId', json: request.body })
-    this._logger.debug(`resMsgId=${JSON.stringify(resMsgIdResult)}`)
-
-    const resMsgId: string | undefined = (resMsgIdResult.length > 0) ? resMsgIdResult[0] : undefined
-
-    // replace validations with XSD schema checks
-    // if (resMsgId === undefined) {
-    //   const err = new ApiServerError('MsgId is missing from request')
-    //   err.statusCode = 400
-    //   throw err
-    // }
-
+    // Retrieve Account information
+    this._logger.debug(`Retreiving account for ID=${id as string}`)
     const account = await this._accountsAgg.getAccount(id)
+    this._logger.debug(`Retreived account[${id as string}] for ID=${JSON.stringify(account)}`)
 
     if (account == null) {
       const err = new ApiServerError(`Account with id:${id} was not found`)
@@ -147,46 +163,10 @@ export class Server {
       throw err
     }
 
-    const xmlJsonBodyRepresentation = {
-      Document: {
-        attr: {
-          'xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
-          xmlns: 'urn:iso:std:iso:20022:tech:xsd:camt.004.001.08'
-        },
-        RtrAcct: {
-          MsgHdr: {
-            MsgId: uuidv4(),
-            CreDtTm: (new Date()).toISOString(),
-            OrgnlBizQry: {
-              MsgId: resMsgId
-            }
-          },
-          RptOrErr: {
-            AcctRpt: {
-              AcctId: {
-                Othr: {
-                  Nm: account.dfspId,
-                  SchmeNm: account.type
-                }
-              },
-              AcctOrErr: {
-                Acct: {
-                  Svcr: {
-                    FinInstnId: {
-                      BICFI: 'EQBLRWRWXXX',
-                      Nm: 'EQUITY BANK RWANDA LIMITED'
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-
+    xmlResponse = ISO20022.Messages.Camt004(resMsgId, account.dfspId, account.type, account.finId, account.finName, null)
+    
     return reply
       .code(200)
-      .send(xmlJsonBodyRepresentation)
+      .send(xmlResponse)
   }
 }

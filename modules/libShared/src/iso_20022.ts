@@ -30,6 +30,7 @@
 ******/
 
 'use strict'
+import { v4 as uuidv4 } from 'uuid'
 
 export const ISO20022 = {
   Models: {
@@ -37,6 +38,69 @@ export const ISO20022 = {
       Regex: {
         PhoneNumber: /^\+[0-9]{1,3}-[0-9()+\-]{1,30}$/g /* eslint-disable-line */
       }
+    }
+  },
+  Messages: {
+    Camt004: (
+      RtrAcctMsgHdrOrgnlBizQryMsgId: string | undefined, 
+      RtrAcctRptOrErrAcctRptAcctIdOthrNm: string | undefined, 
+      RtrAcctRptOrErrAcctRptAcctIdOthrSchmeNm: string | undefined, 
+      RtrAcctRptOrErrAcctRptAcctOrErrAcctSvcrFinInstnIdBICFI: string | undefined, 
+      RtrAcctRptOrErrAcctRptAcctOrErrAcctSvcrFinInstnIdNm: string | undefined, 
+      RtrAcctRptOrErrAcctRptAcctOrErrBizErrErrCd: string | null = null
+      ) => {
+      const xmlAcctId: any = {}
+      if (RtrAcctRptOrErrAcctRptAcctIdOthrNm != null && RtrAcctRptOrErrAcctRptAcctIdOthrSchmeNm != null) {
+        xmlAcctId['Othr'] = {
+          Nm: RtrAcctRptOrErrAcctRptAcctIdOthrNm,
+          SchmeNm: RtrAcctRptOrErrAcctRptAcctIdOthrSchmeNm
+        }
+      }
+
+      const xmlAcctOrErr: any = {}
+      if (RtrAcctRptOrErrAcctRptAcctOrErrBizErrErrCd != null) {
+        xmlAcctOrErr['BizErr'] = {
+          Err: {
+            Cd: RtrAcctRptOrErrAcctRptAcctOrErrBizErrErrCd
+          }
+        }
+      }
+      if (RtrAcctRptOrErrAcctRptAcctOrErrAcctSvcrFinInstnIdBICFI != null && RtrAcctRptOrErrAcctRptAcctOrErrAcctSvcrFinInstnIdNm != null) {
+        xmlAcctOrErr['Acct'] = {
+          Svcr: {
+            FinInstnId: {
+              BICFI: RtrAcctRptOrErrAcctRptAcctOrErrAcctSvcrFinInstnIdBICFI,
+              Nm: RtrAcctRptOrErrAcctRptAcctOrErrAcctSvcrFinInstnIdNm
+            }
+          }
+        }
+      }
+
+      const xmlDocument: any = {
+        Document: {
+          attr: {
+            'xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
+            xmlns: 'urn:iso:std:iso:20022:tech:xsd:camt.004.001.08'
+          },
+          RtrAcct: {
+            MsgHdr: {
+              MsgId: uuidv4(),
+              CreDtTm: (new Date()).toISOString(),
+              OrgnlBizQry: {
+                MsgId: RtrAcctMsgHdrOrgnlBizQryMsgId
+              }
+            },
+            RptOrErr: {
+              AcctRpt: {
+                AcctId: xmlAcctId,
+                AcctOrErr: xmlAcctOrErr
+              }
+            }
+          }
+        }
+      }
+
+      return xmlDocument
     }
   }
 }

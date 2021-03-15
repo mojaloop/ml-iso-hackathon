@@ -33,6 +33,9 @@
 
 /* eslint-disable-next-line @typescript-eslint/no-var-requires */
 const XmlParser = require('fast-xml-parser')
+/* eslint-disable-next-line @typescript-eslint/no-var-requires */
+var xsd = require('libxmljs2-xsd')
+
 
 // could move this to config
 const Options = {
@@ -87,4 +90,14 @@ export const XML = {
   validate,
   jsonify,
   fromJson
+}
+
+export const XSD = {
+  validate: (xsdPath: string, xml: string): any | null => {
+    const schema = xsd.parseFile(xsdPath)
+    // throws in case of technical error, returns a list of validation errors, 
+    // or null if the document is valid
+    const validationErrors = schema.validate(xml)
+    return validationErrors
+  }
 }

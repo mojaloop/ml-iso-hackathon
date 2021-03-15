@@ -37,7 +37,7 @@ import { RouteGenericInterface } from 'fastify/types/route'
 import { Server, IncomingMessage, ServerResponse } from 'http'
 import { ILogger } from './ilogger'
 // const XmlParser = require('fast-xml-parser')
-import { XML } from './xml_parser'
+import { XML } from './xml_tools'
 
 export class ApiServerError extends Error {
   statusCode: number = 500
@@ -82,29 +82,11 @@ export class ApiServer {
 
     this._logger.isInfoEnabled() && this._logger.info(`ApiServer::init - Http Server starting with opts: ${JSON.stringify(this._serverOptions)}`)
 
-    // const self = this
-
     // Handle multiple content types with the same function
-    // this._server.addContentTypeParser(['text/xml', 'application/xml'], { parseAs: 'string' }, (request, payload, done) => {
-    this._server.addContentTypeParser(['text/xml', 'application/xml'], { parseAs: 'string' }, async (request: FastifyRequest, payload: string | Buffer) => {
-      try {
-        let body: object | null = null
-        body = XML.jsonify(payload, true)
-        return body
-      } catch (err) {
-        err.statusCode = 400
-        throw err
-      }
-    })
+    this._server.addContentTypeParser(['text/xml', 'application/xml'], { parseAs: 'string' }, this._xmlContentTypeParser)
 
-    // this._server.addHook('preSerialization', async (request, reply, payload: any) => {
-
-    this._server.addHook('preHandler', this._preHandler.bind(this))
+    this._server.addHook('preHandler', this._onPreHandler.bind(this))
     this._server.addHook('onSend', this._onSend.bind(this))
-
-    // this._server.ready().then(async () => {
-    //   this._logger.isInfoEnabled() && this._logger.info(this._server.printRoutes())
-    // })
 
     await this._server.listen(this._serverOptions.port, this._serverOptions.host)
 
@@ -113,7 +95,22 @@ export class ApiServer {
     this._logger.isInfoEnabled() && this._logger.info(`ApiServer::init - Http Server start on port:${this._serverOptions.port}, host: ${this._serverOptions.host}`)
   }
 
-  private async _preHandler (request: FastifyRequest, reply: any): Promise<void> {
+  private async _xmlContentTypeParser (request: FastifyRequest, payload: string | Buffer): Promise<any> {
+    try {
+      let body: object | null = null
+      // convert serialised XML into a JSON representation, and validate XML integrity
+      body = {
+        parsed: XML.jsonify(payload, true),
+        raw: payload
+      }
+      return body
+    } catch (err) {
+      err.statusCode = 400
+      throw err
+    }
+  }
+
+  private async _onPreHandler (request: FastifyRequest, reply: any): Promise<void> {
     this._logger.isInfoEnabled() && this._logger.info(`ApiServer::hook.preHandler - request.headers=${JSON.stringify(request.headers)}, request.body=${JSON.stringify(request.body)}`)
   }
 

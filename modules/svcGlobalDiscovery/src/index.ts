@@ -86,6 +86,9 @@ Program.command('api')
       },
       account: {
         mapStringList: getEnvValueOrDefault('GALS_PARTY_LIST', null)
+      },
+      xsd: {
+        camt003: getEnvValueOrDefault('GALS_XSD_CAMT003', null)
       }
     }
 
