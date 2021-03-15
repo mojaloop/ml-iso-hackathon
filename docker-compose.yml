@@ -40,6 +40,7 @@ services:
   # I suspect is has something to do with how the ttk is running nginx...
   # and perhaps the request isn't being forwarded by traefik in 
   # a way it likes
+
   ml-testing-toolkit-ui:
     image: mojaloop/ml-testing-toolkit-ui:v11.8.5
     container_name: hack_ml-testing-toolkit-ui
@@ -65,6 +66,22 @@ services:
     networks:
       - web
     restart: always
+
+  svc-global-discovery:
+    image: mojaloop/iso-hackathon:snapshot
+    container_name: hack_svc_global_disc
+    env_file:
+      - default.env
+    ports:
+      - "3003:3003"
+    command: npm run start:gds:noconfig
+    networks:
+      - web
+    labels:
+      - "traefik.docker.network=web"
+      - "traefik.enable=true"
+      - "traefik.basic.port:3003"
+      - "traefik.basic.protocol=http"
 
   ##
   # This is just a default landing page to test out our website.
