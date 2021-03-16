@@ -40,10 +40,7 @@ import {
   ILogger,
   IMetricsFactory,
   ApiServer,
-  TApiServerOptions,
-  ApiServerError,
-  XSD,
-  ISO20022
+  TApiServerOptions
 } from '@mojaloop-iso-hackathon/lib-shared'
 
 /* eslint-disable-next-line @typescript-eslint/no-var-requires */
@@ -62,7 +59,6 @@ export class Server {
   }
 
   async init (): Promise<void> {
-
     const apiServerOptions: TApiServerOptions = {
       host: this._config.api.host,
       port: this._config.api.port
@@ -83,7 +79,6 @@ export class Server {
     await this._apiServer!.get('/health', this._getHealth.bind(this))
 
     await this._apiServer!.get('/metrics', this._getMetrics.bind(this))
-
   }
 
   private async _getHealth (request: any, reply: any): Promise<any> {
@@ -97,6 +92,4 @@ export class Server {
   private async _getMetrics (request: any, reply: any): Promise<string> {
     return await this._metrics.getMetricsForPrometheus()
   }
-
-  
 }

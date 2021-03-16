@@ -108,7 +108,7 @@ Program.command('start')
     const killProcess = async (): Promise<void> => {
       logger.isInfoEnabled() && logger.info('Exiting process...')
 
-      //TODO Insert cleanup code here
+      // TODO Insert cleanup code here
 
       logger.isInfoEnabled() && logger.info('Exit complete!')
       process.exit(0)
