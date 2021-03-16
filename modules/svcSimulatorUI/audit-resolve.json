@@ -1,0 +1,30 @@
+{
+  "decisions": {
+    "1589|electron>@electron/get>global-tunnel-ng>npm-conf>config-chain>ini": {
+      "decision": "postpone",
+      "madeAt": 1612460138627
+    },
+    "1589|react-scripts>react-dev-utils>global-modules>global-prefix>ini": {
+      "decision": "postpone",
+      "madeAt": 1612460138627
+    },
+    "1594|axios": {
+      "decision": "postpone",
+      "madeAt": 1612460139290
+    },
+    "1603|react-scripts>react-dev-utils>immer": {
+      "decision": "postpone",
+      "madeAt": 1615217321199
+    },
+    "1615|electron": {
+      "decision": "postpone",
+      "madeAt": 1615217321760
+    },
+    "1638|redoc>prismjs": {
+      "decision": "postpone",
+      "madeAt": 1615217322361
+    }
+  },
+  "rules": {},
+  "version": 1
+}
