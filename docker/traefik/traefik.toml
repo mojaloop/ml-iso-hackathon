@@ -2,17 +2,17 @@ debug = false
 
 logLevel = "DEBUG"
 # logLevel = "ERROR"
-# defaultEntryPoints = ["https","http"]
-defaultEntryPoints = ["http"]
+defaultEntryPoints = ["https","http"]
+#defaultEntryPoints = ["http"]
 
 [entryPoints]
   [entryPoints.http]
   address = ":80"
-  #   [entryPoints.http.redirect]
-  #   entryPoint = "https"
-  # [entryPoints.https]
-  # address = ":443"
-  # [entryPoints.https.tls]
+    [entryPoints.http.redirect]
+    entryPoint = "https"
+  [entryPoints.https]
+  address = ":443"
+  [entryPoints.https.tls]
 
 [retry]
 
@@ -24,11 +24,10 @@ domain = "hackathon2.moja-lab.live"
 watch = true
 exposedByDefault = false
 
-# https disabled for now... we probably should fix that
-# [acme]
-# email = "lewisdaly@me.com"
-# storage = "acme.json"
-# entryPoint = "https"
-# onHostRule = true
-# [acme.httpChallenge]
-# entryPoint = "http"
+[acme]
+email = "don+isohack@coil.com"
+storage = "acme.json"
+entryPoint = "https"
+onHostRule = true
+[acme.httpChallenge]
+entryPoint = "http"
