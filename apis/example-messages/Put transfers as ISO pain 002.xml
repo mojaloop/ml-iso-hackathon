@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- PUT /transfers/7e2599df-80a1-4f6e-b381-99536c4d2691 -->
+<Document xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:iso:std:iso:20022:tech:xsd:pain.002.001.11">
+    <CustomerPaymentStatusReportV11>
+        <GrpHdr>
+            <MsgId>7e2599df-80a1-4f6e-b381-99536c4d2691</MsgId>     <!-- This is required by ISO, we don't need it -->
+            <CreDtTm>2021-02-10T15:07:38.6875000+03:00</CreDtTm>    <!-- Required by ISO, not used by Moja -->
+            <DbtrAgt>                                                  
+                <FinInstnId>
+                    <BICFI>LHRWRWR1XXX</BICFI>
+                    <Nm>BANQUE DE L'HABITAT DU RWANDA</Nm>	             <!-- Debitor's DFSP -->
+                </FinInstnId>
+            </DbtrAgt>
+            <CdtrAgt>                                              
+                <FinInstnId>
+                    <BICFI>EQBLRWRWXXX</BICFI>
+                    <Nm>EQUITY BANK RWANDA LIMITED</Nm>	                <!-- Creditor's DFSP -->
+                </FinInstnId>
+            </CdtrAgt>
+        </GrpHdr>
+        <OrgnlGrpInfAndSts>
+            <OrgnlMsgId>7e2599df-80a1-4f6e-b381-99536c4d2691</OrgnlMsgId>   <!-- This is the transaction ID -->
+            <OrgnlMsgNmId>pacs.008.001.09</OrgnlMsgNmId>                <!-- ISO requires this, we don't care -->
+            <GrpSts>ACCC</GrpSts>                                       <!-- ISO: "Settlement on the creditor's account has been completed."-->
+        </OrgnlGrpInfAndSts>
+        <!-- The report can go down to a per-transfer level; but, for the moment, we don't need it?-->
+        <SplmtryData>
+            <Envlp>
+                <Document>
+                    <IlpData>
+                        <Fulfilment>mhPUT9ZAwd-BXLfeSd7-YPh46rBWRNBiTCSWjpku90s</Fulfilment>
+                    </IlpData>
+                </Document>
+            </Envlp>
+        </SplmtryData>
+    </CustomerPaymentStatusReportV11>
+</Document>
