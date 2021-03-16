@@ -116,10 +116,8 @@ hide footbox
 
 ' declare actors
 actor "<$actor>\nSender\n(SWIFT)" as Sender
-box "ISO20022/Swift Scheme"
 participant "\nSender's\nBank" as SendersBank
 participant "\nGlobal\nALS" as GALS
-end box
 box "Mojaloop Scheme" #yellow
 participant "\nMojaloop(ML)\nBank" as MojaloopBank
 participant "\nMojaloop\nMobile-Money\nSystem" as MLMMSystem

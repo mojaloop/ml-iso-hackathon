@@ -1,7 +1,7 @@
 openapi: "3.0.2"
 info:
   version: "0.1"
-  title: "ISO 20022 <-> Mojaloop: Mojaloop Scheme API OAI3.0 version (3/3)"
+  title: "ISO 20022 <-> Mojaloop: Mojaloop Scheme API OAI3.0 version (2/2)"
   description: "This is a sample Mojaloop API with calls to work in cross-network mode with a Mojaloop Scheme."
   license:
     name: "Apache 2.0"
