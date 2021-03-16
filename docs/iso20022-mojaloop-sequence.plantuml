@@ -143,10 +143,10 @@ MojaloopBank <<- MLMMSystem: Lookup resolution for ID 2567890123\n**PUT parties/
 MojaloopBank -->> MLMMSystem: **HTTP 200** (OK)
 MojaloopBank ->> MLMMSystem: Quote request\n**POST /quotes**
 MojaloopBank <<-- MLMMSystem: **HTTP 202** (Accepted
-MojaloopBank <<- MLMMSystem: Quote Response\n**PUT /quotes/{Type}/{ID}**
+MojaloopBank <<- MLMMSystem: Quote Response\n**PUT /quotes/{ID}**
 MojaloopBank -->> MLMMSystem: **HTTP 200** (OK)
 deactivate MLMMSystem
-SendersBank <<- MojaloopBank: Quote Response\n<pain.013>\nsimilar to **PUT /quotes/{Type}/{ID}** in ML
+SendersBank <<- MojaloopBank: Quote Response\n<pain.013>\nsimilar to **PUT /quotes/{ID}** in ML
 deactivate MojaloopBank
 
 SendersBank ->> MojaloopBank: Transfer request\n<**pacs.008**>\nsimilar to POST /transfers
