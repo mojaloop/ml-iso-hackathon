@@ -35,7 +35,10 @@ import { resolve as Resolve } from 'path'
 /* eslint-disable-next-line @typescript-eslint/no-var-requires */
 const XmlParser = require('fast-xml-parser')
 /* eslint-disable-next-line @typescript-eslint/no-var-requires */
+const XmlFormat = require('xml-formatter')
+/* eslint-disable-next-line @typescript-eslint/no-var-requires */
 const xsd = require('libxmljs2-xsd')
+
 
 // could move this to config
 const Options = {
@@ -80,10 +83,16 @@ const jsonify = (payload: TPayload, isValidationEnabled: boolean = true): any =>
   }
 }
 
-const fromJson = (payload: TPayload): any => {
+const fromJson = (payload: TPayload, format: boolean = false): any => {
   const J2XParser = XmlParser.j2xParser
   const parser = new J2XParser(Options)
-  return parser.parse(payload)
+  const pasredXml = parser.parse(payload)
+  if (format === true) {
+    console.log('FORMAT')
+    return XmlFormat(pasredXml)
+  }
+  console.log('NOFORMAT')
+  return pasredXml
 }
 
 export const XML = {
