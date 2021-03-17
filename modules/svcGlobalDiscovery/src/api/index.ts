@@ -124,7 +124,7 @@ export class Server {
   }
 
   private async _cmdGetAccount (request: any, reply: any): Promise<void> {
-    this._logger.debug(`request.body=${JSON.stringify(request.body)}`)
+    this._logger.debug(`Server::cmdGetAccount - request.body=${JSON.stringify(request.body)}`)
 
     if (this._config.activityEvents.isEnabled === true) {
       // Publish Activity Ingress Event
@@ -140,10 +140,12 @@ export class Server {
     // TODO: Correctly map errors to the appropriate XSD message
     let xmlResponse: any = {}
 
-    const validationResults = XSD.validate(this._config.xsd.camt003, request.body.raw)
-    if (validationResults != null) {
-      const err = new ApiServerError(JSON.stringify(Array.from(validationResults)))
+    const validateIngressResults = XSD.validate(this._config.xsd.camt003, request.body.raw)
+    this._logger.debug(`Server::cmdGetAccount - validate Ingress Result - ${JSON.stringify(validateIngressResults)}`)
+    if (validateIngressResults != null) {
+      const err = new ApiServerError(JSON.stringify(Array.from(validateIngressResults)))
       err.statusCode = 400
+      this._logger.error(err.stack)
       throw err
     }
 
@@ -151,44 +153,47 @@ export class Server {
 
     // Find data from request message
     const resMsgIdResult = JSONPath({ path: '$..MsgId', json: requestPayload })
-    this._logger.debug(`resMsgId=${JSON.stringify(resMsgIdResult)}`)
+    this._logger.debug(`Server::cmdGetAccount - resMsgId=${JSON.stringify(resMsgIdResult)}`)
     const resMsgId: string | undefined = (resMsgIdResult.length > 0) ? resMsgIdResult[0] : undefined
 
     const idResult = JSONPath({ path: '$..MobNb', json: requestPayload })
-    this._logger.debug(`idResult=${JSON.stringify(idResult)}`)
+    this._logger.debug(`Server::cmdGetAccount - idResult=${JSON.stringify(idResult)}`)
     const id: string | undefined = (idResult.length > 0) ? idResult[0] : undefined
 
     // Validate data from request message
     if (resMsgId === undefined) {
       const err = new ApiServerError('MsgId is missing from request')
       err.statusCode = 400
+      this._logger.error(err.stack)
       throw err
     }
 
     if (id === undefined) {
       const err = new ApiServerError('MobNb is missing from request')
       err.statusCode = 400
+      this._logger.error(err.stack)
       throw err
     }
 
     // Retrieve Account information
-    this._logger.debug(`Retreiving account for ID=${id}`)
+    this._logger.debug(`Server::cmdGetAccount - Retreiving account for ID=${id}`)
     const account = await this._accountsAgg.getAccount(id)
-    this._logger.debug(`Retreived account[${id}] for ID=${JSON.stringify(account)}`)
+    this._logger.debug(`Server::cmdGetAccount - Retreived account[${id}] for ID=${JSON.stringify(account)}`)
 
     if (account == null) {
       const err = new ApiServerError(`Account with id:${id} was not found`)
       err.statusCode = 404
+      this._logger.error(err.stack)
       throw err
     }
 
     xmlResponse = ISO20022.Messages.Camt004(resMsgId, account.dfspId, account.type, account.finId, account.finName, null)
 
+    // TODO: This is already handled by the onSend hook on the ApiServer. Need to re-work this later!
+    const parsedXmlResponse: string = XML.fromJson(xmlResponse)
+    this._logger.debug(`Server::cmdGetAccount - parsedXmlResponse - ${parsedXmlResponse}`)
     if (this._config.activityEvents.isEnabled === true) {
       // Publish Activity Egress Event
-
-      // TODO: this is already handled by the onSend hook on the ApiServer. Need to re-work this later!
-      const parsedXmlResponse = XML.fromJson(xmlResponse)
 
       const egressActivityEvent: TPublishEvent = {
         fromComponent: this._config.activityEvents.GALSComponentName,
@@ -197,6 +202,16 @@ export class Server {
       }
 
       await this._activityService.publish(this._config.activityEvents.GALSIngress, egressActivityEvent)
+    }
+
+    // TODO: Shoul this be handled by the onSend hook on the ApiServer? Need to re-work this later!
+    const validateEgressResults = XSD.validate(this._config.xsd.camt004, parsedXmlResponse)
+    this._logger.debug(`Server::cmdGetAccount - validate Egress Result - ${JSON.stringify(validateEgressResults)}`)
+    if (validateEgressResults != null) {
+      const err = new ApiServerError(`Response is not valid xml: ${JSON.stringify(Array.from(validateEgressResults))}`)
+      err.statusCode = 400
+      this._logger.error(err.stack)
+      throw err
     }
 
     // return response

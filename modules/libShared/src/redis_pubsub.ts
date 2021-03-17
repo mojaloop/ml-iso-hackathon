@@ -79,6 +79,6 @@ export class RedisPubSub {
   }
 
   async destroy (): Promise<void> {
-    await this._nrpClient.close()
+    await this._nrpClient.quit()
   }
 }

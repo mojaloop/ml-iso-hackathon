@@ -89,7 +89,8 @@ Program.command('api')
         mapStringList: getEnvValueOrDefault('GALS_PARTY_MAP', null)
       },
       xsd: {
-        camt003: getEnvValueOrDefault('GALS_XSD_CAMT003', null)
+        camt003: getEnvValueOrDefault('GALS_XSD_CAMT003', null),
+        camt004: getEnvValueOrDefault('GALS_XSD_CAMT004', null)
       },
       activityService: {
         host: getEnvValueOrDefault('ACTIVITY_SERVER_HOST', null),
