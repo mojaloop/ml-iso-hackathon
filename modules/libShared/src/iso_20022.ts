@@ -41,6 +41,7 @@ export const ISO20022 = {
     }
   },
   Messages: {
+    // Todo: Set the bellow values via an arbitrary param tuple list that contains something like this: (jsonpath, value).
     Camt004: (
       RtrAcctMsgHdrOrgnlBizQryMsgId: string | undefined,
       RtrAcctRptOrErrAcctRptAcctIdOthrNm: string | undefined,

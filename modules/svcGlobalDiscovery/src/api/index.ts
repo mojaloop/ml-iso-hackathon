@@ -42,8 +42,12 @@ import {
   ApiServer,
   TApiServerOptions,
   ApiServerError,
+  XML,
   XSD,
-  ISO20022
+  ISO20022,
+  RedisPubSub,
+  TRedisPubSubOptions,
+  TPublishEvent
 } from '@mojaloop-iso-hackathon/lib-shared'
 import { Accounts } from '../domain/accounts'
 import { JSONPath } from 'jsonpath-plus'
@@ -57,6 +61,7 @@ export class Server {
   protected _metrics: IMetricsFactory
   protected _apiServer: ApiServer | undefined
   protected _accountsAgg: Accounts
+  protected _activityService: RedisPubSub
 
   constructor (appConfig: any, logger: ILogger, metrics: IMetricsFactory) {
     this._config = appConfig
@@ -65,8 +70,20 @@ export class Server {
   }
 
   async init (): Promise<void> {
+    // Init Account Aggregator
     this._accountsAgg = new Accounts(this._config.account.mapStringList, this._logger, this._metrics)
 
+    // Init Activity Serverice
+
+    const activityServiceOptions: TRedisPubSubOptions = {
+      host: this._config.activityService.host,
+      port: this._config.activityService.port
+    }
+    this._activityService = new RedisPubSub(activityServiceOptions, this._logger)
+
+    await this._activityService.init()
+
+    // Init API Server
     const apiServerOptions: TApiServerOptions = {
       host: this._config.api.host,
       port: this._config.api.port
@@ -80,7 +97,9 @@ export class Server {
   }
 
   async destroy (): Promise<void> {
-    await this._apiServer!.destroy()
+    await this._apiServer?.destroy()
+    await this._activityService?.destroy()
+    // await this._accountsAgg?.destroy()
   }
 
   private async _registerRoutes (): Promise<void> {
@@ -106,6 +125,17 @@ export class Server {
 
   private async _cmdGetAccount (request: any, reply: any): Promise<void> {
     this._logger.debug(`request.body=${JSON.stringify(request.body)}`)
+
+    if (this._config.activityEvents.isEnabled === true) {
+      // Publish Activity Ingress Event
+      const ingressActivityEvent: TPublishEvent = {
+        fromComponent: this._config.activityEvents.ISOSenderComponentName,
+        toComponent: this._config.activityEvents.GALSComponentName,
+        xmlData: request.body.raw
+      }
+
+      await this._activityService.publish(this._config.activityEvents.GALSIngress, ingressActivityEvent)
+    }
 
     // TODO: Correctly map errors to the appropriate XSD message
     let xmlResponse: any = {}
@@ -154,6 +184,22 @@ export class Server {
 
     xmlResponse = ISO20022.Messages.Camt004(resMsgId, account.dfspId, account.type, account.finId, account.finName, null)
 
+    if (this._config.activityEvents.isEnabled === true) {
+      // Publish Activity Egress Event
+
+      // TODO: this is already handled by the onSend hook on the ApiServer. Need to re-work this later!
+      const parsedXmlResponse = XML.fromJson(xmlResponse)
+
+      const egressActivityEvent: TPublishEvent = {
+        fromComponent: this._config.activityEvents.GALSComponentName,
+        toComponent: this._config.activityEvents.ISOSenderComponentName,
+        xmlData: parsedXmlResponse
+      }
+
+      await this._activityService.publish(this._config.activityEvents.GALSIngress, egressActivityEvent)
+    }
+
+    // return response
     return reply
       .code(200)
       .send(xmlResponse)

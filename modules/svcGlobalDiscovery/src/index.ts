@@ -42,7 +42,8 @@ import {
   Metrics,
   TMetricOptionsType,
   getEnvValueOrDefault,
-  getEnvIntegerOrDefault
+  getEnvIntegerOrDefault,
+  getEnvBoolOrDefault
 } from '@mojaloop-iso-hackathon/lib-shared'
 import * as dotenv from 'dotenv'
 import { Command } from 'commander'
@@ -89,6 +90,17 @@ Program.command('api')
       },
       xsd: {
         camt003: getEnvValueOrDefault('GALS_XSD_CAMT003', null)
+      },
+      activityService: {
+        host: getEnvValueOrDefault('ACTIVITY_SERVER_HOST', null),
+        port: getEnvValueOrDefault('ACTIVITY_SERVER_PORT', null)
+      },
+      activityEvents: {
+        isEnabled: getEnvBoolOrDefault('ACTIVITY_GALS_COMPONENT_EVENTS_ENABLED'),
+        ISOSenderComponentName: getEnvValueOrDefault('ACTIVITY_ISO_SENDER_COMPONENT_NAME', null),
+        GALSComponentName: getEnvValueOrDefault('ACTIVITY_GALS_COMPONENT_NAME', null),
+        GALSEgress: getEnvValueOrDefault('ACTIVITY_GALS_EVENT_EGRESS', null),
+        GALSIngress: getEnvValueOrDefault('ACTIVITY_GALS_EVENT_INGRESS', null)
       }
     }
 

@@ -61,8 +61,10 @@ services:
       - "traefik.admin.port=6060"
 
   activity-report-redis:
-    container_name: activity-report-redis
+    container_name: activity_report_redis
     image: "redis:5.0.4-alpine"
+    ports:
+      - "6379:6379"
     networks:
       - web
     restart: always
@@ -72,6 +74,7 @@ services:
     container_name: hack_svc_global_disc
     env_file:
       - default.env
+      - docker-compose.env
     ports:
       - "3003:3003"
     command: npm run start:gds:noconfig
