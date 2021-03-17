@@ -38,7 +38,7 @@ import ActivityLog from "./ActivityLog.jsx";
 import NotificationService from '../../../services/demos/MobileSimulator/mojaloopNotifications'
 import OutboundService from '../../../services/demos/MobileSimulator/mojaloopOutbound'
 import { getServerConfig } from '../../../utils/getConfig'
-
+import xmlFormatter from 'xml-formatter'
 
 const {Text} = Typography
 const { TabPane } = Tabs;
@@ -121,7 +121,7 @@ class MobileSimulator extends React.Component {
     if (event.type === 'isoMessage') {
       // ISO20022 Message
       if (this.activityLogRef.current) {
-        this.activityLogRef.current.addLog(event.data.fromComponent, event.data.toComponent, event.data.description, event.data.xmlData)
+        this.activityLogRef.current.addLog(event.data.fromComponent, event.data.toComponent, event.data.description, xmlFormatter(event.data.xmlData))
       }
     }
     else if (event.type.startsWith('payee')) {
