@@ -137,9 +137,13 @@ build/
 # Lerna files
 **/*.lerna_backup
 
-**/src/**/**.js
-**/src/**/**.js.map
-**/src/**/**.d.ts
+# Ignore JS
+# **/src/**/**.js
+# **/src/**/**.js.map
+# **/src/**/**.d.ts
+# **/test/**/**.js
+# **/test/**/**.js.map
+# **/test/**/**.d.ts
 
 # helm
 **/charts
@@ -148,9 +152,6 @@ build/
 
 # clinic
 **/.clinic
-**/test/**/**.js
-**/test/**/**.js.map
-**/test/**/**.d.ts
 
 # PlantUML
 **/out/**/**.*
