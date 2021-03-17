@@ -1,0 +1,46 @@
+{
+  "name": "GET_SETTLEMENTS",
+  "test_cases": [
+    {
+      "id": 1,
+      "name": "GET_PARTICIPANTS",
+      "requests": [
+        {
+          "id": 1,
+          "description": "Get the participants",
+          "apiVersion": {
+            "minorVersion": 3,
+            "majorVersion": 9,
+            "type": "central_admin"
+          },
+          "operationPath": "/participants",
+          "path": "/participants",
+          "method": "get",
+          "url": "{$inputs.HOST_CENTRAL_LEDGER}"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "GET_SETTLED_SETTLEMENTS",
+      "requests": [
+        {
+          "id": 1,
+          "description": "Get the settlements",
+          "apiVersion": {
+            "minorVersion": 0,
+            "majorVersion": 1,
+            "type": "settlements"
+          },
+          "operationPath": "/settlements",
+          "path": "/settlements",
+          "method": "get",
+          "url": "{$inputs.HOST_CENTRAL_SETTLEMENT}",
+          "queryParams": {
+            "state": "SETTLED"
+          }
+        }
+      ]
+    }
+  ]
+}

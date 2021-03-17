@@ -120,6 +120,7 @@ build/Release
 
 # Ignore build files
 dist/
+build/
 
 # General ignore rules
 *IGNORE*
