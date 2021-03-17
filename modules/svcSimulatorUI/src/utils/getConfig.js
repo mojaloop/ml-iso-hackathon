@@ -26,11 +26,8 @@ import axios from 'axios';
 const getConfig = () => {
   const { protocol, hostname } = window.location
   // Using the same protocol as we've been loaded from to avoid Mixed Content error.
-  let apiBaseUrl = 'API_BASE_URL'
-  if (!apiBaseUrl.startsWith('http')) {
-    apiBaseUrl = `${protocol}//${hostname}:7075`
-  }
-  const senderApiUrl = 'http://localhost:3030'
+  const apiBaseUrl = process.env.ACTIVITY_LOGGER_API_URL ? process.env.ACTIVITY_LOGGER_API_URL : `${protocol}//${hostname}:7075`
+  const senderApiUrl = process.env.SENDER_API_URL ? process.env.SENDER_API_URL : 'http://localhost:3103'
 
   return { apiBaseUrl, senderApiUrl }
 }

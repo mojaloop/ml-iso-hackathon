@@ -26,21 +26,63 @@ const app = express()
 const http = require('http').Server(app)
 const path = require('path')
 const fs = require('fs')
+const dotenv = require('dotenv')
+const Program = require('commander')
 
-const HTTP_PORT = 7070
+const initServer = (port) => {
+  // For front-end UI
+  if (fs.existsSync(path.join('build'))) {
+    console.log('info', 'Folder build found: Serving Static Web UI')
+    // app.use('*.(jpg|jpeg|gif|png|ico|cur|gz|svg|svgz|mp4|ogg|ogv|webm|htc|css|js)', express.static(path.join('build')))
+    app.use(express.static(path.join('build')))
+    app.get('*', (req, res) => {
+      res.sendFile(process.cwd() + '/build/index.html')
+    })
+  } else {
+    console.log('warn', 'Folder build not found')
+  }
 
-// For front-end UI
-if (fs.existsSync(path.join('build'))) {
-  console.log('info', 'Folder build found: Serving Static Web UI')
-  // app.use('*.(jpg|jpeg|gif|png|ico|cur|gz|svg|svgz|mp4|ogg|ogv|webm|htc|css|js)', express.static(path.join('build')))
-  app.use(express.static(path.join('build')))
-  app.get('*', (req, res) => {
-    res.sendFile(process.cwd() + '/build/index.html')
-  })
-} else {
-  console.log('warn', 'Folder build not found')
+  http.listen(port)
+  console.log('info', 'Sim UI HTTP Server started on port ' + port)
 }
 
-http.listen(HTTP_PORT)
-console.log('info', 'Sim UI HTTP Server started on port ' + HTTP_PORT)
+Program
+  .version('0.1')
+  .description('UI Simulator')
+Program
+  .option('-c, --config [configFilePath]', '.env config file')
+  .action((args) => {
+    // #env file
+    const configFilePath = args.config
+    const dotenvConfig = {
+      debug: true
+    }
+    if (configFilePath != null) {
+      dotenvConfig.path = path.resolve(process.cwd(), configFilePath)
+    }
+    dotenv.config(dotenvConfig)
+
+    // # setup application config
+    const appConfig = {
+      httpPort: process.env.SIM_UI_HTTP_PORT ? process.env.SIM_UI_HTTP_PORT : '7070',
+      apiBaseUrl: process.env.SIM_UI_ACTIVITY_LOGGER_API_URL ? process.env.SIM_UI_ACTIVITY_LOGGER_API_URL : 'http://localhost:7075',
+      senderApiUrl: process.env.SIM_UI_SENDER_API_URL ? process.env.SIM_UI_SENDER_API_URL : 'http://localhost:3103'
+    }
+
+    initServer(appConfig.httpPort)
+
+    const killProcess = async () => {
+
+      // Insert cleanup code here
+      process.exit(0)
+    }
+
+    process.on('SIGINT', killProcess)
+  })
+
+if (Array.isArray(process.argv) && process.argv.length > 2) {
+  Program.parse(process.argv)
+} else {
+  Program.help()
+}
 

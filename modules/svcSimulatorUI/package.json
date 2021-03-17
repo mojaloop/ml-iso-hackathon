@@ -7,7 +7,7 @@
   "license": "MIT",
   "homepage": "https://localhost:7070/",
   "scripts": {
-    "start": "node http-server/server.js",
+    "start": "node http-server/server.js --config ../../default.env",
     "start-dev": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -44,7 +44,9 @@
     "array-move": "^3.0.1",
     "axios": "^0.21.1",
     "bootstrap": "^4.5.3",
+    "commander": "^7.1.0",
     "core-js": "^3.6.5",
+    "dotenv": "^8.2.0",
     "jsoneditor": "^9.1.1",
     "jsoneditor-react": "^3.0.1",
     "lodash": "^4.17.20",
