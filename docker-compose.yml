@@ -58,7 +58,6 @@ services:
       - "traefik.basic.frontend.rule=Host:ttk.hackathon2.moja-lab.live"
       - "traefik.basic.port:6060"
       - "traefik.basic.protocol=http"
-      - "traefik.admin.port=6060"
 
   activity-report-redis:
     container_name: activity-report-redis
@@ -101,14 +100,8 @@ services:
       - "traefik.docker.network=web"
       - "traefik.enable=true"
       - "traefik.basic.frontend.rule=Host:hackathon2.moja-lab.live"
-      # - "traefik.basic.frontend.rule=Host:thingo.moja-lab.live"
       - "traefik.basic.port=80"
       - "traefik.basic.protocol=http"
-      # https disabled for now... 
-      # - "traefik.admin.frontend.rule=Host:hackathon2.moja-lab.live"
-      # - "traefik.admin.frontend.rule=Host:thingo.moja-lab.live"
-      # - "traefik.admin.protocol=https"
-      # - "traefik.admin.port=80"
 
   traefik:
     image: traefik:1.7
