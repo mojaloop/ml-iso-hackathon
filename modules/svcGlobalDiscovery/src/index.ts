@@ -98,10 +98,9 @@ Program.command('api')
       },
       activityEvents: {
         isEnabled: getEnvBoolOrDefault('ACTIVITY_GALS_COMPONENT_EVENTS_ENABLED'),
-        ISOSenderComponentName: getEnvValueOrDefault('ACTIVITY_ISO_SENDER_COMPONENT_NAME', null),
+        ISOSenderComponentName: getEnvValueOrDefault('ACTIVITY_SENDER_COMPONENT_NAME', null),
         GALSComponentName: getEnvValueOrDefault('ACTIVITY_GALS_COMPONENT_NAME', null),
-        GALSEgress: getEnvValueOrDefault('ACTIVITY_GALS_EVENT_EGRESS', null),
-        GALSIngress: getEnvValueOrDefault('ACTIVITY_GALS_EVENT_INGRESS', null)
+        GALSEgress: getEnvValueOrDefault('ACTIVITY_GALS_EVENT_EGRESS', null)
       }
     }
 
