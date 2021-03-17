@@ -1,0 +1,45 @@
+{
+  "name": "multi",
+  "test_cases": [
+    {
+      "id": 1,
+      "name": "p2p_money_transfer - p2p_happy_path Post Transfer",
+      "requests": [
+        {
+          "id": 4,
+          "description": "Send transfer",
+          "apiVersion": {
+            "minorVersion": 0,
+            "majorVersion": 1,
+            "type": "fspiop",
+            "asynchronous": true
+          },
+          "operationPath": "/transfers",
+          "method": "post",
+          "headers": {
+            "Accept": "application/vnd.interoperability.transfers+json;version=1.0",
+            "Content-Type": "application/vnd.interoperability.transfers+json;version=1.0",
+            "Date": "{$function.generic.curDate}",
+            "FSPIOP-Source": "{$inputs.mobileSimPayerFsp}"
+          },
+          "body": {
+            "transferId": "{$inputs.quotesCallbackTransactionId}",
+            "payerFsp": "{$inputs.mobileSimPayerFsp}",
+            "payeeFsp": "{$inputs.mobileSimPayeeFsp}",
+            "amount": {
+              "amount": "{$inputs.amount}",
+              "currency": "{$inputs.currency}"
+            },
+            "expiration": "{$inputs.quotesCallbackExpiration}",
+            "ilpPacket": "{$inputs.quotesCallbackIlpPacket}",
+            "condition": "{$inputs.quotesCallbackCondition}"
+          },
+          "tests": {
+            "assertions": []
+          },
+          "url": "{$inputs.HOST_ML_API_ADAPTER}"
+        }
+      ]
+    }
+  ]
+}

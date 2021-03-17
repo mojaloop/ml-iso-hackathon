@@ -1,0 +1,14 @@
+version: "3.7"
+
+services:
+  iso-sim-ui:
+    image: iso-sim-ui:local
+    build:
+      context: .
+    ports:
+      - "7070:6060"
+    environment:
+      - API_BASE_URL=http://localhost:7075
+    command:
+      - sh
+      - /usr/share/nginx/start.sh

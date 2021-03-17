@@ -128,3 +128,13 @@ See [`./infra`](./infra) for more information.
 - [x] Deploy a landing page, or even just the ttk UI to get started
 - [ ] Some circleci config that deploys this project when we push a new tag (is this _really_ necessary?)
 - [ ]
+
+## Sequence / Flow
+
+The sequence of steps for this cross border scenario is depicated below as a sequence diagram
+![P2P in a ISO20022 <-> Mojaloop Cross network scenario](docs/iso20022-mojaloop-sequence.svg)
+
+## Customizations, changes made to ISO 20022 messages
+
+1. Increased UUID size to 36
+2. Added ILPData element to pain.013, pacs.008 and pain.002 messages to support ILP Packet, Condition and Fulfilment (to support Interledger Protocol that Mojaloop uses)

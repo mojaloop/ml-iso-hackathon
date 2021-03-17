@@ -1,0 +1,77 @@
+{
+  "name": "@mojaloop-iso-hackathon/service-sim-ui",
+  "version": "1.0.0",
+  "description": "UI simulator for ISO20022 hackathon",
+  "main": "index.js",
+  "author": "Vijaya Kumar Guthi",
+  "license": "MIT",
+  "homepage": "https://localhost:7070/",
+  "scripts": {
+    "start": "node http-server/server.js",
+    "start-dev": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "clean": "rm -rf node_modules && rm -rf build",
+    "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start",
+    "audit:resolve": "SHELL=sh resolve-audit",
+    "audit:check": "SHELL=sh check-audit"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "dependencies": {
+    "@mojaloop/ml-testing-toolkit-shared-lib": "12.0.2",
+    "@testing-library/jest-dom": "^5.11.5",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "antd": "^4.8.0",
+    "array-move": "^3.0.1",
+    "axios": "^0.21.1",
+    "bootstrap": "^4.5.3",
+    "core-js": "^3.6.5",
+    "jsoneditor": "^9.1.1",
+    "jsoneditor-react": "^3.0.1",
+    "lodash": "^4.17.20",
+    "mermaid": "^8.8.2",
+    "mobx": "^6.0.3",
+    "react": "^17.0.1",
+    "react-ace": "^9.2.0",
+    "react-dom": "^17.0.1",
+    "react-keyed-file-browser": "^1.10.0",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "4.0.0",
+    "react-sortable-hoc": "^1.11.0",
+    "socket.io-client": "^2.3.1",
+    "styled-components": "^5.2.1",
+    "web-vitals": "^0.2.4"
+  },
+  "devDependencies": {
+    "@types/markerclustererplus": "2.1.33",
+    "@types/react": "16.8.7",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.3",
+    "npm-audit-resolver": "^2.2.1",
+    "typescript": "3.3.3333"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}"
+    ]
+  }
+}

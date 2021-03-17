@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="1476px" preserveAspectRatio="none" style="width:1477px;height:1476px;" version="1.1" viewBox="0 0 1477 1476" width="1477px" zoomAndPan="magnify"><defs><filter height="300%" id="f1kulj9jbfdp1c" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><text fill="#000000" font-family="Verdana" font-size="18" font-weight="bold" lengthAdjust="spacing" textLength="826" x="327.5" y="30.0967">Overview of a P2P transfer in an ISO20022 &lt;-&gt; Mojaloop Cross network scenario</text><text fill="#000000" font-family="Verdana" font-size="18" lengthAdjust="spacing" textLength="0" x="743.5" y="51.9727"/><rect fill="#E2E2E2" height="1400.1777" style="stroke:#383838;stroke-width:1.0;" width="508" x="764" y="63.752"/><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="128" x="954" y="76.8218">Mojaloop Scheme</text><rect fill="#F4F4F4" height="67.3979" style="stroke:#000000;stroke-width:1.0;" width="10" x="51.5" y="232.3652"/><rect fill="#F4F4F4" height="29.7993" style="stroke:#000000;stroke-width:1.0;" width="10" x="51.5" y="967.9434"/><rect fill="#F4F4F4" height="29.7993" style="stroke:#000000;stroke-width:1.0;" width="10" x="51.5" y="1422.1304"/><rect fill="#F4F4F4" height="259.5918" style="stroke:#000000;stroke-width:1.0;" width="10" x="346.5" y="269.9639"/><rect fill="#F4F4F4" height="180.5952" style="stroke:#000000;stroke-width:1.0;" width="10" x="346.5" y="908.3447"/><rect fill="#F4F4F4" height="105.1973" style="stroke:#000000;stroke-width:1.0;" width="10" x="346.5" y="1346.7324"/><rect fill="#F4F4F4" height="77.1973" style="stroke:#000000;stroke-width:1.0;" width="10" x="708.5" y="361.1611"/><rect fill="#F4F4F4" height="438.3877" style="stroke:#000000;stroke-width:1.0;" width="10" x="850.5" y="499.7563"/><rect fill="#F4F4F4" height="317.3911" style="stroke:#000000;stroke-width:1.0;" width="10" x="850.5" y="1059.1406"/><rect fill="#F4F4F4" height="271.7925" style="stroke:#000000;stroke-width:1.0;" width="10" x="1175.5" y="575.1543"/><rect fill="#F4F4F4" height="150.7959" style="stroke:#000000;stroke-width:1.0;" width="10" x="1175.5" y="1134.5386"/><line style="stroke:#000000;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="56" x2="56" y1="222.3652" y2="1469.9297"/><line style="stroke:#000000;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="351" x2="351" y1="222.3652" y2="1469.9297"/><line style="stroke:#000000;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="713" x2="713" y1="222.3652" y2="1469.9297"/><line style="stroke:#000000;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="855" x2="855" y1="222.3652" y2="1469.9297"/><line style="stroke:#000000;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="1180" x2="1180" y1="222.3652" y2="1469.9297"/><line style="stroke:#000000;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="1410" x2="1410" y1="222.3652" y2="1469.9297"/><image height="48" width="25" x="41" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAwCAIAAABrKEbKAAABLUlEQVR42u2X4RGDIAyF2ckVXMEVXMEVXIEVWIEVWMEVXKF957OcRSWE9o93vB+cRfOZBGKoeUla1/VVJpO5Z63tum4YBozjOIrQWxaMnXO0x7gsC2YwqlnwKIJipBBwalbf9+eIMDNNk/dewYINcnTJspv+49c8z0nsMguxhBASG/qL9OtYTHOSeziFALkIuj0Bv+AFHGSOcJ0HCXsVwqqRxdBKWeFe/qNkPuGamOwKJZVgCDqGoBJtd1Zc/mphWXYWt/iPLLrWWI2VZblNojH2Nna4wOInoYTFr9sFKxbjo1jnmXrW8YHnstisIDxRyGJbotCYdxZuxNk6Fk2++lB1jLHRmeSopGLlem1jNdaDWCzJo1C6sfgp/JRZeL8tE86IAiv5xyJKd/ZV6Q2JZSVRSyHzVAAAAABJRU5ErkJggg==" y="125.752"/><text fill="#000000" font-family="Verdana" font-size="20" font-weight="bold" lengthAdjust="spacing" textLength="78" x="14.5" y="193.8594">Sender</text><text fill="#000000" font-family="Verdana" font-size="20" font-weight="bold" lengthAdjust="spacing" textLength="97" x="5" y="218.166">(SWIFT)</text><ellipse cx="56.5" cy="72.752" fill="#FFFFFF" rx="8" ry="8" style="stroke:#FFFFFF;stroke-width:2.0;"/><path d="M56.5,80.752 L56.5,107.752 M43.5,88.752 L69.5,88.752 M56.5,107.752 L43.5,122.752 M56.5,107.752 L69.5,122.752 " fill="none" style="stroke:#FFFFFF;stroke-width:2.0;"/><rect fill="#F4F4F4" filter="url(#f1kulj9jbfdp1c)" height="86.9199" style="stroke:#383838;stroke-width:1.5;" width="111" x="294" y="130.4453"/><text fill="#000000" font-family="Verdana" font-size="20" font-weight="bold" lengthAdjust="spacing" textLength="0" x="353" y="157.5527"/><text fill="#000000" font-family="Verdana" font-size="20" font-weight="bold" lengthAdjust="spacing" textLength="97" x="301" y="181.8594">Sender's</text><text fill="#000000" font-family="Verdana" font-size="20" font-weight="bold" lengthAdjust="spacing" textLength="55" x="322" y="206.166">Bank</text><rect fill="#F4F4F4" filter="url(#f1kulj9jbfdp1c)" height="86.9199" style="stroke:#383838;stroke-width:1.5;" width="85" x="669" y="130.4453"/><text fill="#000000" font-family="Verdana" font-size="20" font-weight="bold" lengthAdjust="spacing" textLength="0" x="715" y="157.5527"/><text fill="#000000" font-family="Verdana" font-size="20" font-weight="bold" lengthAdjust="spacing" textLength="71" x="676" y="181.8594">Global</text><text fill="#000000" font-family="Verdana" font-size="20" font-weight="bold" lengthAdjust="spacing" textLength="43" x="690" y="206.166">ALS</text><rect fill="#F4F4F4" filter="url(#f1kulj9jbfdp1c)" height="86.9199" style="stroke:#383838;stroke-width:1.5;" width="171" x="768" y="130.4453"/><text fill="#000000" font-family="Verdana" font-size="20" font-weight="bold" lengthAdjust="spacing" textLength="0" x="857" y="157.5527"/><text fill="#000000" font-family="Verdana" font-size="20" font-weight="bold" lengthAdjust="spacing" textLength="157" x="775" y="181.8594">Mojaloop(ML)</text><text fill="#000000" font-family="Verdana" font-size="20" font-weight="bold" lengthAdjust="spacing" textLength="55" x="826" y="206.166">Bank</text><rect fill="#F4F4F4" filter="url(#f1kulj9jbfdp1c)" height="111.2266" style="stroke:#383838;stroke-width:1.5;" width="171" x="1093" y="106.1387"/><text fill="#000000" font-family="Verdana" font-size="20" font-weight="bold" lengthAdjust="spacing" textLength="0" x="1182" y="133.2461"/><text fill="#000000" font-family="Verdana" font-size="20" font-weight="bold" lengthAdjust="spacing" textLength="103" x="1127" y="157.5527">Mojaloop</text><text fill="#000000" font-family="Verdana" font-size="20" font-weight="bold" lengthAdjust="spacing" textLength="157" x="1100" y="181.8594">Mobile-Money</text><text fill="#000000" font-family="Verdana" font-size="20" font-weight="bold" lengthAdjust="spacing" textLength="82" x="1137.5" y="206.166">System</text><image height="48" width="25" x="1395" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAwCAIAAABrKEbKAAABLUlEQVR42u2X4RGDIAyF2ckVXMEVXMEVXIEVWIEVWMEVXKF957OcRSWE9o93vB+cRfOZBGKoeUla1/VVJpO5Z63tum4YBozjOIrQWxaMnXO0x7gsC2YwqlnwKIJipBBwalbf9+eIMDNNk/dewYINcnTJspv+49c8z0nsMguxhBASG/qL9OtYTHOSeziFALkIuj0Bv+AFHGSOcJ0HCXsVwqqRxdBKWeFe/qNkPuGamOwKJZVgCDqGoBJtd1Zc/mphWXYWt/iPLLrWWI2VZblNojH2Nna4wOInoYTFr9sFKxbjo1jnmXrW8YHnstisIDxRyGJbotCYdxZuxNk6Fk2++lB1jLHRmeSopGLlem1jNdaDWCzJo1C6sfgp/JRZeL8tE86IAiv5xyJKd/ZV6Q2JZSVRSyHzVAAAAABJRU5ErkJggg==" y="125.752"/><text fill="#000000" font-family="Verdana" font-size="20" font-weight="bold" lengthAdjust="spacing" textLength="97" x="1359" y="193.8594">Receiver</text><text fill="#000000" font-family="Verdana" font-size="20" font-weight="bold" lengthAdjust="spacing" textLength="125" x="1345" y="218.166">(Mojaloop)</text><ellipse cx="1410.5" cy="72.752" fill="#FFFFFF" rx="8" ry="8" style="stroke:#FFFFFF;stroke-width:2.0;"/><path d="M1410.5,80.752 L1410.5,107.752 M1397.5,88.752 L1423.5,88.752 M1410.5,107.752 L1397.5,122.752 M1410.5,107.752 L1423.5,122.752 " fill="none" style="stroke:#FFFFFF;stroke-width:2.0;"/><rect fill="#F4F4F4" height="67.3979" style="stroke:#000000;stroke-width:1.0;" width="10" x="51.5" y="232.3652"/><rect fill="#F4F4F4" height="29.7993" style="stroke:#000000;stroke-width:1.0;" width="10" x="51.5" y="967.9434"/><rect fill="#F4F4F4" height="29.7993" style="stroke:#000000;stroke-width:1.0;" width="10" x="51.5" y="1422.1304"/><rect fill="#F4F4F4" height="259.5918" style="stroke:#000000;stroke-width:1.0;" width="10" x="346.5" y="269.9639"/><rect fill="#F4F4F4" height="180.5952" style="stroke:#000000;stroke-width:1.0;" width="10" x="346.5" y="908.3447"/><rect fill="#F4F4F4" height="105.1973" style="stroke:#000000;stroke-width:1.0;" width="10" x="346.5" y="1346.7324"/><rect fill="#F4F4F4" height="77.1973" style="stroke:#000000;stroke-width:1.0;" width="10" x="708.5" y="361.1611"/><rect fill="#F4F4F4" height="438.3877" style="stroke:#000000;stroke-width:1.0;" width="10" x="850.5" y="499.7563"/><rect fill="#F4F4F4" height="317.3911" style="stroke:#000000;stroke-width:1.0;" width="10" x="850.5" y="1059.1406"/><rect fill="#F4F4F4" height="271.7925" style="stroke:#000000;stroke-width:1.0;" width="10" x="1175.5" y="575.1543"/><rect fill="#F4F4F4" height="150.7959" style="stroke:#000000;stroke-width:1.0;" width="10" x="1175.5" y="1134.5386"/><line style="stroke:#000000;stroke-width:1.0;" x1="344.5" x2="334.5" y1="269.9639" y2="265.9639"/><line style="stroke:#000000;stroke-width:1.0;" x1="344.5" x2="334.5" y1="269.9639" y2="273.9639"/><line style="stroke:#000000;stroke-width:1.0;" x1="61.5" x2="345.5" y1="269.9639" y2="269.9639"/><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="9" x="83" y="257.3347">1</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="99" x="117" y="249.4351">I'd like to send</text><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="83" x="221" y="249.4351">RWF:20000</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="100" x="96" y="265.2344">to user with ID</text><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="124" x="201" y="265.2344">(+250)70610388</text><line style="stroke:#000000;stroke-width:1.0;" x1="56.5" x2="66.5" y1="299.7632" y2="295.7632"/><line style="stroke:#000000;stroke-width:1.0;" x1="56.5" x2="66.5" y1="299.7632" y2="303.7632"/><line style="stroke:#000000;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="56.5" x2="345.5" y1="299.7632" y2="299.7632"/><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="9" x="121.5" y="295.0337">2</text><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="70" x="134.5" y="295.0337">HTTP 202</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="72" x="209.5" y="295.0337">(Accepted)</text><line style="stroke:#000000;stroke-width:1.0;" x1="706.5" x2="696.5" y1="361.1611" y2="357.1611"/><line style="stroke:#000000;stroke-width:1.0;" x1="706.5" x2="696.5" y1="361.1611" y2="365.1611"/><line style="stroke:#000000;stroke-width:1.0;" x1="356.5" x2="707.5" y1="361.1611" y2="361.1611"/><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="9" x="368.5" y="340.6323">3</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="288" x="395" y="324.833">Resolve ID (+250)70610388 [synchronous]</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="11" x="493.5" y="340.6323">&lt;</text><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="69" x="504.5" y="340.6323">camt.003</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="11" x="573.5" y="340.6323">&gt;</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="315" x="381.5" y="356.4316">similar to GET /participants/{Type}/{ID} in ML</text><line style="stroke:#000000;stroke-width:1.0;" x1="356.5" x2="366.5" y1="438.3584" y2="434.3584"/><line style="stroke:#000000;stroke-width:1.0;" x1="356.5" x2="366.5" y1="438.3584" y2="442.3584"/><line style="stroke:#000000;stroke-width:1.0;" x1="356.5" x2="712.5" y1="438.3584" y2="438.3584"/><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="9" x="371" y="409.9299">4</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="186" x="448.5" y="386.231">Reach out to Mojaloop Bank</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="11" x="496" y="402.0303">&lt;</text><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="69" x="507" y="402.0303">camt.004</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="11" x="576" y="402.0303">&gt;</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="160" x="461.5" y="417.8296">[synchronous response]</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="315" x="384" y="433.6289">similar to PUT /participants/{Type}/{ID} in ML</text><line style="stroke:#000000;stroke-width:1.0;" x1="848.5" x2="838.5" y1="499.7563" y2="495.7563"/><line style="stroke:#000000;stroke-width:1.0;" x1="848.5" x2="838.5" y1="499.7563" y2="503.7563"/><line style="stroke:#000000;stroke-width:1.0;" x1="356.5" x2="849.5" y1="499.7563" y2="499.7563"/><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="9" x="497.5" y="479.2275">5</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="94" x="563" y="463.4282">Quote request</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="11" x="567.5" y="479.2275">&lt;</text><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="63" x="578.5" y="479.2275">pain.001</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="11" x="641.5" y="479.2275">&gt;</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="199" x="510.5" y="495.0269">similar to POST /quotes in ML</text><line style="stroke:#000000;stroke-width:1.0;" x1="351.5" x2="361.5" y1="529.5557" y2="525.5557"/><line style="stroke:#000000;stroke-width:1.0;" x1="351.5" x2="361.5" y1="529.5557" y2="533.5557"/><line style="stroke:#000000;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="351.5" x2="849.5" y1="529.5557" y2="529.5557"/><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="9" x="521" y="524.8262">6</text><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="70" x="534" y="524.8262">HTTP 202</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="72" x="609" y="524.8262">(Accepted)</text><line style="stroke:#000000;stroke-width:1.0;" x1="1173.5" x2="1163.5" y1="575.1543" y2="571.1543"/><line style="stroke:#000000;stroke-width:1.0;" x1="1173.5" x2="1163.5" y1="575.1543" y2="579.1543"/><line style="stroke:#000000;stroke-width:1.0;" x1="860.5" x2="1174.5" y1="575.1543" y2="575.1543"/><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="9" x="916" y="562.5251">7</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="183" x="933" y="554.6255">Lookup ID (+250)70610388</text><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="191" x="929" y="570.4248">GET parties/{Type}/{ID}</text><line style="stroke:#000000;stroke-width:1.0;" x1="860.5" x2="870.5" y1="604.9536" y2="600.9536"/><line style="stroke:#000000;stroke-width:1.0;" x1="860.5" x2="870.5" y1="604.9536" y2="608.9536"/><line style="stroke:#000000;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="860.5" x2="1174.5" y1="604.9536" y2="604.9536"/><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="9" x="938" y="600.2241">8</text><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="70" x="951" y="600.2241">HTTP 202</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="72" x="1026" y="600.2241">(Accepted)</text><line style="stroke:#000000;stroke-width:1.0;" x1="860.5" x2="870.5" y1="666.3516" y2="662.3516"/><line style="stroke:#000000;stroke-width:1.0;" x1="860.5" x2="870.5" y1="666.3516" y2="670.3516"/><line style="stroke:#000000;stroke-width:1.0;" x1="860.5" x2="1174.5" y1="666.3516" y2="666.3516"/><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="9" x="872.5" y="645.8228">9</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="278" x="885.5" y="630.0234">Lookup resolution for ID (+250)70610388</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="66" x="991.5" y="645.8228">[callback]</text><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="192" x="928.5" y="661.6221">PUT parties/{Type}/{ID}</text><line style="stroke:#000000;stroke-width:1.0;" x1="1173.5" x2="1163.5" y1="696.1509" y2="692.1509"/><line style="stroke:#000000;stroke-width:1.0;" x1="1173.5" x2="1163.5" y1="696.1509" y2="700.1509"/><line style="stroke:#000000;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="860.5" x2="1174.5" y1="696.1509" y2="696.1509"/><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="18" x="954" y="691.4214">10</text><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="70" x="976" y="691.4214">HTTP 200</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="31" x="1051" y="691.4214">(OK)</text><line style="stroke:#000000;stroke-width:1.0;" x1="1173.5" x2="1163.5" y1="741.7495" y2="737.7495"/><line style="stroke:#000000;stroke-width:1.0;" x1="1173.5" x2="1163.5" y1="741.7495" y2="745.7495"/><line style="stroke:#000000;stroke-width:1.0;" x1="860.5" x2="1174.5" y1="741.7495" y2="741.7495"/><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="18" x="956" y="729.1204">11</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="94" x="982" y="721.2207">Quote request</text><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="102" x="978" y="737.02">POST /quotes</text><line style="stroke:#000000;stroke-width:1.0;" x1="860.5" x2="870.5" y1="771.5488" y2="767.5488"/><line style="stroke:#000000;stroke-width:1.0;" x1="860.5" x2="870.5" y1="771.5488" y2="775.5488"/><line style="stroke:#000000;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="860.5" x2="1174.5" y1="771.5488" y2="771.5488"/><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="18" x="933.5" y="766.8193">12</text><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="70" x="955.5" y="766.8193">HTTP 202</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="72" x="1030.5" y="766.8193">(Accepted)</text><line style="stroke:#000000;stroke-width:1.0;" x1="860.5" x2="870.5" y1="817.1475" y2="813.1475"/><line style="stroke:#000000;stroke-width:1.0;" x1="860.5" x2="870.5" y1="817.1475" y2="821.1475"/><line style="stroke:#000000;stroke-width:1.0;" x1="860.5" x2="1174.5" y1="817.1475" y2="817.1475"/><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="18" x="919.5" y="804.5183">13</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="175" x="941.5" y="796.6187">Quote response [callback]</text><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="138" x="960" y="812.418">PUT /quotes/{ID}</text><line style="stroke:#000000;stroke-width:1.0;" x1="1178.5" x2="1168.5" y1="846.9468" y2="842.9468"/><line style="stroke:#000000;stroke-width:1.0;" x1="1178.5" x2="1168.5" y1="846.9468" y2="850.9468"/><line style="stroke:#000000;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="860.5" x2="1179.5" y1="846.9468" y2="846.9468"/><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="18" x="956.5" y="842.2173">14</text><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="70" x="978.5" y="842.2173">HTTP 200</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="31" x="1053.5" y="842.2173">(OK)</text><line style="stroke:#000000;stroke-width:1.0;" x1="356.5" x2="366.5" y1="908.3447" y2="904.3447"/><line style="stroke:#000000;stroke-width:1.0;" x1="356.5" x2="366.5" y1="908.3447" y2="912.3447"/><line style="stroke:#000000;stroke-width:1.0;" x1="356.5" x2="849.5" y1="908.3447" y2="908.3447"/><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="18" x="469" y="887.8159">15</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="175" x="527" y="872.0166">Quote response [callback]</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="79" x="575" y="887.8159">&lt;pain.013&gt;</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="64" x="491" y="903.6152">similar to</text><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="138" x="560" y="903.6152">PUT /quotes/{ID}</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="35" x="703" y="903.6152">in ML</text><line style="stroke:#000000;stroke-width:1.0;" x1="853.5" x2="843.5" y1="938.144" y2="934.144"/><line style="stroke:#000000;stroke-width:1.0;" x1="853.5" x2="843.5" y1="938.144" y2="942.144"/><line style="stroke:#000000;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="356.5" x2="854.5" y1="938.144" y2="938.144"/><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="18" x="542" y="933.4146">16</text><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="70" x="564" y="933.4146">HTTP 200</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="31" x="639" y="933.4146">(OK)</text><line style="stroke:#000000;stroke-width:1.0;" x1="61.5" x2="71.5" y1="967.9434" y2="963.9434"/><line style="stroke:#000000;stroke-width:1.0;" x1="61.5" x2="71.5" y1="967.9434" y2="971.9434"/><line style="stroke:#000000;stroke-width:1.0;" x1="61.5" x2="345.5" y1="967.9434" y2="967.9434"/><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="18" x="71" y="963.2139">17</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="174" x="93" y="963.2139">Are you ok with charges -</text><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="65" x="272" y="963.2139">RWF:200</text><line style="stroke:#000000;stroke-width:1.0;" x1="344.5" x2="334.5" y1="997.7427" y2="993.7427"/><line style="stroke:#000000;stroke-width:1.0;" x1="344.5" x2="334.5" y1="997.7427" y2="1001.7427"/><line style="stroke:#000000;stroke-width:1.0;" x1="56.5" x2="345.5" y1="997.7427" y2="997.7427"/><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="18" x="123.5" y="993.0132">18</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="134" x="145.5" y="993.0132">Yes, please proceed</text><line style="stroke:#000000;stroke-width:1.0;" x1="848.5" x2="838.5" y1="1059.1406" y2="1055.1406"/><line style="stroke:#000000;stroke-width:1.0;" x1="848.5" x2="838.5" y1="1059.1406" y2="1063.1406"/><line style="stroke:#000000;stroke-width:1.0;" x1="356.5" x2="849.5" y1="1059.1406" y2="1059.1406"/><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="18" x="505" y="1038.6118">19</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="111" x="559" y="1022.8125">Transfer request</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="11" x="570.5" y="1038.6118">&lt;</text><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="66" x="581.5" y="1038.6118">pacs.008</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="11" x="647.5" y="1038.6118">&gt;</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="175" x="527" y="1054.4111">similar to POST /transfers</text><line style="stroke:#000000;stroke-width:1.0;" x1="351.5" x2="361.5" y1="1088.9399" y2="1084.9399"/><line style="stroke:#000000;stroke-width:1.0;" x1="351.5" x2="361.5" y1="1088.9399" y2="1092.9399"/><line style="stroke:#000000;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="351.5" x2="849.5" y1="1088.9399" y2="1088.9399"/><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="18" x="516.5" y="1084.2104">20</text><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="70" x="538.5" y="1084.2104">HTTP 202</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="72" x="613.5" y="1084.2104">(Accepted)</text><line style="stroke:#000000;stroke-width:1.0;" x1="1173.5" x2="1163.5" y1="1134.5386" y2="1130.5386"/><line style="stroke:#000000;stroke-width:1.0;" x1="1173.5" x2="1163.5" y1="1134.5386" y2="1138.5386"/><line style="stroke:#000000;stroke-width:1.0;" x1="860.5" x2="1174.5" y1="1134.5386" y2="1134.5386"/><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="18" x="948" y="1121.9094">21</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="111" x="973.5" y="1114.0098">Transfer request</text><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="118" x="970" y="1129.8091">POST /transfers</text><line style="stroke:#000000;stroke-width:1.0;" x1="860.5" x2="870.5" y1="1164.3379" y2="1160.3379"/><line style="stroke:#000000;stroke-width:1.0;" x1="860.5" x2="870.5" y1="1164.3379" y2="1168.3379"/><line style="stroke:#000000;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="860.5" x2="1174.5" y1="1164.3379" y2="1164.3379"/><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="18" x="933.5" y="1159.6084">22</text><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="70" x="955.5" y="1159.6084">HTTP 202</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="72" x="1030.5" y="1159.6084">(Accepted)</text><line style="stroke:#000000;stroke-width:1.0;" x1="860.5" x2="870.5" y1="1209.9365" y2="1205.9365"/><line style="stroke:#000000;stroke-width:1.0;" x1="860.5" x2="870.5" y1="1209.9365" y2="1213.9365"/><line style="stroke:#000000;stroke-width:1.0;" x1="860.5" x2="1174.5" y1="1209.9365" y2="1209.9365"/><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="18" x="908" y="1197.3074">23</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="198" x="930" y="1189.4077">Transfer Fulfilment [callback]</text><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="154" x="952" y="1205.207">PUT /transfers/{ID}</text><line style="stroke:#000000;stroke-width:1.0;" x1="1173.5" x2="1163.5" y1="1239.7358" y2="1235.7358"/><line style="stroke:#000000;stroke-width:1.0;" x1="1173.5" x2="1163.5" y1="1239.7358" y2="1243.7358"/><line style="stroke:#000000;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="860.5" x2="1174.5" y1="1239.7358" y2="1239.7358"/><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="18" x="954" y="1235.0063">24</text><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="70" x="976" y="1235.0063">HTTP 200</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="31" x="1051" y="1235.0063">(OK)</text><line style="stroke:#000000;stroke-width:1.0;" x1="1408.5" x2="1398.5" y1="1285.3345" y2="1281.3345"/><line style="stroke:#000000;stroke-width:1.0;" x1="1408.5" x2="1398.5" y1="1285.3345" y2="1289.3345"/><line style="stroke:#000000;stroke-width:1.0;" x1="1180.5" x2="1409.5" y1="1285.3345" y2="1285.3345"/><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="18" x="1195" y="1272.7053">25</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="143" x="1235" y="1264.8057">Payment notification:</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="86" x="1217" y="1280.605">You received</text><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="83" x="1308" y="1280.605">RWF:20000</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="5" x="1391" y="1280.605">!</text><line style="stroke:#000000;stroke-width:1.0;" x1="356.5" x2="366.5" y1="1346.7324" y2="1342.7324"/><line style="stroke:#000000;stroke-width:1.0;" x1="356.5" x2="366.5" y1="1346.7324" y2="1350.7324"/><line style="stroke:#000000;stroke-width:1.0;" x1="356.5" x2="849.5" y1="1346.7324" y2="1346.7324"/><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="18" x="471" y="1326.2036">26</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="192" x="518.5" y="1310.4043">Transfer response [callback]</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="11" x="572" y="1326.2036">&lt;</text><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="63" x="583" y="1326.2036">pain.002</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="11" x="646" y="1326.2036">&gt;</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="243" x="493" y="1342.0029">similar to PUT /transfers/{ID} in ML</text><line style="stroke:#000000;stroke-width:1.0;" x1="853.5" x2="843.5" y1="1376.5317" y2="1372.5317"/><line style="stroke:#000000;stroke-width:1.0;" x1="853.5" x2="843.5" y1="1376.5317" y2="1380.5317"/><line style="stroke:#000000;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="356.5" x2="854.5" y1="1376.5317" y2="1376.5317"/><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="18" x="542" y="1371.8022">27</text><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="70" x="564" y="1371.8022">HTTP 200</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="31" x="639" y="1371.8022">(OK)</text><line style="stroke:#000000;stroke-width:1.0;" x1="61.5" x2="71.5" y1="1422.1304" y2="1418.1304"/><line style="stroke:#000000;stroke-width:1.0;" x1="61.5" x2="71.5" y1="1422.1304" y2="1426.1304"/><line style="stroke:#000000;stroke-width:1.0;" x1="61.5" x2="345.5" y1="1422.1304" y2="1422.1304"/><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="18" x="121.5" y="1409.5012">28</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="143" x="143.5" y="1401.6016">Payment notification:</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="30" x="156" y="1417.4009">Sent</text><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="83" x="191" y="1417.4009">RWF:20200</text><line style="stroke:#000000;stroke-width:1.0;" x1="349.5" x2="339.5" y1="1451.9297" y2="1447.9297"/><line style="stroke:#000000;stroke-width:1.0;" x1="349.5" x2="339.5" y1="1451.9297" y2="1455.9297"/><line style="stroke:#000000;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="56.5" x2="350.5" y1="1451.9297" y2="1451.9297"/><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="18" x="140" y="1447.2002">29</text><text fill="#000000" font-family="Verdana" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="70" x="162" y="1447.2002">HTTP 200</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="31" x="237" y="1447.2002">(OK)</text><!--MD5=[b004b429fd5327e1ccc9a80a80cb673c]
+@startuml
+autonumber
+
+' define actor image
+sprite $actor [25x48/16] {
+  0000000000010000000000000
+  0000000006CAC910000000000
+  0000000095101292000000000
+  0000000651000119000000000
+  0000000B10000018400000000
+  0000001A10000016600000000
+  0000000B10000017510000000
+  000000083100001A210000000
+  0000000191000176110000000
+  000000003A866A61100000000
+  0000000000466211100000000
+  0003333333334443333310000
+  0088888888888888888892000
+  0821111111111111111118200
+  8311111111111111111111A00
+  A111111111111111111111A20
+  A111111111111111111111A20
+  A111111111111111111111A20
+  A111111111111111111111A20
+  A111111111111111111111A20
+  A111111111111111111111A20
+  A111111111111111111111A20
+  A111111111111111111111A20
+  A111551111111111138111A20
+  A111661111111111139111A20
+  A211661111111111139111A20
+  A211661111111111139111A20
+  A211661111161111139111A20
+  A2116611111A2111139111A20
+  A2116611111A2111139111A20
+  A2116611111A2111139111A20
+  A7669611111A211113A666B20
+  36669611111A211113A666610
+  00016611111A2111139111110
+  00006611111A2111139100000
+  00006611111A2111139100000
+  00006611111A2111139100000
+  00006611111A2111139100000
+  00006611111A2111139100000
+  00006611111A2111139100000
+  00006611111A2111139100000
+  00006611111A2111139100000
+  00006611111A2111139100000
+  00006611111A2111139100000
+  00006966666B7666679100000
+  0000266666666666664100000
+  0000000111111111111100000
+  0000000000000000000000000
+}
+
+' declaring skinparam
+skinparam sequenceMessageAlign center
+skinparam shadowing false
+skinparam defaultFontName Verdana
+skinparam monochrome true
+skinparam SequenceLifeLineBackgroundColor WhiteSmoke
+skinparam SequenceLifeLineBorderColor Black
+skinparam ActorFontStyle Bold
+skinparam ActorFontSize 20
+skinparam ParticipantFontStyle Bold
+skinparam ParticipantFontSize 20
+skinparam ParticipantBackgroundColor WhiteSmoke
+skinparam ArrowColor Black
+
+skinparam actor {
+  Bordercolor none
+  Backgroundcolor none
+  shadowing false
+}
+
+skinparam participant {
+  shadowing true
+}
+
+hide footbox
+
+' declare title
+' title P2P in a ISO20022 <-> Mojaloop Cross network scenario: Overview
+
+' Actor Keys:
+' participant - SendersBank, MojaloopBank, MLMMSystem and GALS
+' actor - Sender/Receiver
+
+' declare actors
+actor "<$actor>\nSender\n(SWIFT)" as Sender
+participant "\nSender's\nBank" as SendersBank
+participant "\nGlobal\nALS" as GALS
+box "Mojaloop Scheme" #yellow
+participant "\nMojaloop(ML)\nBank" as MojaloopBank
+participant "\nMojaloop\nMobile-Money\nSystem" as MLMMSystem
+end box
+actor "<$actor>\nReceiver\n(Mojaloop)" as Receiver
+
+title **Overview of a P2P transfer in an ISO20022 <-> Mojaloop Cross network scenario**\n
+
+' start flow
+activate Sender
+Sender ->> SendersBank: I'd like to send **RWF:20000**\nto user with ID **(+250)70610388**
+activate SendersBank
+Sender <<- - SendersBank: **HTTP 202** (Accepted)
+deactivate Sender
+SendersBank ->> GALS: Resolve ID (+250)70610388 [synchronous]\n<**camt.003**>\nsimilar to GET /participants/{Type}/{ID} in ML
+activate GALS
+SendersBank <<- GALS: Reach out to Mojaloop Bank\n<**camt.004**>\n[synchronous response]\nsimilar to PUT /participants/{Type}/{ID} in ML
+
+deactivate GALS
+
+SendersBank ->> MojaloopBank: Quote request\n<**pain.001**>\nsimilar to POST /quotes in ML
+activate MojaloopBank
+SendersBank <<- - MojaloopBank: **HTTP 202** (Accepted)
+deactivate SendersBank
+MojaloopBank ->> MLMMSystem: Lookup ID (+250)70610388\n**GET parties/{Type}/{ID}**
+activate MLMMSystem
+MojaloopBank <<- - MLMMSystem: **HTTP 202** (Accepted)
+MojaloopBank <<- MLMMSystem: Lookup resolution for ID (+250)70610388\n[callback]\n**PUT parties/{Type}/{ID}**
+MojaloopBank - ->> MLMMSystem: **HTTP 200** (OK)
+MojaloopBank ->> MLMMSystem: Quote request\n**POST /quotes**
+MojaloopBank <<- - MLMMSystem: **HTTP 202** (Accepted)
+MojaloopBank <<- MLMMSystem: Quote response [callback]\n**PUT /quotes/{ID}**
+MojaloopBank - ->> MLMMSystem: **HTTP 200** (OK)
+deactivate MLMMSystem
+SendersBank <<- MojaloopBank: Quote response [callback]\n<pain.013>\nsimilar to **PUT /quotes/{ID}** in ML
+activate SendersBank
+SendersBank - ->> MojaloopBank: **HTTP 200** (OK)
+deactivate MojaloopBank
+Sender <<- SendersBank: Are you ok with charges - **RWF:200**
+activate Sender
+Sender ->> SendersBank: Yes, please proceed
+deactivate Sender
+
+SendersBank ->> MojaloopBank: Transfer request\n<**pacs.008**>\nsimilar to POST /transfers
+activate MojaloopBank
+SendersBank <<- - MojaloopBank: **HTTP 202** (Accepted)
+deactivate SendersBank
+MojaloopBank ->> MLMMSystem: Transfer request\n**POST /transfers**
+activate MLMMSystem
+MojaloopBank <<- - MLMMSystem: **HTTP 202** (Accepted)
+MojaloopBank <<- MLMMSystem: Transfer Fulfilment [callback]\n**PUT /transfers/{ID}**
+MojaloopBank - ->> MLMMSystem: **HTTP 200** (OK)
+MLMMSystem ->> Receiver: Payment notification:\nYou received **RWF:20000**!
+deactivate MLMMSystem
+SendersBank <<- MojaloopBank: Transfer response [callback]\n<**pain.002**>\nsimilar to PUT /transfers/{ID} in ML
+activate SendersBank
+SendersBank - ->> MojaloopBank: **HTTP 200** (OK)
+deactivate MojaloopBank
+
+Sender <<- SendersBank: Payment notification:\nSent **RWF:20200**
+activate Sender
+Sender - ->> SendersBank: **HTTP 200** (OK)
+deactivate Sender
+deactivate SendersBank
+deactivate Sender
+
+@enduml
+
+@startuml
+autonumber
+
+sprite $actor [25x48/16] {
+  0000000000010000000000000
+  0000000006CAC910000000000
+  0000000095101292000000000
+  0000000651000119000000000
+  0000000B10000018400000000
+  0000001A10000016600000000
+  0000000B10000017510000000
+  000000083100001A210000000
+  0000000191000176110000000
+  000000003A866A61100000000
+  0000000000466211100000000
+  0003333333334443333310000
+  0088888888888888888892000
+  0821111111111111111118200
+  8311111111111111111111A00
+  A111111111111111111111A20
+  A111111111111111111111A20
+  A111111111111111111111A20
+  A111111111111111111111A20
+  A111111111111111111111A20
+  A111111111111111111111A20
+  A111111111111111111111A20
+  A111111111111111111111A20
+  A111551111111111138111A20
+  A111661111111111139111A20
+  A211661111111111139111A20
+  A211661111111111139111A20
+  A211661111161111139111A20
+  A2116611111A2111139111A20
+  A2116611111A2111139111A20
+  A2116611111A2111139111A20
+  A7669611111A211113A666B20
+  36669611111A211113A666610
+  00016611111A2111139111110
+  00006611111A2111139100000
+  00006611111A2111139100000
+  00006611111A2111139100000
+  00006611111A2111139100000
+  00006611111A2111139100000
+  00006611111A2111139100000
+  00006611111A2111139100000
+  00006611111A2111139100000
+  00006611111A2111139100000
+  00006611111A2111139100000
+  00006966666B7666679100000
+  0000266666666666664100000
+  0000000111111111111100000
+  0000000000000000000000000
+}
+
+skinparam sequenceMessageAlign center
+skinparam shadowing false
+skinparam defaultFontName Verdana
+skinparam monochrome true
+skinparam SequenceLifeLineBackgroundColor WhiteSmoke
+skinparam SequenceLifeLineBorderColor Black
+skinparam ActorFontStyle Bold
+skinparam ActorFontSize 20
+skinparam ParticipantFontStyle Bold
+skinparam ParticipantFontSize 20
+skinparam ParticipantBackgroundColor WhiteSmoke
+skinparam ArrowColor Black
+
+skinparam actor {
+  Bordercolor none
+  Backgroundcolor none
+  shadowing false
+}
+
+skinparam participant {
+  shadowing true
+}
+
+hide footbox
+
+
+
+actor "<$actor>\nSender\n(SWIFT)" as Sender
+participant "\nSender's\nBank" as SendersBank
+participant "\nGlobal\nALS" as GALS
+box "Mojaloop Scheme" #yellow
+participant "\nMojaloop(ML)\nBank" as MojaloopBank
+participant "\nMojaloop\nMobile-Money\nSystem" as MLMMSystem
+end box
+actor "<$actor>\nReceiver\n(Mojaloop)" as Receiver
+
+title **Overview of a P2P transfer in an ISO20022 <-> Mojaloop Cross network scenario**\n
+
+activate Sender
+Sender ->> SendersBank: I'd like to send **RWF:20000**\nto user with ID **(+250)70610388**
+activate SendersBank
+Sender <<- - SendersBank: **HTTP 202** (Accepted)
+deactivate Sender
+SendersBank ->> GALS: Resolve ID (+250)70610388 [synchronous]\n<**camt.003**>\nsimilar to GET /participants/{Type}/{ID} in ML
+activate GALS
+SendersBank <<- GALS: Reach out to Mojaloop Bank\n<**camt.004**>\n[synchronous response]\nsimilar to PUT /participants/{Type}/{ID} in ML
+
+deactivate GALS
+
+SendersBank ->> MojaloopBank: Quote request\n<**pain.001**>\nsimilar to POST /quotes in ML
+activate MojaloopBank
+SendersBank <<- - MojaloopBank: **HTTP 202** (Accepted)
+deactivate SendersBank
+MojaloopBank ->> MLMMSystem: Lookup ID (+250)70610388\n**GET parties/{Type}/{ID}**
+activate MLMMSystem
+MojaloopBank <<- - MLMMSystem: **HTTP 202** (Accepted)
+MojaloopBank <<- MLMMSystem: Lookup resolution for ID (+250)70610388\n[callback]\n**PUT parties/{Type}/{ID}**
+MojaloopBank - ->> MLMMSystem: **HTTP 200** (OK)
+MojaloopBank ->> MLMMSystem: Quote request\n**POST /quotes**
+MojaloopBank <<- - MLMMSystem: **HTTP 202** (Accepted)
+MojaloopBank <<- MLMMSystem: Quote response [callback]\n**PUT /quotes/{ID}**
+MojaloopBank - ->> MLMMSystem: **HTTP 200** (OK)
+deactivate MLMMSystem
+SendersBank <<- MojaloopBank: Quote response [callback]\n<pain.013>\nsimilar to **PUT /quotes/{ID}** in ML
+activate SendersBank
+SendersBank - ->> MojaloopBank: **HTTP 200** (OK)
+deactivate MojaloopBank
+Sender <<- SendersBank: Are you ok with charges - **RWF:200**
+activate Sender
+Sender ->> SendersBank: Yes, please proceed
+deactivate Sender
+
+SendersBank ->> MojaloopBank: Transfer request\n<**pacs.008**>\nsimilar to POST /transfers
+activate MojaloopBank
+SendersBank <<- - MojaloopBank: **HTTP 202** (Accepted)
+deactivate SendersBank
+MojaloopBank ->> MLMMSystem: Transfer request\n**POST /transfers**
+activate MLMMSystem
+MojaloopBank <<- - MLMMSystem: **HTTP 202** (Accepted)
+MojaloopBank <<- MLMMSystem: Transfer Fulfilment [callback]\n**PUT /transfers/{ID}**
+MojaloopBank - ->> MLMMSystem: **HTTP 200** (OK)
+MLMMSystem ->> Receiver: Payment notification:\nYou received **RWF:20000**!
+deactivate MLMMSystem
+SendersBank <<- MojaloopBank: Transfer response [callback]\n<**pain.002**>\nsimilar to PUT /transfers/{ID} in ML
+activate SendersBank
+SendersBank - ->> MojaloopBank: **HTTP 200** (OK)
+deactivate MojaloopBank
+
+Sender <<- SendersBank: Payment notification:\nSent **RWF:20200**
+activate Sender
+Sender - ->> SendersBank: **HTTP 200** (OK)
+deactivate Sender
+deactivate SendersBank
+deactivate Sender
+
+@enduml
+
+PlantUML version 1.2021.00(Sun Jan 10 15:55:05 IST 2021)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>
