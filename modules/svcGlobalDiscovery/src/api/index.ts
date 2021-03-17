@@ -198,7 +198,7 @@ export class Server {
           xmlData: parsedXmlResponse
         }
 
-        await this._activityService.publish(this._config.activityEvents.GALSIngress, egressActivityEvent)
+        await this._activityService.publish(this._config.activityEvents.GALSEgress, egressActivityEvent)
       }
 
       // TODO: Should this be handled by the onSend hook on the ApiServer? Need to re-work this later!
@@ -234,7 +234,7 @@ export class Server {
           xmlData: parsedXmlError
         }
 
-        await this._activityService.publish(this._config.activityEvents.GALSIngress, egressActivityEvent)
+        await this._activityService.publish(this._config.activityEvents.GALSEgress, egressActivityEvent)
       }
       throw error
     }
