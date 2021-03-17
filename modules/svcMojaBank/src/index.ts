@@ -42,7 +42,8 @@ import {
   Metrics,
   TMetricOptionsType,
   getEnvValueOrDefault,
-  getEnvIntegerOrDefault
+  getEnvIntegerOrDefault,
+  getEnvBoolOrDefault
 } from '@mojaloop-iso-hackathon/lib-shared'
 import * as dotenv from 'dotenv'
 import { Command } from 'commander'
@@ -85,8 +86,18 @@ Program.command('api')
         port: getEnvIntegerOrDefault(process.env.MB_API_PORT as string, 3003) as number
       },
       peerEndpoints: {
-        mojaloop: getEnvValueOrDefault(process.env.MB_MOJALOOP_PEER_ENDPOINT as string, 'http://ttk:80') as string,
-        swift: getEnvValueOrDefault(process.env.MB_SWIFT_PEER_ENDPOINT as string, 'http://swift:80') as string
+        mojaloop: getEnvValueOrDefault(process.env.MB_MOJALOOP_PEER_ENDPOINT as string, 'http://localhost:15000') as string,
+        swift: getEnvValueOrDefault(process.env.MB_SWIFT_PEER_ENDPOINT as string, 'http://swift:3000') as string
+      },
+      activityService: {
+        host: getEnvValueOrDefault('ACTIVITY_SERVER_HOST', null),
+        port: getEnvValueOrDefault('ACTIVITY_SERVER_PORT', null)
+      },
+      activityEvents: {
+        isEnabled: getEnvBoolOrDefault('ACTIVITY_MOJABANK_COMPONENT_EVENTS_ENABLED'),
+        ISOSenderComponentName: getEnvValueOrDefault('ACTIVITY_SENDER_COMPONENT_NAME', null),
+        MBComponentName: getEnvValueOrDefault('ACTIVITY_MOJABANK_COMPONENT_NAME', null),
+        MBEgress: getEnvValueOrDefault('ACTIVITY_MOJABANK_EVENT_EGRESS', null)
       },
       redisUrl: getEnvValueOrDefault(process.env.MB_REDIS_URL as string, 'redis://localhost:6379') as string,
     }

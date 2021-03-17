@@ -43,7 +43,10 @@ import {
   ApiServer,
   TApiServerOptions,
   ApiServerError,
-  XML
+  XML,
+  RedisPubSub,
+  TRedisPubSubOptions,
+  TPublishEvent
   // ISO20022
 } from '@mojaloop-iso-hackathon/lib-shared'
 import { MojaloopRequests, Logger } from '@mojaloop/sdk-standard-components'
@@ -95,6 +98,7 @@ export class Server {
   protected _apiServer: ApiServer
   protected _redis: RedisService
   protected _mojaClient: MojaloopRequests
+  protected _activityService: RedisPubSub
 
   constructor (appConfig: any, logger: ILogger, metrics: IMetricsFactory) {
     this._config = appConfig
@@ -112,6 +116,13 @@ export class Server {
   }
 
   async init (): Promise<void> {
+    const activityServiceOptions: TRedisPubSubOptions = {
+      host: this._config.activityService.host,
+      port: this._config.activityService.port
+    }
+    this._activityService = new RedisPubSub(activityServiceOptions, this._logger)
+
+    await this._activityService.init()
     await this._registerRoutes()
 
     await this._apiServer.init()
@@ -119,6 +130,8 @@ export class Server {
 
   async destroy (): Promise<void> {
     await this._apiServer.destroy()
+
+    await this._activityService?.destroy()
   }
 
   private async _registerRoutes (): Promise<void> {
@@ -303,9 +316,23 @@ export class Server {
           }
         }
       }
+
+      // TODO: This is already handled by the onSend hook on the ApiServer. Need to re-work this later!
+      const parsedXmlResponse: string = XML.fromJson(pain013)
+      this._logger.debug(`Server::_quoteResponseHandler - parsedXmlResponse - ${parsedXmlResponse}`)
+      if (this._config.activityEvents.isEnabled === true) {
+        // Publish Activity Egress Event
+
+        const egressActivityEvent: TPublishEvent = {
+          fromComponent: this._config.activityEvents.MBComponentName,
+          toComponent: this._config.activityEvents.ISOSenderComponentName,
+          xmlData: parsedXmlResponse
+        }
+
+        await this._activityService.publish(this._config.activityEvents.MBIngress, egressActivityEvent)
+      }
       
       // send to swift peer
-      console.log(XML.fromJson(pain013))
       await got.put(`${this._config.peerEndpoints.swift}/quotes/${quote.quoteId}`, {
         body: XML.fromJson(pain013),
         headers: {
@@ -399,7 +426,22 @@ export class Server {
         }
       }
 
-      console.log(pain002)
+      // TODO: This is already handled by the onSend hook on the ApiServer. Need to re-work this later!
+      const parsedXmlResponse: string = XML.fromJson(pain002)
+      this._logger.debug(`Server::_quoteResponseHandler - parsedXmlResponse - ${parsedXmlResponse}`)
+      if (this._config.activityEvents.isEnabled === true) {
+        // Publish Activity Egress Event
+
+        const egressActivityEvent: TPublishEvent = {
+          fromComponent: this._config.activityEvents.MBComponentName,
+          toComponent: this._config.activityEvents.ISOSenderComponentName,
+          xmlData: parsedXmlResponse
+        }
+
+        await this._activityService.publish(this._config.activityEvents.MBIngress, egressActivityEvent)
+      }
+
+      // send to swift bank
       await got.put(`${this._config.peerEndpoints.swift}/transfers/${request.params.id}`, {
         body: XML.fromJson(pain002),
         headers: {
