@@ -25,8 +25,8 @@ import React from "react";
 import { Row, Col, Drawer, Button, Typography, Modal, Tabs } from 'antd';
 import { CaretRightFilled, CaretLeftFilled, SettingOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css'
-import mobile_left from '../../../assets/img/mobile_pink_iphone.png';
-import mobile_right from '../../../assets/img/mobile_green_iphone.png';
+import mobile_left from '../../../assets/img/mobile_left.png';
+import mobile_right from '../../../assets/img/mobile_right.png';
 
 import PayerMobile from "./PayerMobile.jsx";
 import PayeeMobile from "./PayeeMobile.jsx";
@@ -45,9 +45,9 @@ const { TabPane } = Tabs;
 
 class MobileSimulator extends React.Component {
   state = {
-    payerName: 'Pink Bank',
+    payerName: 'Sender Bank',
     hubName: 'Mojaloop Switch',
-    payeeName: 'Green Bank',
+    payeeName: 'Receiver Bank',
     payerLogsDrawerVisible: false,
     payeeLogsDrawerVisible: false,
     showSettings: false,
@@ -236,7 +236,7 @@ class MobileSimulator extends React.Component {
     return (
       <>
       <Drawer
-        title="Pink Bank Logs"
+        title="Sender Bank Logs"
         width="70%"
         placement='left'
         forceRender={true}
@@ -249,7 +249,7 @@ class MobileSimulator extends React.Component {
         <TestMonitor ref={this.payerMonitorRef} />
       </Drawer>
       <Drawer
-        title="Green Bank Logs"
+        title="Receiver Bank Logs"
         width="70%"
         placement='right'
         forceRender={true}
@@ -293,7 +293,7 @@ class MobileSimulator extends React.Component {
                   <Button type='primary' className='mt-2' style={ {height: '40px', backgroundColor: '#F90085'} } onClick={() => {
                     this.setState({payerLogsDrawerVisible: true})
                   }}>
-                    <Text style={{color: 'white', fontWeight: 'bold'}}>Pink Bank Logs</Text> <CaretRightFilled style={ {fontSize: '18px'} }/>
+                    <Text style={{color: 'white', fontWeight: 'bold'}}>Sender Bank Logs</Text> <CaretRightFilled style={ {fontSize: '18px'} }/>
                   </Button>
                 </Col>
               </Row>
@@ -381,7 +381,7 @@ class MobileSimulator extends React.Component {
                   <Button type='primary' className='mt-2 float-right' style={ {height: '40px', backgroundColor: '#13AA90'} } onClick={() => {
                       this.setState({payeeLogsDrawerVisible: true})
                     }}>
-                    <CaretLeftFilled style={ {fontSize: '18px'} }/> <Text style={{color: 'white', fontWeight: 'bold'}}>Green Bank Logs</Text>
+                    <CaretLeftFilled style={ {fontSize: '18px'} }/> <Text style={{color: 'white', fontWeight: 'bold'}}>Receiver Bank Logs</Text>
                   </Button>   
                 </Col>
               </Row>
