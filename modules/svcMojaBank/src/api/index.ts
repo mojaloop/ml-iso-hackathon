@@ -23,7 +23,8 @@
  - Name Surname <name.surname@gatesfoundation.com>
 
  * Coil
- - ..
+ - Donovan Changfoot <don@coil.com>
+ - Adrian Hope-bailie <adrian@coil.com>
 
  * Crosslake
  - ..
@@ -80,6 +81,11 @@ type PutQuotesBody = {
   expiration: string
   ilpPacket: string
   condition: string
+}
+
+type PutTransfersBody = {
+  fulfilment: string,
+  transferState: string
 }
 
 export class Server {
@@ -182,7 +188,7 @@ export class Server {
     await this._redis.associatePayeeMsisdnToQuote(quote.payeeMsisdn, quote.quoteId)
     await this._mojaClient.getParties('MSISDN', payeeMsisdn)
 
-    return reply.code(200).send(JSON.stringify({}))
+    return reply.code(202).send(JSON.stringify({}))
   }
 
   private async _partiesResponseHandler (request: any, reply: any): Promise<void> {
@@ -239,13 +245,17 @@ export class Server {
       // store condition
       quote.condition = payload.condition
       quote.ilpPacket = payload.ilpPacket
+      await this._redis.setQuote(quote)
+
+      // map condition to quote for later use
+      await this._redis.mapConditionToQuoteId(quote.condition, quote.quoteId)
 
       // transform to pain 013
       const pain013 = {
         Document: {
           attr: {
             'xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
-            xmlns: 'urn:iso:std:iso:20022:tech:xsd:camt.004.001.08'
+            xmlns: 'urn:iso:std:iso:20022:tech:xsd:pain.013.001.06'
           },
           CdtrPmtActvtnReq: {
             GrpHdr: {
@@ -296,8 +306,8 @@ export class Server {
       
       // send to swift peer
       console.log(XML.fromJson(pain013))
-      await got.put(`${this._config.peerEndpoints.swift}/quotes`, {
-        body: XML.fromJson(payload),
+      await got.put(`${this._config.peerEndpoints.swift}/quotes/${quote.quoteId}`, {
+        body: XML.fromJson(pain013),
         headers: {
           'content-type': 'application/xml'
         }
@@ -310,12 +320,96 @@ export class Server {
   }
 
   private async _swiftTransferHandler (request: any, reply: any): Promise<void> {
-    // TODO
-    return reply.code(201).send(JSON.stringify({}))
+    const grpHdrMsgId = JSONPath({ path: '$..GrpHdr.MsgId', json: request.body })
+    
+    const endToEndId = JSONPath({ path: '$..CdtTrfTxInf.PmtInfId.EndToEndId', json: request.body })
+    const transferId = endToEndId?.[0]
+
+    const crdtrBicfi = JSONPath({ path: '$..CdtrAgt.FinInstnId.BICFI', json: request.body })
+    const payeeFsp = crdtrBicfi?.[0]
+
+    const dbtrBicfi = JSONPath({ path: '$..DbtrAgt.FinInstnId.BICFI', json: request.body })
+    const payerFsp = dbtrBicfi?.[0]
+
+    const instdAmt = JSONPath({ path: '$..CdtTrfTxInf.IntrBkSttlmAmt', json: request.body })
+    const amtObject = instdAmt?.[0]
+    const amount = amtObject['#text']
+    const currency = amtObject?.attr?.Ccy
+
+    const ilpData = JSONPath({ path: '$..IlpData.Condition', json: request.body })
+    const ilpCondition = ilpData?.[0]
+
+    const quote = await this._redis.getQuoteFromCondition(ilpCondition ?? '')
+    if (quote){
+      await (this._mojaClient as any).postTransfers({
+        transferId,
+        payeeFsp,
+        payerFsp,
+        amount: {
+          amount,
+          currency
+        },
+        condition: quote.condition,
+        ilpPacket: quote.ilpPacket,
+        expiration: (new Date()).toISOString()
+      }, quote.payeeFspId)
+    } else {
+      this._logger.error(`No quote found for Swift pacs.008.`)
+    }
+
+    return reply.code(202).send(JSON.stringify({}))
   }
 
   private async _transferResponseHandler (request: any, reply: any): Promise<void> {
-    // TODO
-    return reply.code(201).send("")
+    const payload = request.body as PutTransfersBody
+
+    const quote = await this._redis.getQuoteForTransfer(request.params.id)
+
+    if (quote) {
+      const pain002 = {
+        Document: {
+          attr: {
+            'xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
+            xmlns: 'urn:iso:std:iso:20022:tech:xsd:pain.002.001.11'
+          },
+          CustomerPaymentStatusReportV11: {
+            GrpHdr: {
+              MsgId: uuidv4(),
+              CreDtTm: (new Date()).toISOString(),
+              IlpData: {
+                Fulfilment: payload.fulfilment
+              },
+              DbtrAgt: {
+                FinInstnId: {
+                  BICFI: quote.payerFspId
+                }
+              },
+              CdtrAgt: {
+                FinInstnId: {
+                  BICFI: quote.payeeFspId
+                }
+              }
+            },
+            OrgnlGrpInfAndSts: {
+              OrgnlMsgId: quote.transactionId,
+              OrgnlMsgNmId: 'pacs.008.001.09',
+              GrpSts: 'ACCC'
+            }
+          }
+        }
+      }
+
+      console.log(pain002)
+      await got.put(`${this._config.peerEndpoints.swift}/transfers/${request.params.id}`, {
+        body: XML.fromJson(pain002),
+        headers: {
+          'content-type': 'application/xml'
+        }
+      })
+    } else {
+      this._logger.error(`No quote for transferId=${request.params.id}`)
+    }
+
+    return reply.code(200).send("")
   }
 }

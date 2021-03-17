@@ -18,13 +18,17 @@ export interface RedisService {
   setQuote: (quote: Quote) => Promise<void>
   associatePayeeMsisdnToQuote: (payerMsisdn: string, quoteId: string) => Promise<void>
   getQuoteForMsisdn: (payerMsisdn: string) => Promise<Quote | null>
+  mapConditionToQuoteId: (condition: string, quoteId: string) => Promise<void>
+  getQuoteFromCondition: (condition: string) => Promise<Quote | null>
+  mapTransferToQuote: (transferId: string, quoteId: string) => Promise<void>
+  getQuoteForTransfer: (transferId: string) => Promise<Quote | null>
 }
 
 export const createRedisService = (redisUrl?: string): RedisService => {
   const client: Redis = new IORedis(redisUrl)
 
   const getQuote = async (quoteId: string): Promise<Quote | null> => {
-    const data = await client.hgetall(`quotes:${quoteId}`)
+    const data = await client.hgetall(`mojabank_quotes:${quoteId}`)
 
     if (!data) {
       return null
@@ -34,15 +38,41 @@ export const createRedisService = (redisUrl?: string): RedisService => {
   }
 
   const setQuote = async (quote: Quote): Promise<void> => {
-    await client.hset(`quotes:${quote.quoteId}`, quote)
+    await client.hset(`mojabank_quotes:${quote.quoteId}`, quote)
   }
 
-  const associatePayeeMsisdnToQuote = async (payerMsisdn: string, quoteId: string): Promise<void> => {
-    await client.sadd(payerMsisdn, quoteId)
+  const associatePayeeMsisdnToQuote = async (payeeMsisdn: string, quoteId: string): Promise<void> => {
+    await client.sadd(`mojabank_msisdn:${payeeMsisdn}`, quoteId)
   }
 
-  const getQuoteForMsisdn = async (payerMsisdn: string): Promise<Quote | null> => {
-    const quoteId = await client.spop(payerMsisdn)
+  const getQuoteForMsisdn = async (payeeMsisdn: string): Promise<Quote | null> => {
+    const quoteId = await client.spop(`mojabank_msisdn:${payeeMsisdn}`)
+    if (!quoteId) {
+      return null
+    }
+
+    return getQuote(quoteId)
+  }
+
+  const mapConditionToQuoteId = async (condition: string, quoteId: string): Promise<void> => {
+    await client.set(`mojabank_condToQuote:${condition}`, quoteId)
+  }
+
+  const getQuoteFromCondition = async (condition: string): Promise<Quote | null> => {
+    const quoteId = await client.get(`mojabank_condToQuote:${condition}`)
+    if (!quoteId) {
+      return null
+    }
+
+    return getQuote(quoteId)
+  }
+
+  const mapTransferToQuote = async (transferId: string, quoteId: string): Promise<void> => {
+    await client.sadd(`mojabank_transfer:${transferId}`, quoteId)
+  }
+
+  const getQuoteForTransfer = async (transferId: string): Promise<Quote | null> => {
+    const quoteId = await client.spop(`mojabank_transfer:${transferId}`)
     if (!quoteId) {
       return null
     }
@@ -54,6 +84,10 @@ export const createRedisService = (redisUrl?: string): RedisService => {
     getQuote,
     setQuote,
     associatePayeeMsisdnToQuote,
-    getQuoteForMsisdn
+    getQuoteForMsisdn,
+    mapConditionToQuoteId,
+    getQuoteFromCondition,
+    mapTransferToQuote,
+    getQuoteForTransfer
   }
 }
