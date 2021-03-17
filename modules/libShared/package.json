@@ -48,6 +48,7 @@
     "fast-xml-parser": "^3.19.0",
     "fastify": "^3.14.0",
     "libxmljs2-xsd": "^0.26.5",
+    "node-redis-pubsub": "^5.0.0",
     "prom-client": "^13.1.0"
   },
   "devDependencies": {
