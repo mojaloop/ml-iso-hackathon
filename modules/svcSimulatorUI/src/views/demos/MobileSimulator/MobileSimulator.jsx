@@ -65,8 +65,7 @@ class MobileSimulator extends React.Component {
     this.hubConsoleRef = React.createRef();
     this.activityLogRef = React.createRef();
     this.notificationServiceObj = new NotificationService()
-    // const sessionId = this.notificationServiceObj.getSessionId()
-    // this.outboundServiceObj = new OutboundService(sessionId)
+    this.outboundServiceObj = new OutboundService()
   }
   
   componentDidMount = async () => {
