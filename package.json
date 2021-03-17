@@ -12,8 +12,6 @@
     "Miguel de Barros <miguel.debarros@modusbox.com>"
   ],
   "pre-commit": [
-    "dep:check",
-    "build",
     "lint",
     "test:pre-commit"
   ],

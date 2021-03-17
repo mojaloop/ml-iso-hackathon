@@ -39,7 +39,6 @@ const XmlFormat = require('xml-formatter')
 /* eslint-disable-next-line @typescript-eslint/no-var-requires */
 const xsd = require('libxmljs2-xsd')
 
-
 // could move this to config
 const Options = {
   attributeNamePrefix: '', // default is "@_"
@@ -87,11 +86,9 @@ const fromJson = (payload: TPayload, format: boolean = false): any => {
   const J2XParser = XmlParser.j2xParser
   const parser = new J2XParser(Options)
   const pasredXml = parser.parse(payload)
-  if (format === true) {
-    console.log('FORMAT')
+  if (format) {
     return XmlFormat(pasredXml)
   }
-  console.log('NOFORMAT')
   return pasredXml
 }
 
