@@ -201,7 +201,7 @@ export class Server {
         await this._activityService.publish(this._config.activityEvents.GALSIngress, egressActivityEvent)
       }
 
-      // TODO: Shoul this be handled by the onSend hook on the ApiServer? Need to re-work this later!
+      // TODO: Should this be handled by the onSend hook on the ApiServer? Need to re-work this later!
       const validateEgressResults = XSD.validate(this._config.xsd.camt004, parsedXmlResponse)
       this._logger.debug(`Server::cmdGetAccount - validate Egress Result - ${JSON.stringify(validateEgressResults)}`)
       if (validateEgressResults != null) {
