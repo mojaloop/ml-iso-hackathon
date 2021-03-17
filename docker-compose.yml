@@ -82,6 +82,13 @@ services:
       - "traefik.enable=true"
       - "traefik.basic.port:3003"
       - "traefik.basic.protocol=http"
+  
+  svc-moja-bank:
+    build:
+      context: ./
+      dockerfile: modules/svcMojaBank/Dockerfile
+    env_file:
+      - default.env
 
   ##
   # This is just a default landing page to test out our website.
