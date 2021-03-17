@@ -126,16 +126,16 @@ export class Server {
   private async _cmdGetAccount (request: any, reply: any): Promise<void> {
     this._logger.debug(`Server::cmdGetAccount - request.body=${JSON.stringify(request.body)}`)
 
-    if (this._config.activityEvents.isEnabled === true) {
-      // Publish Activity Ingress Event
-      const ingressActivityEvent: TPublishEvent = {
-        fromComponent: this._config.activityEvents.ISOSenderComponentName,
-        toComponent: this._config.activityEvents.GALSComponentName,
-        xmlData: request.body.raw
-      }
+    // if (this._config.activityEvents.isEnabled === true) {
+    //   // Publish Activity Ingress Event
+    //   const ingressActivityEvent: TPublishEvent = {
+    //     fromComponent: this._config.activityEvents.ISOSenderComponentName,
+    //     toComponent: this._config.activityEvents.GALSComponentName,
+    //     xmlData: request.body.raw
+    //   }
 
-      await this._activityService.publish(this._config.activityEvents.GALSIngress, ingressActivityEvent)
-    }
+    //   await this._activityService.publish(this._config.activityEvents.GALSIngress, ingressActivityEvent)
+    // }
 
     // TODO: Correctly map errors to the appropriate XSD message
     let xmlResponse: any = {}
