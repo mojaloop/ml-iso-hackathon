@@ -124,13 +124,13 @@ participant "\nMojaloop\nMobile-Money\nSystem" as MLMMSystem
 end box
 actor "<$actor>\nReceiver\n(Mojaloop)" as Receiver
 
-title **Overview of a P2P transfer in an ISO20022 <-> Mojaloop Cross network scenario**\n
+title **Overview of a P2P transfer in an ISO20022 <-> Mojaloop Cross border scenario**\n
 
 ' start flow
 activate Sender
 Sender ->> SendersBank: I'd like to send **RWF:20000**\nto user with ID **(+250)70610388**
 activate SendersBank
-Sender <<-- SendersBank: **HTTP 202** (Accepted)
+Sender <<-- SendersBank: HTTP 202 (Accepted)
 deactivate Sender
 SendersBank ->> GALS: Resolve ID (+250)70610388 [synchronous]\n<**camt.003**>\nsimilar to GET /participants/{Type}/{ID} in ML
 activate GALS
@@ -140,21 +140,21 @@ deactivate GALS
 
 SendersBank ->> MojaloopBank: Quote request\n<**pain.001**>\nsimilar to POST /quotes in ML
 activate MojaloopBank
-SendersBank <<-- MojaloopBank: **HTTP 202** (Accepted)
+SendersBank <<-- MojaloopBank: HTTP 202 (Accepted)
 deactivate SendersBank
 MojaloopBank ->> MLMMSystem: Lookup ID (+250)70610388\n**GET parties/{Type}/{ID}**
 activate MLMMSystem
-MojaloopBank <<-- MLMMSystem: **HTTP 202** (Accepted)
+MojaloopBank <<-- MLMMSystem: HTTP 202 (Accepted)
 MojaloopBank <<- MLMMSystem: Lookup resolution for ID (+250)70610388\n[callback]\n**PUT parties/{Type}/{ID}**
-MojaloopBank -->> MLMMSystem: **HTTP 200** (OK)
+MojaloopBank -->> MLMMSystem: HTTP 200 (OK)
 MojaloopBank ->> MLMMSystem: Quote request\n**POST /quotes**
-MojaloopBank <<-- MLMMSystem: **HTTP 202** (Accepted)
+MojaloopBank <<-- MLMMSystem: HTTP 202 (Accepted)
 MojaloopBank <<- MLMMSystem: Quote response [callback]\n**PUT /quotes/{ID}**
-MojaloopBank -->> MLMMSystem: **HTTP 200** (OK)
+MojaloopBank -->> MLMMSystem: HTTP 200 (OK)
 deactivate MLMMSystem
 SendersBank <<- MojaloopBank: Quote response [callback]\n<pain.013>\nsimilar to **PUT /quotes/{ID}** in ML
 activate SendersBank
-SendersBank -->> MojaloopBank: **HTTP 200** (OK)
+SendersBank -->> MojaloopBank: HTTP 200 (OK)
 deactivate MojaloopBank
 Sender <<- SendersBank: Are you ok with charges - **RWF:200**
 activate Sender
@@ -163,23 +163,23 @@ deactivate Sender
 
 SendersBank ->> MojaloopBank: Transfer request\n<**pacs.008**>\nsimilar to POST /transfers
 activate MojaloopBank
-SendersBank <<-- MojaloopBank: **HTTP 202** (Accepted)
+SendersBank <<-- MojaloopBank: HTTP 202 (Accepted)
 deactivate SendersBank
 MojaloopBank ->> MLMMSystem: Transfer request\n**POST /transfers**
 activate MLMMSystem
-MojaloopBank <<-- MLMMSystem: **HTTP 202** (Accepted)
+MojaloopBank <<-- MLMMSystem: HTTP 202 (Accepted)
 MojaloopBank <<- MLMMSystem: Transfer Fulfilment [callback]\n**PUT /transfers/{ID}**
-MojaloopBank -->> MLMMSystem: **HTTP 200** (OK)
-MLMMSystem ->> Receiver: Payment notification:\nYou received **RWF:20000**!
+MojaloopBank -->> MLMMSystem: HTTP 200 (OK)
+MLMMSystem ->> Receiver: Payment notification:\nYou received **RWF:20000**
 deactivate MLMMSystem
 SendersBank <<- MojaloopBank: Transfer response [callback]\n<**pain.002**>\nsimilar to PUT /transfers/{ID} in ML
 activate SendersBank
-SendersBank -->> MojaloopBank: **HTTP 200** (OK)
+SendersBank -->> MojaloopBank: HTTP 200 (OK)
 deactivate MojaloopBank
 
 Sender <<- SendersBank: Payment notification:\nSent **RWF:20200**
 activate Sender
-Sender -->> SendersBank: **HTTP 200** (OK)
+Sender -->> SendersBank: HTTP 200 (OK)
 deactivate Sender
 deactivate SendersBank
 deactivate Sender
