@@ -1,3 +1,4 @@
+import got from 'got'
 import {
   ApiServerError,
   XML,
@@ -11,6 +12,7 @@ import { pain001, Quote } from '../xml/pain001'
 import { GlsLookupResponse, LOOKUP_RESPONSE_JPATHS } from './gls'
 import { MojaQuoteResponse, MojaTransferResponse } from './moja'
 import { Participant } from '../xml/common'
+import { pacs008, Transfer } from '../xml/pacs.008'
 
 interface Result<ResponseType> {
   success:  (response: ResponseType) => void,
@@ -21,8 +23,11 @@ export class Transaction {
 
   public readonly id: string
 
-  constructor () {
+  private _config: any
+
+  constructor (config: any) {
     this.id = uuid()
+    this._config = config
   }
 
   private _receivingPartyMsisdn: string
@@ -33,7 +38,7 @@ export class Transaction {
     financialInstitutionName: ""
   }
 
-  private _quoteResponse?: MojaTransferResponse
+  private _quoteResponse?: MojaQuoteResponse
   private _quoteResultHandler?: Result<ApiQuoteResponse>
   private _transferResultHandler?: Result<ApiTransferResponse>
 
@@ -43,43 +48,18 @@ export class Transaction {
 
     //Construct XML
     const requestMessage = camt003({ messageId: uuid(), creationDateTime: new Date()}, msisdn )
+    const response = await got.post(`${this._config.peerEndpoints.gls}/v1/participants`, {
+      headers: {
+        'content-type': 'application/xml'
+      },
+      body: requestMessage
+    })
 
-    // TODO call GLS for MSISDN info
-    const responseMessage = `<?xml version="1.0" encoding="utf-8"?>
-    <!-- PUT /parties/MSISDN/(+250)788301607 -->
-    <Document xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:iso:std:iso:20022:tech:xsd:camt.004.001.08">
-      <RtrAcct>
-        <MsgHdr>
-          <MsgId>a2c5e594-973f-45be-b138-987934156db3</MsgId>
-          <CreDtTm>2020-05-14T15:07:38.6875000+03:00</CreDtTm>
-          <OrgnlBizQry>
-            <MsgId>575b3623-5adf-4752-8da9-a159a179ec9f</MsgId>
-          </OrgnlBizQry>
-        </MsgHdr>
-        <RptOrErr>
-          <AcctRpt>
-            <AcctId>
-              <Othr>
-                <Nm>dfsp.username.5678</Nm>
-                <SchmeNm>BBAN</SchmeNm>
-              </Othr>
-            </AcctId>
-            <AcctOrErr>
-              <Acct>
-                <Svcr>
-                  <FinInstnId>
-                    <BICFI>EQBLRWRWXXX</BICFI>
-                    <Nm>EQUITY BANK RWANDA LIMITED</Nm>
-                  </FinInstnId>
-                </Svcr>
-              </Acct>
-            </AcctOrErr>
-          </AcctRpt>
-        </RptOrErr>
-      </RtrAcct>
-    </Document>`
+    const responseMessage = response.body
 
-    const validationResults = XSD.validate("", responseMessage)
+    console.log(`TrxId=${this.id}. Got lookup response from GLS ${responseMessage}`)
+
+    const validationResults = XSD.validate(this._config.xsd.camt004, responseMessage)
     if (validationResults != null) {
       throw new Error("Invalid XML response" + validationResults.join("\n"))
     }
@@ -118,9 +98,14 @@ export class Transaction {
 
     //Construct XML
     const requestMessage = pain001({ messageId: uuid(), creationDateTime: new Date(), initiatingParty}, quote)
-
-    // TODO call Mojabank
-    //const response = await 
+    console.log('sending pain001 to MojaBank', requestMessage)
+    // call Mojabank
+    await got.post(`${this._config.peerEndpoints.mojabank}/quotes`, {
+      headers: {
+        'content-type': 'application/xml'
+      },
+      body: requestMessage
+    })
 
     return new Promise((success: (response: ApiQuoteResponse) => void, fail: (response: Error) => void ) => {
       this._quoteResultHandler = {
@@ -140,8 +125,38 @@ export class Transaction {
       throw new Error("Can't call 'transfer' more than once.")
     }
 
-    // TODO call Mojabank
+    const transfer: Transfer = {
+      id: uuid(),
+      condition: this._quoteResponse.transferCondition,
+      receiveAmount: this._quoteResponse.sendAmount,
+      receiveCurrency: this._quoteResponse.sendCurrency,
+      receivingParticipant: {
+        bic: this._quoteResponse.receivingParticipantBic,
+        name: this._quoteResponse.receivingParticipantName
+      },
+      receivingParty: {
+        msisdn: this._quoteResponse.receivingPartyMsisdn
+      },
+      sendingParticipant: {
+        bic: this._quoteResponse.sendingParticipantBic,
+        name: this._quoteResponse.sendingParticipantName
+      },
+      sendingParty: {
+        msisdn: this._quoteResponse.sendingPartyMsisdn
+      },
+      transactionId: this._quoteResponse.transactionId
+    }
 
+    //Construct XML
+    const requestMessage = pacs008({ messageId: uuid(), creationDateTime: new Date()}, transfer)
+    console.log('sending pacs008 to MojaBank ', requestMessage)
+    // call Mojabank
+    await got.post(`${this._config.peerEndpoints.mojabank}/transfers`, {
+      headers: {
+        'content-type': 'application/xml'
+      },
+      body: requestMessage
+    })
 
     return new Promise((success: (response: ApiTransferResponse) => void, fail: (response: Error) => void ) => {
       this._transferResultHandler = {
@@ -163,7 +178,6 @@ export class Transaction {
   public handleTransferResponse(response: ApiTransferResponse) {
     if(!this._transferResultHandler) {
       throw new Error('Received transfer response but no request was sent.')
-      return
     }
     this._transferResultHandler.success(response)
   }

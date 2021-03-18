@@ -133,7 +133,7 @@ export class SenderServer {
 
     //Create a new Transaction
     const {msisdn, currency, amount} = request.body
-    const tx = new Transaction()
+    const tx = new Transaction(this._config)
     this._transactions.set(tx.id, tx)
 
     const lookupResult = await tx.lookup(msisdn)
@@ -169,75 +169,13 @@ export class SenderServer {
   }
 
   private async _handleQuoteResponseCallback (request: TApiXmlRequest, reply: TApiXmlReply): Promise<any> {
-
+    console.log('Handling quote response from MojaBank (pain013). raw body', request.body?.raw)
     // TODO - Skipping validation for now
-    // const validationResults = XSD.validate('', request.body!.raw as string)
-    // if (validationResults != null) {
-    //   throw new Error(JSON.stringify(validationResults))
-    // }
-    // let json = request.body!.parsed
-
-    /**
-     * TEST DATA
-     */
-     const requestXml = `<?xml version="1.0" encoding="utf-8"?>
-     <!-- PUT /quotes/7d04b391-0c90-4ad4-9ba8-46232b04e18a -->
-     <Document xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:iso:std:iso:20022:tech:xsd:pain.013.001.06">
-         <CdtrPmtActvtnReq>
-             <GrpHdr>
-                 <MsgId>ca7797b6-c3be-4bfd-a101-904da8b75207</MsgId>
-                 <CreDtTm>2021-02-10T15:07:38.6875000+03:00</CreDtTm>
-                 <NbOfTxs>1</NbOfTxs>
-                 <InitgPty>
-                     <Nm>EQUITY BANK RWANDA LIMITED</Nm>
-                     <Id>
-                         <AnyBIC>EQBLRWRWXXX</AnyBIC>
-                     </Id>
-                 </InitgPty>
-             </GrpHdr>
-             <PmtInf>
-                 <PmtInfId>7e2599df-80a1-4f6e-b381-99536c4d2691</PmtInfId>
-                 <PmtMtd>TRF</PmtMtd>
-                 <ReqdExctnDt>2021-02-10</ReqdExctnDt>
-                 <SvcLvl>
-                     <Cd>SDVA</Cd>
-                 </SvcLvl>
-                 <Dbtr>
-                     <CtctDtls>
-                         <MobNb>+1-574-265-1752</MobNb>	                    <!-- Debtor is identified by a mobile number -->
-                     </CtctDtls>
-                 </Dbtr>
-                 <DbtrAgt>
-                   <FinInstnId>
-                     <BICFI>LAKCUS33</BICFI>
-                     <Nm>LAKE CITY BANK</Nm>	            <!-- Included for information - not required by ISO or Moja -->
-                   </FinInstnId>
-                 </DbtrAgt>
-                 <ChrgBr>DEBT</ChrgBr>                                       <!-- Amount is the amount the creditor will receive... -->
-                 <Cndtn>fH9pAYDQbmoZLPbvv3CSW2RfjU4jvM4ApG_fqGnR7Xs</Cndtn>  <!--    The condition for the quote response           -->
-                 <CdtTrfTxInf>
-                     <PmtId>                                                 <!-- This is the transaction ID -->
-                         <EndToEndId>7e2599df-80a1-4f6e-b381-99536c4d2691</EndToEndId>
-                     </PmtId>
-                     <Amt>
-                         <InstdAmt Ccy="RWF">20200</InstdAmt>                <!-- Amount to send -->
-                     </Amt>
-                     <CdtrAgt>
-                         <FinInstnId>
-                             <BICFI>EQBLRWRWXXX</BICFI>
-                             <Nm>EQUITY BANK RWANDA LIMITED</Nm>	            <!-- Creditor's DFSP -->
-                         </FinInstnId>
-                    </CdtrAgt>
-                    <Cdtr>
-                         <CtctDtls>
-                             <MobNb>+250-70610388</MobNb>	                    <!-- Debtor is identified by a mobile number -->
-                         </CtctDtls>
-                    </Cdtr>
-                 </CdtTrfTxInf>
-             </PmtInf>
-         </CdtrPmtActvtnReq>
-     </Document>`
-     let json = {}
+    const validationResults = XSD.validate(this._config.xsd.pain013, request.body!.raw as string)
+    if (validationResults != null) {
+      throw new Error(JSON.stringify(validationResults))
+    }
+    let json = request.body!.parsed
      
     const quoteResponse : MojaQuoteResponse = {
       initiatingPartyName: '',
@@ -272,23 +210,17 @@ export class SenderServer {
 
     await tx.handleQuoteResponse(quoteResponse)
 
-    reply.code(200).send()
+    reply.code(200).send(JSON.stringify({}))
   }
 
   private async _handlerTransferResponseCallback (request: TApiXmlRequest, reply: TApiXmlReply): Promise<any> {
+    console.log('Handling transfer response from MojaBank (pain002). raw body', request.body?.raw)
 
-    // TODO - Skipping validation for now
-    // const validationResults = XSD.validate('', request.body!.raw as string)
-    // if (validationResults != null) {
-    //   throw new Error(JSON.stringify(validationResults))
-    // }
-    // let json = request.body!.parsed
-
-    /**
-     * TEST DATA
-     */
-     const requestXml = ``
-     let json = {}
+    const validationResults = XSD.validate(this._config.xsd.pain002, request.body!.raw as string)
+    if (validationResults != null) {
+      throw new Error(JSON.stringify(validationResults))
+    }
+    let json = request.body!.parsed
      
     const transferResponse : MojaTransferResponse = {
       transactionId: ''
@@ -311,9 +243,6 @@ export class SenderServer {
 
     await tx.handleTransferResponse(transferResponse)
 
-    reply.code(200).send()
+    reply.code(200).send(JSON.stringify({}))
   }
-
-
-
 }
