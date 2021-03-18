@@ -86,9 +86,9 @@ services:
       - "traefik.basic.protocol=http"
   
   svc-moja-bank:
-    build:
-      context: ./
-      dockerfile: modules/svcMojaBank/Dockerfile
+    image: mojaloop/ml-iso-hackathon:snapshot
+    container_name: hack_svc_mojabank
+    command: npm run start:mojabank:noconfig
     restart: always
     networks:
       - web

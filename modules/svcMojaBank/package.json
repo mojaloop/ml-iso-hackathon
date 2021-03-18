@@ -25,6 +25,7 @@
   "scripts": {
     "start": "npm run start:api",
     "start:api": "tsc && node dist/index.js api --config ../../default.env",
+    "start:noconfig": "node dist/index.js api",
     "build": "tsc",
     "watch": "tsc -w",
     "clean": "rm -Rf dist",
