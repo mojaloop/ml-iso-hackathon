@@ -1,6 +1,7 @@
 # ml-iso-hackathon
 
-Contents:
+Contents
+
 - [1. Overview](#1-overview)
 - [2. Quick Start](#2-quick-start)
 - [3. Developing or running this Demo](#3-developing-or-running-this-demo)
@@ -8,8 +9,8 @@ Contents:
   * [3.2 Building project](#32-building-project)
   * [3.3 Installing dependencies](#33-installing-dependencies)
   * [3.4 Build](#34-build)
-  * [3.5 Running application(s)](#35-running-application(s))
-  * [3.6 Linting](#36-inting)
+  * [3.5 Running application](#35-running-application)
+  * [3.6 Linting](#36-linting)
   * [3.7 Tests](#37-tests)
   * [3.8 Checking and updating dependencies](#38-checking-and-updating-dependencies)
   * [3.9 Cleaning build files and dependencies](#39-cleaning-build-files-and-dependencies)
@@ -91,7 +92,7 @@ This will install:
 > **NOTE**:<br/>
 > `npm run watch`is supported at root or for each module. <br/><br/>
 
-### 3.5 Running application(s)
+### 3.5 Running application
 
 #### Start all
 
@@ -165,15 +166,15 @@ The sequence of steps for this cross border scenario is depicated below as a seq
 While we generally expect to use standard ISO messages, we have made two changes:
 
 1. All the Mojaloop Ids are expected to be UUIDs. We have therefore changed the data types on the ID fields which are exchanged between the two systems to UUIDv4Identifier.
-2. As explained here, Mojaloop uses a cryptographic lock using the ILP protocol.
-2.1 This allows participants to be confident that the eventual payee has been credited with the funds transferred.
-2.2 This cryptographic lock and its key need to be passed back in the appropriate messages to the originating FI (Lake City Bank)
-2.3 The form of the lock and key is an encoded version of a 256-bit signature (43 characters.)
-2.4 We therefore define the following data types: 
-2.4.1 A BinaryString32 simple type which uses a regular expression to specialise the string type.
-2.4.2 An ILPData type which contains either a Condition or a Fulfilment, both of whose type is BinaryString32.
+2. As explained here, Mojaloop uses a cryptographic lock using the ILP protocol.<br/>
+2.1 This allows participants to be confident that the eventual payee has been credited with the funds transferred.<br/>
+2.2 This cryptographic lock and its key need to be passed back in the appropriate messages to the originating FI (Lake City Bank)<br/>
+2.3 The form of the lock and key is an encoded version of a 256-bit signature (43 characters.)<br/>
+2.4 We therefore define the following data types:<br/>
+2.4.1 A BinaryString32 simple type which uses a regular expression to specialise the string type.<br/>
+2.4.2 An ILPData type which contains either a Condition or a Fulfilment, both of whose type is BinaryString32.<br/>
 
-Copies of the modified schemas are included in our submission (example messages are provided in **api/example-messages** folder and xsds are in **xsd** folder).
+Copies of the modified schemas are included in our submission (example messages are provided in **[api/example-messages](./apis/example-messages)** folder and xsds are in **[xsd](./xsd)** folder).
 
 ## 7. Todo
 
