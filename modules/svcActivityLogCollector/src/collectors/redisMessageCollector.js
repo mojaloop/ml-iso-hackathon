@@ -40,7 +40,7 @@ class RedisMessageCollector {
     })
 
     this.nrp.on("error", function(){
-      console.log('ERROR')
+      console.log('ERROR: Connecting to redis')
     })
   }
 
