@@ -12,7 +12,7 @@ services:
       - "./docker/spec_files:/opt/mojaloop-testing-toolkit/spec_files"
       - "./docker/secrets:/opt/mojaloop-testing-toolkit/secrets"
     ports:
-      - "15000:5000"
+      - "5000:5000"
       - "5050:5050"
     environment:
       - AUTH_ENABLED=FALSE
@@ -28,7 +28,7 @@ services:
       - "traefik.docker.network=web"
       - "traefik.enable=true"
       - "traefik.basic.frontend.rule=Host:ttk-backend.hackathon2.moja-lab.live"
-      - "traefik.basic.port:5050"
+      - "traefik.basic.port:5000"
       - "traefik.basic.protocol=http"
 
   mongo:
@@ -41,23 +41,23 @@ services:
   # and perhaps the request isn't being forwarded by traefik in 
   # a way it likes
 
-  ml-testing-toolkit-ui:
-    image: mojaloop/ml-testing-toolkit-ui:v11.8.5
-    container_name: hack_ml-testing-toolkit-ui
-    ports:
-      - "6060:6060"
-    environment:
-      - API_BASE_URL=http://ttk-backend.hackathon2.moja-lab.live
-      - AUTH_ENABLED=FALSE
-    command: nginx -g "daemon off;"
-    networks:
-      - web
-    labels:
-      - "traefik.docker.network=web"
-      - "traefik.enable=true"
-      - "traefik.basic.frontend.rule=Host:ttk.hackathon2.moja-lab.live"
-      - "traefik.basic.port:6060"
-      - "traefik.basic.protocol=http"
+  # ml-testing-toolkit-ui:
+  #   image: mojaloop/ml-testing-toolkit-ui:v11.8.5
+  #   container_name: hack_ml-testing-toolkit-ui
+  #   ports:
+  #     - "6060:6060"
+  #   environment:
+  #     - API_BASE_URL=http://ttk-backend.hackathon2.moja-lab.live
+  #     - AUTH_ENABLED=FALSE
+  #   command: nginx -g "daemon off;"
+  #   networks:
+  #     - web
+  #   labels:
+  #     - "traefik.docker.network=web"
+  #     - "traefik.enable=true"
+  #     - "traefik.basic.frontend.rule=Host:ttk.hackathon2.moja-lab.live"
+  #     - "traefik.basic.port:6060"
+  #     - "traefik.basic.protocol=http"
 
   activity-report-redis:
     container_name: activity_report_redis
@@ -86,15 +86,70 @@ services:
       - "traefik.basic.protocol=http"
   
   svc-moja-bank:
-    build:
-      context: ./
-      dockerfile: modules/svcMojaBank/Dockerfile
+    # build:
+    #   context: ./
+    #   dockerfile: modules/svcMojaBank/Dockerfile
     restart: always
+    container_name: hack_svc_moja_bank
+    command: npm run start:moja:noconfig
+    ports:
+      - "3002:3002"
     networks:
       - web
     env_file:
       - default.env
       - docker-compose.env
+
+  # svc-sender-bank:
+  #   build:
+  #     context: ./
+  #     dockerfile: modules/svcMojaBank/Dockerfile
+  #   restart: always
+  #   command: npm run start:sender:noconfig
+  #   container_name: hack_svc_sender_bank
+  #   networks:
+  #     - web
+  #   env_file:
+  #     - default.env
+  #     - docker-compose.env
+
+  svc-activitylog-collector:
+    image: mojaloop/ml-iso-hackathon:snapshot
+    container_name: hack_svc_activitylog_col
+    env_file:
+      - default.env
+      - docker-compose.env
+    ports:
+      - "7075:7075"
+    command: npm run start:actlogcol
+    networks:
+      - web
+    labels:
+      - "traefik.docker.network=web"
+      - "traefik.enable=true"
+      - "traefik.basic.port:7075"
+      - "traefik.basic.protocol=http"
+
+  svc-simulator-ui:
+    image: mojaloop/ml-iso-hackathon:snapshot
+    container_name: hack_svc_sim_ui
+    env_file:
+      - default.env
+      - docker-compose.env
+    ports:
+      - "7070:7070"
+    command: npm run start:ui:noconfig
+    volumes:
+      - type: bind
+        source: ./docker-compose.env
+        target: /opt/app/default.env
+    networks:
+      - web
+    labels:
+      - "traefik.docker.network=web"
+      - "traefik.enable=true"
+      - "traefik.basic.port:7070"
+      - "traefik.basic.protocol=http"
 
   ##
   # This is just a default landing page to test out our website.
@@ -130,4 +185,3 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./docker/traefik/traefik.toml:/traefik.toml
       - ./docker/traefik/acme.json:/acme.json
-

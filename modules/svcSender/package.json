@@ -23,8 +23,9 @@
     "test:pre-commit"
   ],
   "scripts": {
-    "start": "npm run start:sender",
-    "start:sender": "tsc && node dist/index.js start --config ../../default.env",
+    "start": "npm run start:default",
+    "start:default": "tsc && node dist/index.js api --config ../../default.env",
+    "start:noconfig": "node dist/index.js api",
     "build": "tsc",
     "watch": "tsc -w",
     "clean": "rm -Rf dist",
