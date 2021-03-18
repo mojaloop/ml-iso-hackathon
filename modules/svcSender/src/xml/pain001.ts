@@ -1,27 +1,26 @@
-export interface InitiatingParty {
-  name: string,
-  bic: string
-}
+import { MessageHeaderWithInitiatingParty, Participant, Party } from "./common";
+
 export interface Quote {
   id: string,
-  payeeMsisdn: string,
+  transactionId: string
   sendAmount: string
   sendCurrency: string
+  sendingParticipant: Participant
+  receivingParty: Party
 }
-export function pain001(messageId: string, creationDateTime: Date, initiatingParty: InitiatingParty, quote: Quote, transactionId: string): string {
+export function pain001(header: MessageHeaderWithInitiatingParty, quote: Quote): string {
   return `<?xml version="1.0" encoding="utf-8"?>
-<!-- POST /quotes -->
 <Document xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.10">
     <CstmrCdtTrfInitn>
         <GrpHdr>
-            <MsgId>${messageId}</MsgId>
-            <CreDtTm>${creationDateTime.toISOString()}</CreDtTm>
+            <MsgId>${header.messageId}</MsgId>
+            <CreDtTm>${header.creationDateTime.toISOString()}</CreDtTm>
             <NbOfTxs>1</NbOfTxs>
             <InitgPty>
-                <Nm>${initiatingParty.name}</Nm>
+                <Nm>${header.initiatingParty.name}</Nm>
                 <Id>
                     <OrgId>
-                        <AnyBIC>${initiatingParty.bic}</AnyBIC>
+                        <AnyBIC>${header.initiatingParty.bic}</AnyBIC>
                     </OrgId>
                 </Id>
             </InitgPty>
@@ -46,21 +45,21 @@ export function pain001(messageId: string, creationDateTime: Date, initiatingPar
             </DbtrAcct>
             <DbtrAgt>
                 <FinInstnId>
-                  <BICFI>${initiatingParty.bic}</BICFI>
-                  <Nm>${initiatingParty.name}</Nm>
+                  <BICFI>${quote.sendingParticipant.bic}</BICFI>
+                  <Nm>${quote.sendingParticipant.name}</Nm>
                 </FinInstnId>
             </DbtrAgt>
             <ChrgBr>DEBT</ChrgBr>
             <CdtTrfTxInf>
                 <PmtId>
-                    <EndToEndId>${transactionId}</EndToEndId>
+                    <EndToEndId>${quote.transactionId}</EndToEndId>
                 </PmtId>
                 <Amt>
                     <InstdAmt Ccy="${quote.sendCurrency}">${quote.sendAmount}</InstdAmt>
                 </Amt>
                 <Cdtr>
                     <CtctDtls>
-                        <MobNb>${quote.payeeMsisdn}</MobNb>
+                        <MobNb>${quote.receivingParty.msisdn}</MobNb>
                     </CtctDtls>
                 </Cdtr>
             </CdtTrfTxInf>

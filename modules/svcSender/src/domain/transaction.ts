@@ -7,9 +7,10 @@ import { ApiQuoteResponse, ApiTransferResponse } from "./api"
 import { camt003 } from "../xml/camt003"
 import {v4 as uuid} from 'uuid'
 import { JSONPath } from 'jsonpath-plus'
-import { InitiatingParty, pain001, Quote } from '../xml/pain001'
+import { pain001, Quote } from '../xml/pain001'
 import { GlsLookupResponse, LOOKUP_RESPONSE_JPATHS } from './gls'
 import { MojaQuoteResponse, MojaTransferResponse } from './moja'
+import { Participant } from '../xml/common'
 
 interface Result<ResponseType> {
   success:  (response: ResponseType) => void,
@@ -24,6 +25,7 @@ export class Transaction {
     this.id = uuid()
   }
 
+  private _receivingPartyMsisdn: string
   private _lookupResult: GlsLookupResponse = {
     digitalFinancialServiceProviderId: "",
     financialInstitutionId: "",
@@ -37,8 +39,10 @@ export class Transaction {
 
   public async lookup(msisdn: string): Promise<GlsLookupResponse> {
 
+    this._receivingPartyMsisdn = msisdn
+
     //Construct XML
-    const requestMessage = camt003(uuid(), new Date(), msisdn)
+    const requestMessage = camt003({ messageId: uuid(), creationDateTime: new Date()}, msisdn )
 
     // TODO call GLS for MSISDN info
     const responseMessage = `<?xml version="1.0" encoding="utf-8"?>
@@ -97,13 +101,23 @@ export class Transaction {
 
   }
 
-  public async quote(initiatingParty: InitiatingParty, quote: Quote): Promise<ApiQuoteResponse> {
+  public async quote(initiatingParty: Participant, amount: string, currency: string): Promise<ApiQuoteResponse> {
     if(this._quoteResultHandler) {
         throw new Error("Can't call 'agreement' more than once.")
     }
+    const quote: Quote = {
+      id: uuid(),
+      transactionId: this.id,
+      receivingParty: {
+        msisdn: this._receivingPartyMsisdn
+      },
+      sendingParticipant: initiatingParty,
+      sendAmount: amount,
+      sendCurrency: currency
+    }
 
     //Construct XML
-    const requestMessage = pain001(uuid(), new Date(), initiatingParty, quote, this.id)
+    const requestMessage = pain001({ messageId: uuid(), creationDateTime: new Date(), initiatingParty}, quote)
 
     // TODO call Mojabank
     //const response = await 
@@ -127,7 +141,7 @@ export class Transaction {
     }
 
     // TODO call Mojabank
-    
+
 
     return new Promise((success: (response: ApiTransferResponse) => void, fail: (response: Error) => void ) => {
       this._transferResultHandler = {

@@ -50,10 +50,11 @@ import { FastifyReply, FastifyRequest } from 'fastify'
 import { Server, IncomingMessage, ServerResponse } from 'node:http'
 import { ApiQuoteRequest, ApiQuoteResponse, ApiTransferResponse, ApiTransferRequest, API_QUOTE_REQUEST_SCHEMA, API_TRANSFER_REQUEST_SCHEMA } from '../domain/api'
 import { Transaction } from '../domain/transaction'
-import { InitiatingParty, Quote } from '../xml/pain001'
+import { Quote } from '../xml/pain001'
 import {v4 as uuid} from 'uuid'
 import { JSONPath } from 'jsonpath-plus'
 import { MojaQuoteResponse, MojaTransferResponse, MOJA_QUOTE_RESPONSE_JPATHS, MOJA_TRANSFER_RESPONSE_JPATHS } from '../domain/moja'
+import { Participant } from '../xml/common'
 
 /* eslint-disable-next-line @typescript-eslint/no-var-requires */
 const PACKAGE = require('../../package.json')
@@ -112,7 +113,7 @@ export class SenderServer {
     })
 
     await this._apiServer!.put<RouteXmlInterface>('/callbacks/quotes', this._handleQuoteResponseCallback.bind(this))
-    await this._apiServer!.put('/callbacks/transfers', this._handlerTransferResponseCallback.bind(this))
+    await this._apiServer!.put<RouteXmlInterface>('/callbacks/transfers', this._handlerTransferResponseCallback.bind(this))
 
   }
 
@@ -138,20 +139,13 @@ export class SenderServer {
     const lookupResult = await tx.lookup(msisdn)
 
     // TODO Get these values from somewhere
-    const initiatingParty: InitiatingParty = {
+    const initiatingParty: Participant = {
       name: 'LAKE CITY BANK',
       bic: 'LAKCUS33'
     }
 
-    const quote: Quote = {
-      id: uuid(),
-      payeeMsisdn: msisdn,
-      sendAmount: amount,
-      sendCurrency: currency
-    }
-
     // Perform quote request
-    const quoteResult = await tx.quote(initiatingParty, quote)
+    const quoteResult = await tx.quote(initiatingParty, amount, currency)
 
     return reply
       .code(200)

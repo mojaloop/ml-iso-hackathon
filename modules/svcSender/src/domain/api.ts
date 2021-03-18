@@ -1,4 +1,3 @@
-import { GlsLookupResponse } from "./gls"
 import { MojaQuoteResponse } from "./moja"
 
 export interface ApiQuoteRequest {
@@ -25,7 +24,7 @@ export const API_QUOTE_REQUEST_SCHEMA = {
 }
 
 export interface ApiQuoteResponse extends MojaQuoteResponse {
-  
+
 }
 
 export interface ApiTransferRequest {
