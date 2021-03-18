@@ -94,7 +94,7 @@ group Sender sends a P2P Transfer request to Receiver
                             <SchCrit>
                                 <AcctOwnr>
                                     <CtctDtls>
-                                        <MobNb>**(+250)788301607**
+                                        <MobNb>**+250-788301607**
                                         </MobNb>
                                     </CtctDtls>
                                 </AcctOwnr>
@@ -105,109 +105,105 @@ group Sender sends a P2P Transfer request to Receiver
             </GetAcct>
         end note
     activate GALS
+    note left of GALS #yellow
+        Payload - camt.004:
+        <RtrAcct>
+            <MsgHdr>
+                <MsgId>2d1f2fa1-582c-4ffa-afd2-fc426722f91a
+                </MsgId>
+                <CreDtTm>2021-03-17T12:45:59.155Z</CreDtTm>
+                <OrgnlBizQry>
+                    <MsgId>575b3623-5adf-4752-8da9-a159a179ec9f
+                    </MsgId>
+                </OrgnlBizQry>
+            </MsgHdr>
+            <RptOrErr>
+                <AcctRpt>
+                    <AcctId>
+                        <Othr>
+                            <Id>dfsp.username.5678</Id>
+                            <SchmeNm>
+                                <Cd>BBAN</Cd>
+                            </SchmeNm>
+                        </Othr>
+                    </AcctId>
+                    <AcctOrErr>
+                        <Acct>
+                            <Svcr>
+                                <FinInstnId>
+                                    <BICFI>EQBLRWRWXXX</BICFI>
+                                    <Nm>**EQUITY BANK RWANDA LIMITED**
+                                    </Nm>
+                                </FinInstnId>
+                            </Svcr>
+                        </Acct>
+                    </AcctOrErr>
+                </AcctRpt>
+            </RptOrErr>
+        </RtrAcct>
+    end note
     SendersBank <<- GALS: Reach out to Mojaloop Bank to which this ID is registered <**camt.004**>\n[synchronous response] \nsimilar to PUT /participants/{Type}/{ID} in ML
-        note left of GALS #yellow
-            Payload - camt.004:
-            	<RtrAcct>
-                    <MsgHdr>
-                        <MsgId>a2c5e594-973f-45be-b138-987934156db3
-                        </MsgId>
-                        <CreDtTm>2020-05-14T15:07:38.6875000+03:00
-                        </CreDtTm>
-                        <OrgnlBizQry>										
-                            <MsgId>575b3623-5adf-4752-8da9-a159a179ec9f
-                            </MsgId>
-                        </OrgnlBizQry>
-                    </MsgHdr>
-                    <RptOrErr>
-                        <AcctRpt>
-                            <AcctId>
-                                <Othr>
-                                    <Nm>dfsp.username.5678</Nm>
-                                    <SchmeNm>BBAN</SchmeNm>
-                                </Othr>
-                            </AcctId>
-                            <AcctOrErr>
-                                <Acct>
-                                    <Svcr>
-                                        <FinInstnId>
-                                            <BICFI>EQBLRWRWXXX</BICFI>
-                                            <Nm>**EQUITY BANK RWANDA LIMITED**
-                                            </Nm>
-                                        </FinInstnId>
-                                    </Svcr>
-                                </Acct>
-                            </AcctOrErr>
-                        </AcctRpt>
-                    </RptOrErr>
-                </RtrAcct>
-        end note
     deactivate GALS
 
     hnote across #FFAAAA: Agreement phase
-    SendersBank ->> MojaloopBank: Quote request\n<**pain.001**>\nsimilar to POST /quotes in ML
+    SendersBank ->> MojaloopBank: \nQuote request <**pain.001**>\nsimilar to POST /quotes in ML
         note right of SendersBank #yellow
             Payload - pain.001:
-            <CustomerCreditTransferInitiationV10>
+            <CstmrCdtTrfInitn>
                 <GrpHdr>
-                    <MsgId>7d04b391-0c90-4ad4-9ba8-46232b04e18a
-                    </MsgId>
-                    <CreDtTm>2021-02-10T15:07:38.6875000+03:00
-                    </CreDtTm>
+                    <MsgId>7d04b391-0c90-4ad4-9ba8-46232b04e18a</MsgId>
+                    <CreDtTm>2021-02-10T15:07:38.6875000+03:00</CreDtTm>
                     <NbOfTxs>1</NbOfTxs>
                     <InitgPty>
-                        <Nm>BANQUE DE L'HABITAT DU RWANDA</Nm>
+                        <Nm>**LAKE CITY BANK**</Nm>
                         <Id>
-                            <AnyBIC>LHRWRWR1XXX</AnyBIC>
+                            <OrgId>
+                                <AnyBIC>LAKCUS33</AnyBIC>
+                            </OrgId>
                         </Id>
                     </InitgPty>
                 </GrpHdr>
                 <PmtInf>
-                    <PmtInfId>7e2599df-80a1-4f6e-b381-99536c4d2691
-                    </PmtInfId>
+                    <PmtInfId>7e2599df-80a1-4f6e-b381-99536c4d2691</PmtInfId>
                     <PmtMtd>TRF</PmtMtd>
-                    <ReqdExctnDt>2021-02-10</ReqdExctnDt>
+                    <ReqdExctnDt>
+                        <Dt>2021-02-10</Dt>
+                    </ReqdExctnDt>
                     <Dbtr>
                         <CtctDtls>
-                            <MobNb>(+250)70610388</MobNb>
+                            <MobNb>**+1-574-265-1752**</MobNb>
                         </CtctDtls>
                     </Dbtr>
                     <DbtrAcct>
-                        <Othr>
-                            <Nm>dfsp.username.5678</Nm>
-                            <SchmeNm>BBAN</SchmeNm>
-                        </Othr>
+                        <Id>
+                            <Othr>
+                                <Id>NOTPROVIDED</Id>
+                            </Othr>
+                        </Id>
                     </DbtrAcct>
                     <DbtrAgt>
                         <FinInstnId>
-                            <BICFI>LHRWRWR1XXX</BICFI>
-                            <Nm>BANQUE DE L'HABITAT DU RWANDA
-                            </Nm>
+                            <BICFI>LAKCUS33</BICFI>
+                            <Nm>LAKE CITY BANK</Nm>
                         </FinInstnId>
                     </DbtrAgt>
                     <ChrgBr>DEBT</ChrgBr>
                     <CdtTrfTxInf>
-                        <PmtId>7e2599df-80a1-4f6e-b381-99536c4d2691
+                        <PmtId>
+                            <EndToEndId>7e2599df-80a1-4f6e-b381-99536c4d2691
+                            </EndToEndId>
                         </PmtId>
                         <Amt>
                             <InstdAmt Ccy="RWF">**20000**</InstdAmt>
                         </Amt>
-                        <CdtrAgt>
-                            <FinInstnId>
-                                <BICFI>EQBLRWRWXXX</BICFI>
-                                <Nm>EQUITY BANK RWANDA LIMITED
-                                </Nm>
-                            </FinInstnId>
-                    </CdtrAgt>
-                        <CdtrAcct>
-                            <Othr>
-                                <Nm>dfsp.username.1234</Nm>
-                                <SchmeNm>BBAN</SchmeNm>
-                            </Othr>
-                        </CdtrAcct>
+                        <Cdtr>
+                            <CtctDtls>
+                                <MobNb>**+250-70610388**</MobNb>
+                            </CtctDtls>
+                        </Cdtr>
                     </CdtTrfTxInf>
                 </PmtInf>
-            </CustomerCreditTransferInitiationV10>
+            </CstmrCdtTrfInitn>
         end note
     activate MojaloopBank
     SendersBank <<-- MojaloopBank: HTTP 202 (Accepted)
@@ -371,73 +367,60 @@ group Sender sends a P2P Transfer request to Receiver
     activate SendersBank
         note left of MojaloopBank #yellow
             Payload - pain.013:
-            <CdtrPmtActvtnReq>
-                <GrpHdr>
-                    <MsgId>ca7797b6-c3be-4bfd-a101-904da8b75207</MsgId>
-                    <CreDtTm>2021-02-10T15:07:38.6875000+03:00</CreDtTm>
-                    <NbOfTxs>1</NbOfTxs>
-                    <InitgPty>
-                        <Nm>EQUITY BANK RWANDA LIMITED</Nm>
-                        <Id>
-                            <AnyBIC>EQBLRWRWXXX</AnyBIC>
-                        </Id>
-                    </InitgPty>
-                </GrpHdr>
-                <PmtInf>
-                    <PmtInfId>7e2599df-80a1-4f6e-b381-99536c4d2691</PmtInfId>
-                    <PmtMtd>TRF</PmtMtd>
-                    <ReqdExctnDt>2021-02-10</ReqdExctnDt>
-                    <SvcLvl>
-                        <Cd>SDVA</Cd>
-                    </SvcLvl>
-                    <Dbtr>
-                        <CtctDtls>
-                            <MobNb>(+250)70610388</MobNb>
-                        </CtctDtls>
-                    </Dbtr>
-                    <DbtrAcct>
-                        <Othr>
-                            <Nm>dfsp.username.5678</Nm>
-                            <SchmeNm>BBAN</SchmeNm>
-                        </Othr>
-                    </DbtrAcct>
-                    <DbtrAgt>
-                        <FinInstnId>
-                            <BICFI>LHRWRWR1XXX</BICFI>
-                            <Nm>BANQUE DE L'HABITAT DU RWANDA</Nm>
-                        </FinInstnId>
-                    </DbtrAgt>
-                    <ChrgBr>DEBT</ChrgBr>
-                    <CdtTrfTxInf>
-                        <PmtId>7e2599df-80a1-4f6e-b381-99536c4d2691</PmtId>
-                        <Amt>
-                            <InstdAmt Ccy="RWF">**20200**</InstdAmt>
-                        </Amt>
-                        <CdtrAgt>
+                <CdtrPmtActvtnReq>
+                    <GrpHdr>
+                        <MsgId>ca7797b6-c3be-4bfd-a101-904da8b75207</MsgId>
+                        <CreDtTm>2021-02-10T15:07:38.6875000+03:00</CreDtTm>
+                        <NbOfTxs>1</NbOfTxs>
+                        <InitgPty>
+                            <Nm>**EQUITY BANK RWANDA LIMITED**</Nm>
+                            <Id>
+                                <AnyBIC>EQBLRWRWXXX</AnyBIC>
+                            </Id>
+                        </InitgPty>
+                    </GrpHdr>
+                    <PmtInf>
+                        <PmtInfId>7e2599df-80a1-4f6e-b381-99536c4d2691</PmtInfId>
+                        <PmtMtd>TRF</PmtMtd>
+                        <ReqdExctnDt>2021-02-10</ReqdExctnDt>
+                        <SvcLvl>
+                            <Cd>SDVA</Cd>
+                        </SvcLvl>
+                        <Dbtr>
+                            <CtctDtls>
+                                <MobNb>**+1-574-265-1752**</MobNb>
+                            </CtctDtls>
+                        </Dbtr>
+                        <DbtrAgt>
                             <FinInstnId>
-                                <BICFI>EQBLRWRWXXX</BICFI>
-                                <Nm>EQUITY BANK RWANDA LIMITED</Nm>
+                                <BICFI>LAKCUS33</BICFI>
+                                <Nm>LAKE CITY BANK</Nm>
                             </FinInstnId>
-                    </CdtrAgt>
-                        <CdtrAcct>
-                            <Othr>
-                            <Nm>dfsp.username.1234</Nm>
-                                <SchmeNm>BBAN</SchmeNm>
-                            </Othr>
-                        </CdtrAcct>
-                    </CdtTrfTxInf>
-                </PmtInf>
-                <SplmtryData>
-                    <Envlp>
-                        <Document>
-                            <IlpData>
-                                <Condition>fH9pAYDQbmoZLPbvv3CSW2RfjU4jvM4ApG_fqGnR7Xs
-                                </Condition>
-                            </IlpData>
-                        </Document>
-                    </Envlp>
-                </SplmtryData>
-            </CdtrPmtActvtnReq>
+                        </DbtrAgt>
+                        <ChrgBr>DEBT</ChrgBr>
+                        <Cndtn>fH9pAYDQbmoZLPbvv3CSW2RfjU4jvM4ApG_fqGnR7Xs</Cndtn>
+                        <CdtTrfTxInf>
+                            <PmtId>
+                                <EndToEndId>7e2599df-80a1-4f6e-b381-99536c4d2691</EndToEndId>
+                            </PmtId>
+                            <Amt>
+                                <InstdAmt Ccy="RWF">**20200**</InstdAmt>
+                            </Amt>
+                            <CdtrAgt>
+                                <FinInstnId>
+                                    <BICFI>EQBLRWRWXXX</BICFI>
+                                    <Nm>**EQUITY BANK RWANDA LIMITED<**/Nm>
+                                </FinInstnId>
+                        </CdtrAgt>
+                        <Cdtr>
+                                <CtctDtls>
+                                    <Nm>**Aunt Honorine**</Nm>
+                                    <MobNb>**+250-70610388**</MobNb>
+                                </CtctDtls>
+                        </Cdtr>
+                        </CdtTrfTxInf>
+                    </PmtInf>
+                </CdtrPmtActvtnReq>
         end note
     SendersBank -->> MojaloopBank: HTTP 200 (OK)
     deactivate MojaloopBank
@@ -451,69 +434,50 @@ group Sender sends a P2P Transfer request to Receiver
     activate MojaloopBank
         note right of SendersBank #yellow
             Payload - pacs.008:
-            <FIToFICstmrCdtTrf>
-                <GrpHdr>
-                    <MsgId>7e2599df-80a1-4f6e-b381-99536c4d2691</MsgId>
-                    <CreDtTm>2021-02-10T15:07:38.6875000+03:00</CreDtTm>
-                    <NbOfTxs>1</NbOfTxs>
-                    <SttlmInf>
-                        <SttlmMtd>CLRG</SttlmMtd>
-                    </SttlmInf>
-                    <InitgPty>
-                        <Nm>EQUITY BANK RWANDA LIMITED</Nm>
-                        <Id>
-                            <AnyBIC>EQBLRWRWXXX</AnyBIC>
-                        </Id>
-                    </InitgPty>
-                </GrpHdr>
-                <CdtTrfTxInf>
-                    <PmtInfId>0120a604-aa80-43da-b6f6-c1d5f8aa622e</PmtInfId>
-                    <IntrBkSttlmAmt Ccy="RWF">**20200**</IntrBkSttlmAmt>
-                    <ChrgBr>DEBT</ChrgBr>
-                    <ChrgsInf>
-                        <Amt Ccy="RWF">**200**</Amt>
-                    </ChrgsInf>
+                <FIToFICstmrCdtTrf>
+                    <GrpHdr>
+                        <MsgId>7e2599df-80a1-4f6e-b381-99536c4d2691</MsgId>
+                        <CreDtTm>2021-02-10T15:07:38.6875000+03:00</CreDtTm>
+                        <NbOfTxs>1</NbOfTxs>
+                        <SttlmInf>
+                            <SttlmMtd>CLRG</SttlmMtd>
+                        </SttlmInf>
+                    </GrpHdr>
+                    <CdtTrfTxInf>
+                        <PmtId>
+                            <EndToEndId>0120a604-aa80-43da-b6f6-c1d5f8aa622e
+                            </EndToEndId>
+                        </PmtId>
+                        <Cndtn>
+                            <Condition>fH9pAYDQbmoZLPbvv3CSW2RfjU4jvM4ApG_fqGnR7Xs
+                            </Condition>
+                        </Cndtn>
+                        <IntrBkSttlmAmt Ccy="RWF">**20200**</IntrBkSttlmAmt>
+                        <ChrgBr>DEBT</ChrgBr>
                     <Dbtr>
-                        <CtctDtls>
-                            <MobNb>(+250)70610388</MobNb>
-                        </CtctDtls>
-                    </Dbtr>
-                    <DbtrAcct>
-                        <Othr>
-                            <Nm>dfsp.username.5678</Nm>
-                            <SchmeNm>BBAN</SchmeNm>
-                        </Othr>
-                    </DbtrAcct>
-                    <DbtrAgt>
-                        <FinInstnId>
-                            <BICFI>LHRWRWR1XXX</BICFI>
-                            <Nm>BANQUE DE L'HABITAT DU RWANDA</Nm>
-                        </FinInstnId>
-                    </DbtrAgt>
-                    <CdtrAgt>
-                        <FinInstnId>
-                            <BICFI>EQBLRWRWXXX</BICFI>
-                            <Nm>EQUITY BANK RWANDA LIMITED</Nm>
-                        </FinInstnId>
-                    </CdtrAgt>
-                    <CdtrAcct>
-                        <Othr>
-                        <Nm>dfsp.username.1234</Nm>
-                            <SchmeNm>BBAN</SchmeNm>
-                        </Othr>
-                    </CdtrAcct>
-                </CdtTrfTxInf>
-                <SplmtryData>
-                    <Envlp>
-                        <Document>
-                            <IlpData>
-                                <Condition>fH9pAYDQbmoZLPbvv3CSW2RfjU4jvM4ApG_fqGnR7Xs
-                                </Condition>
-                            </IlpData>
-                        </Document>
-                    </Envlp>
-                </SplmtryData>
-            </FIToFICstmrCdtTrf>
+                            <CtctDtls>
+                                <MobNb>+1-574-265-1752</MobNb>
+                            </CtctDtls>
+                        </Dbtr>
+                        <DbtrAgt>
+                            <FinInstnId>
+                                <BICFI>LAKCUS33</BICFI>
+                                <Nm>LAKE CITY BANK</Nm>
+                            </FinInstnId>
+                        </DbtrAgt>
+                        <CdtrAgt>
+                            <FinInstnId>
+                                <BICFI>EQBLRWRWXXX</BICFI>
+                                <Nm>EQUITY BANK RWANDA LIMITED</Nm>
+                            </FinInstnId>
+                        </CdtrAgt>
+                    <Cdtr>
+                            <CtctDtls>
+                                <MobNb>+250-70610388</MobNb>
+                            </CtctDtls>
+                        </Cdtr>
+                    </CdtTrfTxInf>
+                </FIToFICstmrCdtTrf>
         end note
     SendersBank <<-- MojaloopBank: HTTP 202 (Accepted)
     deactivate SendersBank
@@ -578,39 +542,34 @@ group Sender sends a P2P Transfer request to Receiver
     activate SendersBank
         note left of MojaloopBank #yellow
             Payload - pain.002:
-            <CustomerPaymentStatusReportV11>
-                <GrpHdr>
-                    <MsgId>7e2599df-80a1-4f6e-b381-99536c4d2691</MsgId>
-                    <CreDtTm>2021-02-10T15:07:38.6875000+03:00</CreDtTm>
-                    <DbtrAgt>                                                  
-                        <FinInstnId>
-                            <BICFI>LHRWRWR1XXX</BICFI>
-                            <Nm>BANQUE DE L'HABITAT DU RWANDA</Nm>
-                        </FinInstnId>
-                    </DbtrAgt>
-                    <CdtrAgt>                                              
-                        <FinInstnId>
-                            <BICFI>EQBLRWRWXXX</BICFI>
-                            <Nm>EQUITY BANK RWANDA LIMITED</Nm>
-                        </FinInstnId>
-                    </CdtrAgt>
-                </GrpHdr>
-                <OrgnlGrpInfAndSts>
-                    <OrgnlMsgId>7e2599df-80a1-4f6e-b381-99536c4d2691</OrgnlMsgId>
-                    <OrgnlMsgNmId>pacs.008.001.09</OrgnlMsgNmId>
-                    <GrpSts>ACCC</GrpSts>
-                </OrgnlGrpInfAndSts>
-                <SplmtryData>
-                    <Envlp>
-                        <Document>
-                            <IlpData>
-                                <Fulfilment>mhPUT9ZAwd-BXLfeSd7-YPh46rBWRNBiTCSWjpku90s
-                                **</Fulfilment>
-                            </IlpData>
-                        </Document>
-                    </Envlp>
-                </SplmtryData>
-            </CustomerPaymentStatusReportV11>
+                <CstmrPmtStsRpt>
+                    <GrpHdr>
+                        <MsgId>7e2599df-80a1-4f6e-b381-99536c4d2691</MsgId>
+                        <CreDtTm>2021-02-10T15:07:38.6875000+03:00</CreDtTm>
+                        <IlpData>
+                            <Fulfilment>mhPUT9ZAwd-BXLfeSd7-YPh46rBWRNBiTCSWjpku90s
+                            </Fulfilment>
+                        </IlpData>
+                        <DbtrAgt>                                                  
+                            <FinInstnId>
+                                <BICFI>LAKCUS33</BICFI>
+                                <Nm>LAKE CITY BANK</Nm>
+                            </FinInstnId>
+                        </DbtrAgt>
+                        <CdtrAgt>                                              
+                            <FinInstnId>
+                                <BICFI>EQBLRWRWXXX</BICFI>
+                                <Nm>EQUITY BANK RWANDA LIMITED</Nm>
+                            </FinInstnId>
+                        </CdtrAgt>
+                    </GrpHdr>
+                    <OrgnlGrpInfAndSts>
+                        <OrgnlMsgId>7e2599df-80a1-4f6e-b381-99536c4d2691
+                        </OrgnlMsgId>
+                        <OrgnlMsgNmId>pacs.008.001.09</OrgnlMsgNmId>
+                        <GrpSts>ACCC</GrpSts>
+                    </OrgnlGrpInfAndSts>
+                </CstmrPmtStsRpt>
         end note
     SendersBank -->> MojaloopBank: HTTP 200 (OK)
     deactivate MojaloopBank
