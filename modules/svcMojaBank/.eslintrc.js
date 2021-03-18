@@ -11,13 +11,13 @@ module.exports = {
     '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/consistent-type-definitions': 'off'
   },
+  ignorePatterns: [ '**/*.js',  '**/*.d.ts'],
   overrides: [
     {
       // Disable some rules that we abuse in unit tests.
       files: ['test/**/*.ts'],
       rules: {
-        '@typescript-eslint/explicit-function-return-type': 'off',
-        '@typescript-eslint/no-floating-promises': ['error']
+        '@typescript-eslint/explicit-function-return-type': 'off'
       }
     }
   ]
