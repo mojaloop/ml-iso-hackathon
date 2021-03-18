@@ -1,4 +1,3 @@
-const { getConfig } = require('../lib/config')
 const notify = require('../lib/notify')
 const store = require('../lib/store')
 const convert = require('xml-js')
@@ -14,8 +13,8 @@ class RedisMessageCollector {
   apiBaseUrl = ''
   nrp = null
 
-  constructor () {
-    const { redisConfig } = getConfig()
+  constructor (appConfig) {
+    const { redisConfig } = appConfig
     this.nrp = new NRP(redisConfig)
 
     this.nrp.on('iso:*', (data, channel) => {
