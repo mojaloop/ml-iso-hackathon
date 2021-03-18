@@ -171,8 +171,8 @@ While we generally expect to use standard ISO messages, we have made two changes
 2.2 This cryptographic lock and its key need to be passed back in the appropriate messages to the originating FI (Lake City Bank)<br/>
 2.3 The form of the lock and key is an encoded version of a 256-bit signature (43 characters.)<br/>
 2.4 We therefore define the following data types:<br/>
-2.4.1 A BinaryString32 simple type which uses a regular expression to specialise the string type.<br/>
-2.4.2 An ILPData type which contains either a Condition or a Fulfilment, both of whose type is BinaryString32.<br/>
+2.4.1 A **BinaryString32** simple type which uses a regular expression to specialise the string type.<br/>
+2.4.2 An **ILPData** type which contains either a Condition or a Fulfilment, both of whose type is _BinaryString32_.<br/>
 
 Copies of the modified schemas are included in our submission (example messages are provided in **[api/example-messages](./apis/example-messages)** folder and xsds are in **[xsd](./xsd)** folder).
 

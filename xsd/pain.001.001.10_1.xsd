@@ -659,7 +659,7 @@
     </xs:complexType>
     <xs:complexType name="GroupHeader95">
         <xs:sequence>
-            <xs:element name="MsgId" type="Max35Text"/>
+            <xs:element name="MsgId" type="UUIDv4Identifier"/>
             <xs:element name="CreDtTm" type="ISODateTime"/>
             <xs:element maxOccurs="2" minOccurs="0" name="Authstn" type="Authorisation1Choice"/>
             <xs:element name="NbOfTxs" type="Max15NumericText"/>
@@ -872,7 +872,7 @@
     </xs:complexType>
     <xs:complexType name="PaymentInstruction34">
         <xs:sequence>
-            <xs:element name="PmtInfId" type="Max35Text"/>
+            <xs:element name="PmtInfId" type="UUIDv4Identifier"/>
             <xs:element name="PmtMtd" type="PaymentMethod3Code"/>
             <xs:element maxOccurs="1" minOccurs="0" name="ReqdAdvcTp" type="AdviceType1"/>
             <xs:element maxOccurs="1" minOccurs="0" name="BtchBookg" type="BatchBookingIndicator"/>
