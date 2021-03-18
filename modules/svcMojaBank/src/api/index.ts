@@ -162,56 +162,88 @@ export class Server {
   }
 
   private async _swiftQuoteHandler (request: any, reply: any): Promise<void> {
-    this._logger.debug(`request.body=${JSON.stringify(request.body)}`)
+    try {
+      this._logger.debug(`request.body=${JSON.stringify(request.body)}`)
 
-    const pmtId = JSONPath({ path: '$..CdtTrfTxInf.PmtId', json: request.body })
-    const transactionId = pmtId?.[0]
+      const pmtId = JSONPath({ path: '$..CdtTrfTxInf.PmtId', json: request.body })
+      const transactionId = pmtId?.[0]
+  
+      const pmtInfId = JSONPath({ path: '$..PmtInf.PmtInfId', json: request.body })
+      const quoteId = pmtInfId?.[0]
+  
+      const instdAmt = JSONPath({ path: '$..CdtTrfTxInf.Amt.InstdAmt', json: request.body })
+      const amtObject = instdAmt?.[0]
+      const amount = amtObject['#text']
+      const currency = amtObject?.attr?.Ccy
+  
+      const dbtrMobNb = JSONPath({ path: '$..Dbtr.CtctDtls.MobNb', json: request.body })
+      const payerMsisdn = dbtrMobNb?.[0]
+      
+      const crdtrMobNb = JSONPath({ path: '$..Cdtr.CtctDtls.MobNb', json: request.body })
+      const payeeMsisdn = crdtrMobNb?.[0]
+  
+      const dbtrBicfi = JSONPath({ path: '$..Dbtr.DbtrAgt.FinInstnId.BICFI', json: request.body })
+      const payerFspId = dbtrBicfi?.[0]
+  
+      const quote: Quote = {
+        amount,
+        currency,
+        payerMsisdn,
+        payerFspId,
+        payeeMsisdn,
+        payeeFspId: '',
+        quoteId,
+        transactionId,
+        condition: '',
+        ilpPacket: ''
+      }
+      this._logger.debug(`storing quote info=${JSON.stringify(quote)}`)
+      await this._redis.setQuote(quote)
+      await this._redis.associatePayeeMsisdnToQuote(quote.payeeMsisdn, quote.quoteId)
+      await this._mojaClient.getParties('MSISDN', payeeMsisdn)
+  
+      return reply.code(202).send(JSON.stringify({}))
+    } catch (error) {
+      this._logger.error(error.stack)
 
-    const pmtInfId = JSONPath({ path: '$..PmtInf.PmtInfId', json: request.body })
-    const quoteId = pmtInfId?.[0]
+      const parsedXmlError: string = XML.fromJson({
+        error: {
+          statusCode: '400',
+          message: error.message,
+          stack: error.stack
+        }
+      })
 
-    const instdAmt = JSONPath({ path: '$..CdtTrfTxInf.Amt.InstdAmt', json: request.body })
-    const amtObject = instdAmt?.[0]
-    const amount = amtObject['#text']
-    const currency = amtObject?.attr?.Ccy
+      this._logger.debug(`Server::cmdGetAccount - parsedXmlError - ${parsedXmlError}`)
+      if (this._config.activityEvents.isEnabled === true) {
+        // Publish Activity Egress Event
+        const egressActivityEvent: TPublishEvent = {
+          fromComponent: this._config.activityEvents.MBComponentName,
+          toComponent: this._config.activityEvents.ISOSenderComponentName,
+          xmlData: parsedXmlError
+        }
 
-    const dbtrMobNb = JSONPath({ path: '$..Dbtr.CtctDtls.MobNb', json: request.body })
-    const payerMsisdn = dbtrMobNb?.[0]
-    
-    const crdtrMobNb = JSONPath({ path: '$..Cdtr.CtctDtls.MobNb', json: request.body })
-    const payeeMsisdn = crdtrMobNb?.[0]
-
-    const dbtrBicfi = JSONPath({ path: '$..Dbtr.DbtrAgt.FinInstnId.BICFI', json: request.body })
-    const payerFspId = dbtrBicfi?.[0]
-
-    const quote: Quote = {
-      amount,
-      currency,
-      payerMsisdn,
-      payerFspId,
-      payeeMsisdn,
-      payeeFspId: '',
-      quoteId,
-      transactionId,
-      condition: '',
-      ilpPacket: ''
+        await this._activityService.publish(this._config.activityEvents.MBIngress, egressActivityEvent)
+      }
+      throw error
     }
-    this._logger.debug(`storing quote info=${JSON.stringify(quote)}`)
-    await this._redis.setQuote(quote)
-    await this._redis.associatePayeeMsisdnToQuote(quote.payeeMsisdn, quote.quoteId)
-    await this._mojaClient.getParties('MSISDN', payeeMsisdn)
-
-    return reply.code(202).send(JSON.stringify({}))
   }
 
   private async _partiesResponseHandler (request: any, reply: any): Promise<void> {
-    const payload = request.body as PutPartiesBody
-    this._logger.debug(`parties response=${JSON.stringify(payload)}`)
-
-    // find corresponding swift quote request
-    const payerMsisdn = request.params.msisdn
-    const quote = await this._redis.getQuoteForMsisdn(payerMsisdn)
-    if (quote) {
+    try {
+      const payload = request.body as PutPartiesBody
+      this._logger.debug(`parties response=${JSON.stringify(payload)}`)
+  
+      // find corresponding swift quote request
+      const payeeMsisdn = request.params.msisdn
+      const quote = await this._redis.getQuoteForMsisdn(payeeMsisdn)
+  
+      if (!quote) {
+        const err = new ApiServerError(`No quote found for Mojaloop PUT /parties. payeeMsisdn=${payeeMsisdn}`)
+        err.statusCode = 400
+        throw err
+      }
+  
       // send post quotes to ttk
       quote.payeeFspId = payload.party.partyIdInfo.fspId
       await this._redis.setQuote(quote)
@@ -249,20 +281,47 @@ export class Server {
           ]
         }
       }, payload.party.partyIdInfo.fspId)
-    } else {
-      this._logger.error(`No swift pain.001 found for msisdn=${payerMsisdn}`)
-    }
+  
+      return reply.code(200).send("")
+    } catch (error) {
+      this._logger.error(error.stack)
 
-    return reply.code(200).send("")
+      const parsedXmlError: string = XML.fromJson({
+        error: {
+          statusCode: error.statusCode,
+          message: error.message,
+          stack: error.stack
+        }
+      })
+
+      this._logger.debug(`Server::cmdGetAccount - parsedXmlError - ${parsedXmlError}`)
+      if (this._config.activityEvents.isEnabled === true) {
+        // Publish Activity Egress Event
+        const egressActivityEvent: TPublishEvent = {
+          fromComponent: this._config.activityEvents.MBComponentName,
+          toComponent: this._config.activityEvents.ISOSenderComponentName,
+          xmlData: parsedXmlError
+        }
+
+        await this._activityService.publish(this._config.activityEvents.MBIngress, egressActivityEvent)
+      }
+      throw error
+    }
   }
 
   private async _quoteResponseHandler (request: any, reply: any): Promise<void> {
-    // find quote
-    const payload = request.body as PutQuotesBody
-    const quoteId = request.params.id
-    const quote = await this._redis.getQuote(quoteId)
+    try {
+      // find quote
+      const payload = request.body as PutQuotesBody
+      const quoteId = request.params.id
+      const quote = await this._redis.getQuote(quoteId)
 
-    if (quote) {
+      if (!quote) {
+        const err = new ApiServerError(`No quote found for Mojaloop PUT /quote. quoteId=${quoteId}`)
+        err.statusCode = 400
+        throw err
+      }
+
       // store condition
       quote.condition = payload.condition
       quote.ilpPacket = payload.ilpPacket
@@ -347,35 +406,61 @@ export class Server {
           'content-type': 'application/xml'
         }
       })
-    } else {
-      this._logger.error(`No quote found for Mojaloop quote response. quoteId=${quoteId}`)
+      
+      return reply.code(200).send("")
+    } catch (error) {
+      this._logger.error(error.stack)
+
+      const parsedXmlError: string = XML.fromJson({
+        error: {
+          statusCode: error.statusCode,
+          message: error.message,
+          stack: error.stack
+        }
+      })
+
+      this._logger.debug(`Server::cmdGetAccount - parsedXmlError - ${parsedXmlError}`)
+      if (this._config.activityEvents.isEnabled === true) {
+        // Publish Activity Egress Event
+        const egressActivityEvent: TPublishEvent = {
+          fromComponent: this._config.activityEvents.MBComponentName,
+          toComponent: this._config.activityEvents.ISOSenderComponentName,
+          xmlData: parsedXmlError
+        }
+
+        await this._activityService.publish(this._config.activityEvents.MBIngress, egressActivityEvent)
+      }
+      throw error
     }
-    
-    return reply.code(200).send("")
   }
 
   private async _swiftTransferHandler (request: any, reply: any): Promise<void> {
-    const grpHdrMsgId = JSONPath({ path: '$..GrpHdr.MsgId', json: request.body })
-    
-    const endToEndId = JSONPath({ path: '$..CdtTrfTxInf.PmtInfId.EndToEndId', json: request.body })
-    const transferId = endToEndId?.[0]
+    try {
+      const endToEndId = JSONPath({ path: '$..CdtTrfTxInf.PmtInfId.EndToEndId', json: request.body })
+      const transferId = endToEndId?.[0]
+  
+      const crdtrBicfi = JSONPath({ path: '$..CdtrAgt.FinInstnId.BICFI', json: request.body })
+      const payeeFsp = crdtrBicfi?.[0]
+  
+      const dbtrBicfi = JSONPath({ path: '$..DbtrAgt.FinInstnId.BICFI', json: request.body })
+      const payerFsp = dbtrBicfi?.[0]
+  
+      const instdAmt = JSONPath({ path: '$..CdtTrfTxInf.IntrBkSttlmAmt', json: request.body })
+      const amtObject = instdAmt?.[0]
+      const amount = amtObject['#text']
+      const currency = amtObject?.attr?.Ccy
+  
+      const ilpData = JSONPath({ path: '$..IlpData.Condition', json: request.body })
+      const ilpCondition = ilpData?.[0]
+  
+      const quote = await this._redis.getQuoteFromCondition(ilpCondition ?? '')
 
-    const crdtrBicfi = JSONPath({ path: '$..CdtrAgt.FinInstnId.BICFI', json: request.body })
-    const payeeFsp = crdtrBicfi?.[0]
+      if (!quote) {
+        const err = new ApiServerError(`No quote found for pacs.008. transferId=${transferId}`)
+        err.statusCode = 400
+        throw err
+      }
 
-    const dbtrBicfi = JSONPath({ path: '$..DbtrAgt.FinInstnId.BICFI', json: request.body })
-    const payerFsp = dbtrBicfi?.[0]
-
-    const instdAmt = JSONPath({ path: '$..CdtTrfTxInf.IntrBkSttlmAmt', json: request.body })
-    const amtObject = instdAmt?.[0]
-    const amount = amtObject['#text']
-    const currency = amtObject?.attr?.Ccy
-
-    const ilpData = JSONPath({ path: '$..IlpData.Condition', json: request.body })
-    const ilpCondition = ilpData?.[0]
-
-    const quote = await this._redis.getQuoteFromCondition(ilpCondition ?? '')
-    if (quote){
       await (this._mojaClient as any).postTransfers({
         transferId,
         payeeFsp,
@@ -396,19 +481,46 @@ export class Server {
           ]
         }
       }, quote.payeeFspId)
-    } else {
-      this._logger.error(`No quote found for Swift pacs.008.`)
-    }
+  
+      return reply.code(202).send(JSON.stringify({}))
+    } catch (error) {
+      this._logger.error(error.stack)
 
-    return reply.code(202).send(JSON.stringify({}))
+      const parsedXmlError: string = XML.fromJson({
+        error: {
+          statusCode: error.statusCode,
+          message: error.message,
+          stack: error.stack
+        }
+      })
+
+      this._logger.debug(`Server::cmdGetAccount - parsedXmlError - ${parsedXmlError}`)
+      if (this._config.activityEvents.isEnabled === true) {
+        // Publish Activity Egress Event
+        const egressActivityEvent: TPublishEvent = {
+          fromComponent: this._config.activityEvents.MBComponentName,
+          toComponent: this._config.activityEvents.ISOSenderComponentName,
+          xmlData: parsedXmlError
+        }
+
+        await this._activityService.publish(this._config.activityEvents.MBIngress, egressActivityEvent)
+      }
+      throw error
+    }
   }
 
   private async _transferResponseHandler (request: any, reply: any): Promise<void> {
-    const payload = request.body as PutTransfersBody
+    try {
+      const payload = request.body as PutTransfersBody
 
-    const quote = await this._redis.getQuoteForTransfer(request.params.id)
-
-    if (quote) {
+      const quote = await this._redis.getQuoteForTransfer(request.params.id)
+  
+      if (!quote) {
+        const err = new ApiServerError(`No quote for Mojaloop PUT /transfer. transferId=${request.params.id}`)
+        err.statusCode = 400
+        throw err
+      }
+  
       const pain002 = {
         Document: {
           attr: {
@@ -441,22 +553,22 @@ export class Server {
           }
         }
       }
-
+  
       // TODO: This is already handled by the onSend hook on the ApiServer. Need to re-work this later!
       const parsedXmlResponse: string = XML.fromJson(pain002)
-      this._logger.debug(`Server::_quoteResponseHandler - parsedXmlResponse - ${parsedXmlResponse}`)
+      this._logger.debug(`Server::_transferResponseHandler - parsedXmlResponse - ${parsedXmlResponse}`)
       if (this._config.activityEvents.isEnabled === true) {
         // Publish Activity Egress Event
-
+  
         const egressActivityEvent: TPublishEvent = {
           fromComponent: this._config.activityEvents.MBComponentName,
           toComponent: this._config.activityEvents.ISOSenderComponentName,
           xmlData: parsedXmlResponse
         }
-
+  
         await this._activityService.publish(this._config.activityEvents.MBIngress, egressActivityEvent)
       }
-
+  
       // send to swift bank
       await got.put(`${this._config.peerEndpoints.swift}/transfers/${request.params.id}`, {
         body: XML.fromJson(pain002),
@@ -464,10 +576,31 @@ export class Server {
           'content-type': 'application/xml'
         }
       })
-    } else {
-      this._logger.error(`No quote for transferId=${request.params.id}`)
-    }
+  
+      return reply.code(200).send("")
+    } catch (error) {
+      this._logger.error(error.stack)
 
-    return reply.code(200).send("")
+      const parsedXmlError: string = XML.fromJson({
+        error: {
+          statusCode: error.statusCode,
+          message: error.message,
+          stack: error.stack
+        }
+      })
+
+      this._logger.debug(`Server::cmdGetAccount - parsedXmlError - ${parsedXmlError}`)
+      if (this._config.activityEvents.isEnabled === true) {
+        // Publish Activity Egress Event
+        const egressActivityEvent: TPublishEvent = {
+          fromComponent: this._config.activityEvents.MBComponentName,
+          toComponent: this._config.activityEvents.ISOSenderComponentName,
+          xmlData: parsedXmlError
+        }
+
+        await this._activityService.publish(this._config.activityEvents.MBIngress, egressActivityEvent)
+      }
+      throw error
+    }
   }
 }
