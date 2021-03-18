@@ -105,7 +105,7 @@ group Sender sends a P2P Transfer request to Receiver
             </GetAcct>
         end note
     activate GALS
-    SendersBank <<- GALS: <**camt.004**> Reach out to Mojaloop Bank to which this ID is registered\n[synchronous response] \nsimilar to PUT /participants/{Type}/{ID} in ML
+    SendersBank <<- GALS: Reach out to Mojaloop Bank to which this ID is registered <**camt.004**>\n[synchronous response] \nsimilar to PUT /participants/{Type}/{ID} in ML
         note left of GALS #yellow
             Payload - camt.004:
             	<RtrAcct>
