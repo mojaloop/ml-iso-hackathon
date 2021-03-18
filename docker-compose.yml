@@ -12,13 +12,11 @@ services:
       - "./docker/spec_files:/opt/mojaloop-testing-toolkit/spec_files"
       - "./docker/secrets:/opt/mojaloop-testing-toolkit/secrets"
     ports:
-      - "15000:5000"
+      - "5000:5000"
       - "5050:5050"
     environment:
       - AUTH_ENABLED=FALSE
     command: npm start
-    depends_on:
-      - mongo
     networks:
       - web
     extra_hosts:
@@ -28,36 +26,31 @@ services:
       - "traefik.docker.network=web"
       - "traefik.enable=true"
       - "traefik.basic.frontend.rule=Host:ttk-backend.hackathon2.moja-lab.live"
-      - "traefik.basic.port:5050"
+      - "traefik.basic.port=5000"
       - "traefik.basic.protocol=http"
 
-  mongo:
-    image: mongo
-    ports:
-      - "27018:27017"
+  ## Hmm this isn't reachable at ttk.hackathon2.moja-lab.live
+  ## I suspect is has something to do with how the ttk is running nginx...
+  ## and perhaps the request isn't being forwarded by traefik in 
+  ## a way it likes
 
-  # Hmm this isn't reachable at ttk.hackathon2.moja-lab.live
-  # I suspect is has something to do with how the ttk is running nginx...
-  # and perhaps the request isn't being forwarded by traefik in 
-  # a way it likes
-
-  ml-testing-toolkit-ui:
-    image: mojaloop/ml-testing-toolkit-ui:v11.8.5
-    container_name: hack_ml-testing-toolkit-ui
-    ports:
-      - "6060:6060"
-    environment:
-      - API_BASE_URL=http://ttk-backend.hackathon2.moja-lab.live
-      - AUTH_ENABLED=FALSE
-    command: nginx -g "daemon off;"
-    networks:
-      - web
-    labels:
-      - "traefik.docker.network=web"
-      - "traefik.enable=true"
-      - "traefik.basic.frontend.rule=Host:ttk.hackathon2.moja-lab.live"
-      - "traefik.basic.port:6060"
-      - "traefik.basic.protocol=http"
+  # ml-testing-toolkit-ui:
+  #   image: mojaloop/ml-testing-toolkit-ui:v11.8.5
+  #   container_name: hack_ml-testing-toolkit-ui
+  #   ports:
+  #     - "6060:6060"
+  #   environment:
+  #     - API_BASE_URL=http://ttk-backend.hackathon2.moja-lab.live
+  #     - AUTH_ENABLED=FALSE
+  #   command: nginx -g "daemon off;"
+  #   networks:
+  #     - web
+  #   labels:
+  #     - "traefik.docker.network=web"
+  #     - "traefik.enable=true"
+  #     - "traefik.frontend.rule=Host:ttk.hackathon2.moja-lab.live"
+  #     - "traefik.port=6060"
+  #     - "traefik.protocol=http"
 
   activity-report-redis:
     container_name: activity_report_redis
@@ -71,30 +64,105 @@ services:
   svc-global-discovery:
     image: mojaloop/ml-iso-hackathon:snapshot
     container_name: hack_svc_global_disc
-    env_file:
-      - default.env
-      - docker-compose.env
     ports:
       - "3003:3003"
-    command: npm run start:gds:noconfig
+    command: npm run start:gds
+    depends_on: 
+      - activity-report-redis
     networks:
       - web
     labels:
       - "traefik.docker.network=web"
       - "traefik.enable=true"
-      - "traefik.basic.port:3003"
-      - "traefik.basic.protocol=http"
-  
+      - "traefik.port=3003"
+      - "traefik.frontend.rule=Host:gds.hackathon2.moja-lab.live"
+      - "traefik.protocol=http"
+    volumes:
+      - ./docker-compose.env:/opt/app/default.env
+
   svc-moja-bank:
     image: mojaloop/ml-iso-hackathon:snapshot
-    container_name: hack_svc_mojabank
-    command: npm run start:mojabank:noconfig
+    container_name: hack_svc_moja_bank
+    command: npm run start:moja
     restart: always
+    depends_on: 
+      - activity-report-redis
+    ports:
+      - "3002:3002"
     networks:
       - web
+    labels:
+      - "traefik.docker.network=web"
+      - "traefik.enable=true"
+      - "traefik.port=3002"
+      - "traefik.frontend.rule=Host:mojabank.hackathon2.moja-lab.live"
+      - "traefik.protocol=http"
+    volumes:
+      - ./docker-compose.env:/opt/app/default.env
+
+  # svc-sender-bank:
+  #   build:
+  #     context: ./
+  #     dockerfile: modules/svcMojaBank/Dockerfile
+  #   image: mojaloop/ml-iso-hackathon:snapshot
+  #   command: npm run start:sender:noconfig
+  #   restart: always
+  #   container_name: hack_svc_sender_bank
+  #   networks:
+  #     - web
+  #   env_file:
+  #     - default.env
+  #     - docker-compose.env
+  #   labels:
+  #     - "traefik.docker.network=web"
+  #     - "traefik.enable=true"
+  #     - "traefik.basic.port:3002"
+  #     - "traefik.basic.frontend.rule=Host:senderbank.hackathon2.moja-lab.live"
+  #     - "traefik.basic.protocol=http"
+  #   volumes:
+  #      - ./docker-compose.env:/opt/app/default.env
+
+  svc-activitylog-collector:
+    image: mojaloop/ml-iso-hackathon:snapshot
+    container_name: hack_svc_activitylog_col
     env_file:
       - default.env
       - docker-compose.env
+    ports:
+      - "7075:7075"
+    command: npm run start:actlogcol
+    depends_on: 
+      - activity-report-redis
+    networks:
+      - web
+    labels:
+      - "traefik.docker.network=web"
+      - "traefik.enable=true"
+      - "traefik.port=7075"
+      - "traefik.frontend.rule=Host:actlog.hackathon2.moja-lab.live"
+      - "traefik.protocol=http"
+    volumes:
+      - ./docker-compose.env:/opt/app/default.env
+
+  svc-simulator-ui:
+    image: mojaloop/ml-iso-hackathon:snapshot
+    container_name: hack_svc_sim_ui
+    ports:
+      - "7070:7070"
+    command: npm run start:ui
+    # command: npx lerna run --no-progress --stream --scope='@mojaloop-iso-hackathon/service-sim-ui' start-dev
+    depends_on: 
+      - svc-activitylog-collector
+    networks:
+      - web
+    labels:
+      - "traefik.docker.network=web"
+      - "traefik.enable=true"
+      - "traefik.port=7070"
+      - "traefik.frontend.rule=Host:sim.hackathon2.moja-lab.live"
+      - "traefik.protocol=http"
+    volumes:
+      - ./docker-compose.env:/opt/app/default.env
 
   ##
   # This is just a default landing page to test out our website.
@@ -113,14 +181,17 @@ services:
     labels:
       - "traefik.docker.network=web"
       - "traefik.enable=true"
-      - "traefik.basic.frontend.rule=Host:hackathon2.moja-lab.live"
-      - "traefik.basic.port=80"
-      - "traefik.basic.protocol=http"
+      - "traefik.frontend.rule=Host:hackathon2.moja-lab.live"
+      - "traefik.port=80"
+      - "traefik.protocol=http"
 
   traefik:
     image: traefik:1.7
     container_name: traefik
     restart: always
+    # Disable logging as it is far too verbose for debugging locally
+    # logging:
+    #   driver: none
     ports:
       - 80:80
       - 443:443
@@ -130,4 +201,3 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./docker/traefik/traefik.toml:/traefik.toml
       - ./docker/traefik/acme.json:/acme.json
-

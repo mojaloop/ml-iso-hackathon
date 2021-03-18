@@ -82,12 +82,12 @@ Program.command('api')
         prefix: getEnvValueOrDefault('METRIC_PREFIX', 'hackiso_') as string
       },
       api: {
-        host: getEnvValueOrDefault(process.env.MB_API_HOST as string, '0.0.0.0') as string,
-        port: getEnvIntegerOrDefault(process.env.MB_API_PORT as string, 3003) as number
+        host: getEnvValueOrDefault('MB_API_HOST', '0.0.0.0') as string,
+        port: getEnvIntegerOrDefault('MB_API_PORT', 3003) as number
       },
       peerEndpoints: {
-        mojaloop: getEnvValueOrDefault(process.env.MB_MOJALOOP_PEER_ENDPOINT as string, 'http://localhost:15000') as string,
-        swift: getEnvValueOrDefault(process.env.MB_SWIFT_PEER_ENDPOINT as string, 'http://swift:3000') as string
+        mojaloop: getEnvValueOrDefault('MB_MOJALOOP_PEER_ENDPOINT', 'http://localhost:15000') as string,
+        swift: getEnvValueOrDefault('MB_SWIFT_PEER_ENDPOINT', 'http://swift:3000') as string
       },
       activityService: {
         host: getEnvValueOrDefault('ACTIVITY_SERVER_HOST', null),
@@ -99,7 +99,7 @@ Program.command('api')
         MBComponentName: getEnvValueOrDefault('ACTIVITY_MOJABANK_COMPONENT_NAME', null),
         MBEgress: getEnvValueOrDefault('ACTIVITY_MOJABANK_EVENT_EGRESS', null)
       },
-      redisUrl: getEnvValueOrDefault(process.env.MB_REDIS_URL as string, 'redis://localhost:6379') as string,
+      redisUrl: getEnvValueOrDefault('MB_REDIS_URL', 'redis://localhost:6379') as string,
     }
 
     // Instantiate logger

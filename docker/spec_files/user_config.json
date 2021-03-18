@@ -1,6 +1,6 @@
 {
   "VERSION": 1,
-  "CALLBACK_ENDPOINT": "http://pisp-sim-scheme-adapter:8000",
+  "CALLBACK_ENDPOINT": "http://svc-moja-bank:3002",
   "ALS_ENDPOINT": "http://account-lookup-service:4002",
   "CALLBACK_RESOURCE_ENDPOINTS": {
     "enabled": false,
@@ -8,17 +8,17 @@
       {
         "method": "put",
         "path": "/parties/{Type}/{ID}",
-        "endpoint": "http://localhost:4002"
+        "endpoint": "http://localhost:3003"
       },
       {
         "method": "put",
         "path": "/quotes/{ID}",
-        "endpoint": "http://localhost:3002"
+        "endpoint": "http://localhost:3003"
       },
       {
         "method": "put",
         "path": "/transfers/{ID}",
-        "endpoint": "http://localhost:3000"
+        "endpoint": "http://localhost:3003"
       }
     ]
   },
