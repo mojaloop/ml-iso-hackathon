@@ -89,9 +89,10 @@ services:
     # build:
     #   context: ./
     #   dockerfile: modules/svcMojaBank/Dockerfile
-    restart: always
+    image: mojaloop/ml-iso-hackathon:snapshot
     container_name: hack_svc_moja_bank
     command: npm run start:moja:noconfig
+    restart: always
     ports:
       - "3002:3002"
     networks:
@@ -104,8 +105,9 @@ services:
   #   build:
   #     context: ./
   #     dockerfile: modules/svcMojaBank/Dockerfile
-  #   restart: always
+  #   image: mojaloop/ml-iso-hackathon:snapshot
   #   command: npm run start:sender:noconfig
+  #   restart: always
   #   container_name: hack_svc_sender_bank
   #   networks:
   #     - web
