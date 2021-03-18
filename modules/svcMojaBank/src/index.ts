@@ -86,7 +86,7 @@ Program.command('api')
         port: getEnvIntegerOrDefault('MB_API_PORT', 3003) as number
       },
       peerEndpoints: {
-        mojaloop: getEnvValueOrDefault('MB_MOJALOOP_PEER_ENDPOINT', 'http://localhost:15000') as string,
+        mojaloop: getEnvValueOrDefault('MB_MOJALOOP_PEER_ENDPOINT', 'localhost:5000') as string,
         swift: getEnvValueOrDefault('MB_SWIFT_PEER_ENDPOINT', 'http://swift:3000') as string
       },
       activityService: {
