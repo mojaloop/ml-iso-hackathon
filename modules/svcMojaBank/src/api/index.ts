@@ -239,6 +239,14 @@ export class Server {
           scenario: 'TRANSFER',
           initiator: 'PAYER',
           initiatorType: 'CONSUMER'
+        },
+        extensionList: {
+          extension: [
+            {
+              key: 'pain.001',
+              value: JSON.stringify(request.body)
+            }
+          ]
         }
       }, payload.party.partyIdInfo.fspId)
     } else {
@@ -378,7 +386,15 @@ export class Server {
         },
         condition: quote.condition,
         ilpPacket: quote.ilpPacket,
-        expiration: (new Date()).toISOString()
+        expiration: (new Date()).toISOString(),
+        extensionList: {
+          extension: [
+            {
+              key: 'pacs.008',
+              value: JSON.stringify(request.body)
+            }
+          ]
+        }
       }, quote.payeeFspId)
     } else {
       this._logger.error(`No quote found for Swift pacs.008.`)
