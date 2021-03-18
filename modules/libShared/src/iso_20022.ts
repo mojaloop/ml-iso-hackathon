@@ -41,19 +41,23 @@ export const ISO20022 = {
     }
   },
   Messages: {
+    // Todo: Set the bellow values via an arbitrary param tuple list that contains something like this: (jsonpath, value).
     Camt004: (
       RtrAcctMsgHdrOrgnlBizQryMsgId: string | undefined,
       RtrAcctRptOrErrAcctRptAcctIdOthrNm: string | undefined,
-      RtrAcctRptOrErrAcctRptAcctIdOthrSchmeNm: string | undefined,
+      RtrAcctRptOrErrAcctRptAcctIdOthrSchmeNmCd: string | undefined,
       RtrAcctRptOrErrAcctRptAcctOrErrAcctSvcrFinInstnIdBICFI: string | undefined,
       RtrAcctRptOrErrAcctRptAcctOrErrAcctSvcrFinInstnIdNm: string | undefined,
       RtrAcctRptOrErrAcctRptAcctOrErrBizErrErrCd: string | null = null
     ) => {
       const xmlAcctId: any = {}
-      if (RtrAcctRptOrErrAcctRptAcctIdOthrNm != null && RtrAcctRptOrErrAcctRptAcctIdOthrSchmeNm != null) {
+      if (RtrAcctRptOrErrAcctRptAcctIdOthrNm != null && RtrAcctRptOrErrAcctRptAcctIdOthrSchmeNmCd != null) {
         xmlAcctId.Othr = {
-          Nm: RtrAcctRptOrErrAcctRptAcctIdOthrNm,
-          SchmeNm: RtrAcctRptOrErrAcctRptAcctIdOthrSchmeNm
+          Id: RtrAcctRptOrErrAcctRptAcctIdOthrNm,
+          // Nm: RtrAcctRptOrErrAcctRptAcctIdOthrNm, // this is invalid
+          SchmeNm: {
+            Cd: RtrAcctRptOrErrAcctRptAcctIdOthrSchmeNmCd
+          }
         }
       }
 

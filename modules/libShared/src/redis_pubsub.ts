@@ -1,4 +1,3 @@
-
 /*****
  License
  --------------
@@ -30,61 +29,56 @@
 ******/
 
 'use strict'
-
+import { ILogger } from './ilogger'
 /* eslint-disable-next-line @typescript-eslint/no-var-requires */
-const XmlParser = require('fast-xml-parser')
+const NRP = require('node-redis-pubsub')
 
-// could move this to config
-const Options = {
-  attributeNamePrefix: '', // default is "@_"
-  attrNodeName: 'attr', // default is 'false'
-  textNodeName: '#text',
-  ignoreAttributes: false,
-  ignoreNameSpace: false,
-  allowBooleanAttributes: false,
-  parseNodeValue: true,
-  parseAttributeValue: false,
-  trimValues: true,
-  cdataTagName: '__cdata', // default is 'false'
-  cdataPositionChar: '\\c',
-  parseTrueNumberOnly: false,
-  arrayMode: false // "strict"
+export type TRedisPubSubOptions = {
+  host?: string
+  port?: number
+  scope?: string
 }
 
-export type TPayload = string | object | undefined
-
-export type ValidateResponse = {
-  err: {
-    line: string
-    msg: string
-  } | undefined
+export type TPublishEvent = {
+  fromComponent: string
+  toComponent: string
+  xmlData: string
 }
 
-const validate = (payload: TPayload): ValidateResponse => {
-  return XmlParser.validate(payload, Options)
-}
+export class RedisPubSub {
+  private readonly _logger: ILogger
+  private readonly _options: TRedisPubSubOptions
+  private _clientOptions: TRedisPubSubOptions
+  private _nrpClient: any
 
-const jsonify = (payload: TPayload, isValidationEnabled: boolean = true): ValidateResponse => {
-  if (isValidationEnabled) {
-    const result = validate(payload)
-    if (result.err !== undefined) {
-      throw new Error(`Invalid XML Format - [${result?.err?.line}]: ${result?.err?.msg}`)
-    } else {
-      return XmlParser.parse(payload, Options)
-    }
-  } else {
-    return XmlParser.parse(payload, Options)
+  constructor (opts: TRedisPubSubOptions, logger: ILogger) {
+    this._logger = logger
+    this._options = opts
   }
-}
 
-const fromJson = (payload: TPayload): any => {
-  const J2XParser = XmlParser.j2xParser
-  const parser = new J2XParser(Options)
-  return parser.parse(payload)
-}
+  async init (): Promise<void> {
+    const defaultServerOptions: TRedisPubSubOptions = {
+      host: 'localhost',
+      port: 6379,
+      scope: 'mojaloop'
+    }
 
-export const XML = {
-  validate,
-  jsonify,
-  fromJson
+    // copy default config
+    this._clientOptions = { ...defaultServerOptions }
+    // override any values with the options given to the client
+    Object.assign(this._clientOptions, this._options)
+
+    this._nrpClient = new NRP(this._clientOptions)
+
+    this._logger.isInfoEnabled() && this._logger.info(`RedisPubSub::init - opts: ${JSON.stringify(this._clientOptions)}`)
+  }
+
+  async publish (topic: string, event: TPublishEvent): Promise<void> {
+    this._logger.isDebugEnabled() && this._logger.debug(`RedisPubSub::publish(topic: ${topic}, event: ${JSON.stringify(event)})`)
+    this._nrpClient.emit(topic, event)
+  }
+
+  async destroy (): Promise<void> {
+    await this._nrpClient.quit()
+  }
 }
