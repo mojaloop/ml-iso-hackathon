@@ -1,4 +1,3 @@
-const { getConfig } = require('../lib/config')
 const notify = require('../lib/notify')
 const store = require('../lib/store')
 const socketIOClient = require('socket.io-client')
@@ -25,8 +24,8 @@ class TTKSocketMessageCollector {
 
   apiBaseUrl = ''
 
-  constructor () {
-    const { ttkApiBaseUrl } = getConfig()
+  constructor (appConfig) {
+    const { ttkApiBaseUrl } = appConfig
     this.apiBaseUrl = ttkApiBaseUrl
     for (const logType of Object.keys(this.logTypes)) {
       const item = this.logTypes[logType]
