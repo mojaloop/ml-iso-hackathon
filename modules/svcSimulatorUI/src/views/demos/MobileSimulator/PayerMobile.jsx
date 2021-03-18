@@ -32,6 +32,7 @@ class PayerMobile extends React.Component {
     stage: null,
     amount: 100,
     idType: 'MSISDN',
+    idValue: '',
     partyInfo: {},
     quotesRequest: {},
     quotesResponse: {},
@@ -47,23 +48,6 @@ class PayerMobile extends React.Component {
 
   handleNotificationEvents = (event) => {
     switch(event.type) {
-      case 'getParties':
-      {
-        break
-      }
-      case 'getPartiesResponse':
-      {
-        break
-      }
-      case 'putParties':
-      {
-        this.setState({gettingPartyInfo: false, stage: 'putParties', partyInfo: event.data.party})
-        break
-      }
-      case 'putPartiesResponse':
-      {
-        break
-      }
       case 'postQuotes':
       {
         this.setState({quotesRequest: event.data.quotesRequest})
@@ -104,67 +88,10 @@ class PayerMobile extends React.Component {
 
   getStageData = () => {
     switch(this.state.stage) {
-      case 'getParties':
       case 'postQuotes':
       case 'postTransfers':
         return <Skeleton active />
-      case 'putParties':
-        return (
-          <Card className='mr-3'>
-            <Row>
-              <Col span={12}>
-                <Text>F.Name:</Text>
-              </Col>
-              <Col span={12}>
-                <Text strong>{this.state.partyInfo && this.state.partyInfo.personalInfo && this.state.partyInfo.personalInfo.complexName && this.state.partyInfo.personalInfo.complexName.firstName}</Text>
-              </Col>
-            </Row>
-            <Row>
-              <Col span={12}>
-                <Text>M.Name:</Text>
-              </Col>
-              <Col span={12}>
-                <Text strong>{this.state.partyInfo && this.state.partyInfo.personalInfo && this.state.partyInfo.personalInfo.complexName && this.state.partyInfo.personalInfo.complexName.middleName}</Text>
-              </Col>
-            </Row>
-            <Row>
-              <Col span={12}>
-                <Text>L.Name:</Text>
-              </Col>
-              <Col span={12}>
-                <Text strong>{this.state.partyInfo && this.state.partyInfo.personalInfo && this.state.partyInfo.personalInfo.complexName && this.state.partyInfo.personalInfo.complexName.lastName}</Text>
-              </Col>
-            </Row>
-            <Row>
-              <Col span={12}>
-                <Text>Bank:</Text>
-              </Col>
-              <Col span={12}>
-                <Text strong>Green Bank</Text>
-              </Col>
-            </Row>
-            <Row className='mt-4'>
-              <Col span={24}>
-                <Text strong>Amount:</Text>
-                <InputNumber
-                  className='ml-2'
-                  value={this.state.amount}
-                  onChange={(newNumber) => {
-                    this.setState({amount: newNumber})
-                  }}
-                  formatter={value => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                  parser={value => value.replace(/\$\s?|(,*)/g, '')}
-                />
-              </Col>
-            </Row>
-            <Row className='mt-4'>
-              <Col span={24} className='text-center'>
-                <Button type='primary' shape="round" danger onClick={this.handleGetQuote}>Get Quote</Button>
-              </Col>
-            </Row>
-            
-          </Card>
-        )
+
       case 'putQuotes':
         return (
           <Card className='mr-3'>
@@ -227,25 +154,59 @@ class PayerMobile extends React.Component {
           </Row>
         )
       default:
-        return null
+        return (
+          <Card className='mr-3'>
+            <Row className='mt-1'>
+              <Col span={24}>
+                <Text strong>Enter User ID</Text>
+                <Input
+                  className='ml-2'
+                  placeholder='User ID'
+                  defaultValue={'987654320'}
+                  onChange={(newID) => {
+                    this.setState({idValue: newID})
+                  }}
+                />
+              </Col>
+            </Row>
+            <Row className='mt-4'>
+              <Col span={24}>
+                <Text strong>Amount:</Text>
+                <InputNumber
+                  className='ml-2'
+                  value={this.state.amount}
+                  onChange={(newNumber) => {
+                    this.setState({amount: newNumber})
+                  }}
+                  // formatter={value => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                  // parser={value => value.replace(/\$\s?|(,*)/g, '')}
+                />
+              </Col>
+            </Row>
+            <Row className='mt-4'>
+              <Col span={24} className='text-center'>
+                <Button type='primary' shape="round" danger onClick={this.handleGetQuote}>Get Quote</Button>
+              </Col>
+            </Row>
+            
+          </Card>
+        )
     }
   }
 
-  handleSearch = async (idNumber) => {
-    // this.setState({gettingPartyInfo: true, stage: 'getParties'})
-    // const resp = await this.props.outboundService.getParties(idNumber)
-  }
-
   handleGetQuote = async (e) => {
-    // this.setState({stage: 'postQuotes'})
-    // const resp = await this.props.outboundService.postQuotes(this.state.amount)
+    this.setState({stage: 'postQuotes'})
+    // const resp = await this.props.outboundService.postQuotes(this.state.idValue, this.state.amount, 'RWF')
+    this.setState({stage: 'putQuotes'})
+
   }
 
   handleSend = async (e) => {
-    // this.setState({stage: 'postTransfers'})
+    this.setState({stage: 'postTransfers'})
     // if (this.state.quotesRequest && this.state.quotesResponse) {
-    //   const resp = await this.props.outboundService.postTransfers(this.state.amount, this.state.quotesRequest.transactionId, this.state.quotesResponse.expiration, this.state.quotesResponse.ilpPacket, this.state.quotesResponse.condition)
-    // } 
+      //   const resp = await this.props.outboundService.postTransfers(this.state.amount, this.state.quotesRequest.transactionId, this.state.quotesResponse.expiration, this.state.quotesResponse.ilpPacket, this.state.quotesResponse.condition)
+      // } 
+    this.setState({stage: 'putTransfers'})
   }
   
   handleCancel = (e) => {
@@ -256,17 +217,7 @@ class PayerMobile extends React.Component {
   render() {
     return (
       <>
-      <Row className='mt-4 ml-2'>
-        <Col span={24}>
-          <Text strong>Enter Phone Number</Text>
-          <Input.Search
-            placeholder='Phone Number'
-            loading={this.state.gettingPartyInfo}
-            defaultValue={'987654320'}
-            onSearch={this.handleSearch}
-          />
-        </Col>
-      </Row>
+
       <Row className='mt-4 ml-2'>
         <Col span={24}>
           { this.getStageData() }

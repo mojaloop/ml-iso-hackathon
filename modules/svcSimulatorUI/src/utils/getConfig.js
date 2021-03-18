@@ -30,8 +30,9 @@ const getConfig = () => {
   if (!apiBaseUrl.startsWith('http')) {
     apiBaseUrl = `${protocol}//${hostname}:7075`
   }
+  const senderApiUrl = 'http://localhost:3030'
 
-  return { apiBaseUrl }
+  return { apiBaseUrl, senderApiUrl }
 }
 
 export const getServerConfig = async () => {

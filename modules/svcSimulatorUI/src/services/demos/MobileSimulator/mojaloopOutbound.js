@@ -28,14 +28,16 @@ import { TraceHeaderUtils } from '@mojaloop/ml-testing-toolkit-shared-lib'
 class OutboundService {
 
   apiBaseUrl = ''
+  senderApiUrl = ''
   inputValues = {}
   sessionId = '123'
 
   constructor (sessionId = '123') {
-    const { apiBaseUrl } = getConfig()
+    const { apiBaseUrl, senderApiUrl } = getConfig()
     this.apiBaseUrl = apiBaseUrl
+    this.senderApiUrl = senderApiUrl
     this.sessionId = sessionId
-    this.reloadEnvironment()
+    // this.reloadEnvironment()
   }
 
   getSessionId () {
@@ -48,87 +50,40 @@ class OutboundService {
     return traceIdPrefix + this.sessionId + currentEndToEndId
   }
   
-  async reloadEnvironment () {
-    const environmentURL = '/api/samples/loadFolderWise?environment=examples/environments/hub-k8s-local-environment.json'
-    const resp = await axios.get(this.apiBaseUrl + environmentURL)
-    if (resp.data && resp.data.body && resp.data.body.environment) {
-      this.inputValues =  resp.data.body.environment
+  // async reloadEnvironment () {
+  //   const environmentURL = '/api/samples/loadFolderWise?environment=examples/environments/hub-k8s-local-environment.json'
+  //   const resp = await axios.get(this.apiBaseUrl + environmentURL)
+  //   if (resp.data && resp.data.body && resp.data.body.environment) {
+  //     this.inputValues =  resp.data.body.environment
+  //   }
+  // }
+
+  async postQuotes (idNumber, amount, currency) {
+    const httpBody = {
+      msisdn: idNumber,
+      amount: amount,
+      currency: currency
     }
-  }
-
-  async getParties (idNumber) {
-    const traceId = this.getTraceId()
-    const template = require('./template_getParties.json')
-    template.inputValues = this.inputValues
-    // Replace corresponding values in inputValues
-    template.inputValues.toIdValue = idNumber + ''
-    const resp = await axios.post(this.apiBaseUrl + "/api/outbound/template/" + traceId, template , { headers: { 'Content-Type': 'application/json' } })
-    // if(typeof response.data === 'object') {
-    //   return response.data
-    // }
-    // return null
+    const resp = await axios.post(this.senderApiUrl + "/api/quotes", httpBody , { headers: { 'Content-Type': 'application/json' } })
     return resp
   }
-  async postQuotes (amount) {
-    const traceId = this.getTraceId()
-    const template = require('./template_postQuotes.json')
-    template.inputValues = this.inputValues
-    // Replace corresponding values in inputValues
-    template.inputValues.amount = amount + ''
-    const resp = await axios.post(this.apiBaseUrl + "/api/outbound/template/" + traceId, template , { headers: { 'Content-Type': 'application/json' } })
-    // if(typeof response.data === 'object') {
-    //   return response.data
-    // }
-    // return null
-    return resp
-  }
-  async postTransfers (amount, transactionId, expiration, ilpPacket, condition) {
-    const traceId = this.getTraceId()
-    const template = require('./template_postTransfers.json')
-    template.inputValues = this.inputValues
-    // Replace corresponding values in inputValues
-    template.inputValues.amount = amount + ''
-    template.inputValues.quotesCallbackTransactionId = transactionId + ''
-    template.inputValues.quotesCallbackExpiration = expiration + ''
-    template.inputValues.quotesCallbackIlpPacket = ilpPacket + ''
-    template.inputValues.quotesCallbackCondition = condition + ''
-    const resp = await axios.post(this.apiBaseUrl + "/api/outbound/template/" + traceId, template , { headers: { 'Content-Type': 'application/json' } })
-    // if(typeof response.data === 'object') {
-    //   return response.data
-    // }
-    // return null
-    return resp
-  }
-  async startProvisioning () {
-    const traceId = this.getTraceId()
-    const template = require('./template_provisioning.json')
-    template.inputValues = this.inputValues
-    const resp = await axios.post(this.apiBaseUrl + "/api/outbound/template/" + traceId, template , { headers: { 'Content-Type': 'application/json' } })
-    return resp
-  }
-  async getDFSPValues () {
-    const traceId = this.getTraceId()
-    const template = require('./template_getDFSPValues')
-    template.inputValues = this.inputValues
-    const resp = await axios.post(this.apiBaseUrl + "/api/outbound/template/" + traceId, template , { headers: { 'Content-Type': 'application/json' } })
-    return resp
-  }
-
-  async getSettlements () {
-    const traceId = this.getTraceId()
-    const template = require('./template_getSettlements')
-    template.inputValues = this.inputValues
-    const resp = await axios.post(this.apiBaseUrl + "/api/outbound/template/" + traceId, template , { headers: { 'Content-Type': 'application/json' } })
-    return resp
-  }
-
-  async executeSettlement () {
-    const traceId = this.getTraceId()
-    const template = require('./template_executeSettlement')
-    template.inputValues = this.inputValues
-    const resp = await axios.post(this.apiBaseUrl + "/api/outbound/template/" + traceId, template , { headers: { 'Content-Type': 'application/json' } })
-    return resp
-  }
+  // async postTransfers (amount, transactionId, expiration, ilpPacket, condition) {
+  //   const traceId = this.getTraceId()
+  //   const template = require('./template_postTransfers.json')
+  //   template.inputValues = this.inputValues
+  //   // Replace corresponding values in inputValues
+  //   template.inputValues.amount = amount + ''
+  //   template.inputValues.quotesCallbackTransactionId = transactionId + ''
+  //   template.inputValues.quotesCallbackExpiration = expiration + ''
+  //   template.inputValues.quotesCallbackIlpPacket = ilpPacket + ''
+  //   template.inputValues.quotesCallbackCondition = condition + ''
+  //   const resp = await axios.post(this.apiBaseUrl + "/api/outbound/template/" + traceId, template , { headers: { 'Content-Type': 'application/json' } })
+  //   // if(typeof response.data === 'object') {
+  //   //   return response.data
+  //   // }
+  //   // return null
+  //   return resp
+  // }
 
 }
 
