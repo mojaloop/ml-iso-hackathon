@@ -1,0 +1,841 @@
+openapi: "3.0.2"
+info:
+  version: "0.1"
+  title: "ISO 20022 <-> Mojaloop: SWIFT Scheme (ISO 20022) API OAI3.0 version (1/2)"
+  description: "This is a sample ISO 20022 API with calls to work in cross-network mode with a Mojaloop Scheme. This API is mostly representative"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+  contact:
+    name: "SK"
+servers:
+  - url: "{protocol}://hostname:<port>/switch/"
+    variables:
+      protocol:
+        enum:
+          - http
+          - https
+        default: https
+
+paths:
+
+  #Participants
+  /participants:
+    parameters:
+      #Headers
+      - $ref: "#/components/parameters/Content-Type"
+      - $ref: "#/components/parameters/Date"
+      - $ref: "#/components/parameters/X-Forwarded-For"
+      - $ref: "#/components/parameters/FSPIOP-Source"
+      - $ref: "#/components/parameters/FSPIOP-Destination"
+      - $ref: "#/components/parameters/FSPIOP-Encryption"
+      - $ref: "#/components/parameters/FSPIOP-Signature"
+      - $ref: "#/components/parameters/FSPIOP-URI"
+      - $ref: "#/components/parameters/FSPIOP-HTTP-Method"
+    post:
+      description: The HTTP request `POST /participants` is used to lookup association information in the server regarding the provided identity especially the ID <-> FSP association, defined by `{Type}`, `{ID}`, and optionally additional information. These details are included in the message body for the ISO version. This call is synchronous.
+      summary: Query participant information
+      tags:
+        - participants
+      operationId: ParticipantsByIDAndType
+      parameters:
+        #Headers
+        - $ref: "#/components/parameters/Accept"
+        - $ref: "#/components/parameters/Content-Length"
+      requestBody:
+        description: Query participant information
+        required: true
+        content:
+          application/xml:
+            schema:
+              $ref: "../xsd/camt.003.001.07.xsd"
+      responses:
+        200:
+          description: A lookup request has been created and the response body includes the response (mapping).
+          content:
+            application/json:
+              schema:
+                $ref: "../xsd/camt.004.001.08.xsd"
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        403:
+          $ref: "#/components/responses/403"
+        404:
+          $ref: "#/components/responses/404"
+        405:
+          $ref: "#/components/responses/405"
+        406:
+          $ref: "#/components/responses/406"
+        501:
+          $ref: "#/components/responses/501"
+        503:
+          $ref: "#/components/responses/503"
+
+  #Quotes
+  /quotes:
+    post:
+      description: The HTTP request `POST /quotes` is used to request the creation of a quote for the provided financial transaction in the server. This call is asynchronous, the respoonse is expected as a callback PUT /quotes/{ID}.
+      summary: Calculate quote
+      tags:
+        - quotes
+      operationId: Quotes
+      parameters:
+        #Headers
+        - $ref: "#/components/parameters/Accept"
+        - $ref: "#/components/parameters/Content-Length"
+        - $ref: "#/components/parameters/Content-Type"
+        - $ref: "#/components/parameters/Date"
+        - $ref: "#/components/parameters/X-Forwarded-For"
+        - $ref: "#/components/parameters/FSPIOP-Source"
+        - $ref: "#/components/parameters/FSPIOP-Destination"
+        - $ref: "#/components/parameters/FSPIOP-Encryption"
+        - $ref: "#/components/parameters/FSPIOP-Signature"
+        - $ref: "#/components/parameters/FSPIOP-URI"
+        - $ref: "#/components/parameters/FSPIOP-HTTP-Method"
+      requestBody:
+        description: Details of the quote to be created.
+        required: true
+        content:
+          application/xml:
+            schema:
+              $ref: "../xsd/pain.001.001.10_1.xsd"
+      responses:
+        202:
+          $ref: "#/components/responses/202"
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        403:
+          $ref: "#/components/responses/403"
+        404:
+          $ref: "#/components/responses/404"
+        405:
+          $ref: "#/components/responses/405"
+        406:
+          $ref: "#/components/responses/406"
+        501:
+          $ref: "#/components/responses/501"
+        503:
+          $ref: "#/components/responses/503"
+  /quotes/{ID}:
+    parameters:
+      #Path
+      - $ref: "#/components/parameters/ID"
+      #Headers
+      - $ref: "#/components/parameters/Content-Type"
+      - $ref: "#/components/parameters/Date"
+      - $ref: "#/components/parameters/X-Forwarded-For"
+      - $ref: "#/components/parameters/FSPIOP-Source"
+      - $ref: "#/components/parameters/FSPIOP-Destination"
+      - $ref: "#/components/parameters/FSPIOP-Encryption"
+      - $ref: "#/components/parameters/FSPIOP-Signature"
+      - $ref: "#/components/parameters/FSPIOP-URI"
+      - $ref: "#/components/parameters/FSPIOP-HTTP-Method"
+    put:
+      description: The callback `PUT /quotes/{ID}` is used to inform the client of a requested or created quote. The `{ID}` in the URI should contain the `quoteId` that was used for the creation of the quote.
+      summary: Return quote information
+      tags:
+        - quotes
+      operationId: QuotesByID1
+      parameters:
+        #Headers
+        - $ref: "#/components/parameters/Content-Length"
+      requestBody:
+        description: Quote information returned.
+        required: true
+        content:
+          application/xml:
+            schema:
+              $ref: "../xsd/pain.013.001.06-revised.xsd"
+      responses:
+        200:
+          $ref: "#/components/responses/200"
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        403:
+          $ref: "#/components/responses/403"
+        404:
+          $ref: "#/components/responses/404"
+        405:
+          $ref: "#/components/responses/405"
+        406:
+          $ref: "#/components/responses/406"
+        501:
+          $ref: "#/components/responses/501"
+        503:
+          $ref: "#/components/responses/503"
+  /quotes/{ID}/error:
+    put:
+      description: If the server is unable to find or create a quote, or some other processing error occurs, the error callback `PUT /quotes/{ID}/error` is used. The `{ID}` in the URI should contain the `quoteId` that was used for the creation of the quote, or the `{ID}` that was used in the `GET /quotes/{ID}` request.
+      summary: Return quote information error
+      tags:
+        - quotes
+      operationId: QuotesByIDAndError
+      parameters:
+        #Path
+        - $ref: "#/components/parameters/ID"
+        #Headers
+        - $ref: "#/components/parameters/Content-Length"
+        - $ref: "#/components/parameters/Content-Type"
+        - $ref: "#/components/parameters/Date"
+        - $ref: "#/components/parameters/X-Forwarded-For"
+        - $ref: "#/components/parameters/FSPIOP-Source"
+        - $ref: "#/components/parameters/FSPIOP-Destination"
+        - $ref: "#/components/parameters/FSPIOP-Encryption"
+        - $ref: "#/components/parameters/FSPIOP-Signature"
+        - $ref: "#/components/parameters/FSPIOP-URI"
+        - $ref: "#/components/parameters/FSPIOP-HTTP-Method"
+      requestBody:
+        description: Details of the error returned.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ErrorInformationObject"
+      responses:
+        200:
+          $ref: "#/components/responses/200"
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        403:
+          $ref: "#/components/responses/403"
+        404:
+          $ref: "#/components/responses/404"
+        405:
+          $ref: "#/components/responses/405"
+        406:
+          $ref: "#/components/responses/406"
+        501:
+          $ref: "#/components/responses/501"
+        503:
+          $ref: "#/components/responses/503"
+
+  #Transfers
+  /transfers:
+    post:
+      description: The HTTP request `POST /transfers` is used to request the creation of a transfer for the next ledger, and a financial transaction for the Payee FSP. This call is asynchronous, the respoonse is expected as a callback PUT /transfers/{ID}.
+      summary: Perform transfer
+      tags:
+        - transfers
+      operationId: transfers
+      parameters:
+        #Headers
+        - $ref: "#/components/parameters/Accept"
+        - $ref: "#/components/parameters/Content-Length"
+        - $ref: "#/components/parameters/Content-Type"
+        - $ref: "#/components/parameters/Date"
+        - $ref: "#/components/parameters/X-Forwarded-For"
+        - $ref: "#/components/parameters/FSPIOP-Source"
+        - $ref: "#/components/parameters/FSPIOP-Destination"
+        - $ref: "#/components/parameters/FSPIOP-Encryption"
+        - $ref: "#/components/parameters/FSPIOP-Signature"
+        - $ref: "#/components/parameters/FSPIOP-URI"
+        - $ref: "#/components/parameters/FSPIOP-HTTP-Method"
+      requestBody:
+        description: Details of the transfer to be created.
+        required: true
+        content:
+          application/xml:
+            schema:
+              $ref: "../xsd/pacs.008.001.09.xsd"
+      responses:
+        202:
+          $ref: "#/components/responses/202"
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        403:
+          $ref: "#/components/responses/403"
+        404:
+          $ref: "#/components/responses/404"
+        405:
+          $ref: "#/components/responses/405"
+        406:
+          $ref: "#/components/responses/406"
+        501:
+          $ref: "#/components/responses/501"
+        503:
+          $ref: "#/components/responses/503"
+  /transfers/{ID}:
+    parameters:
+      #Path
+      - $ref: "#/components/parameters/ID"
+      #Headers
+      - $ref: "#/components/parameters/Content-Type"
+      - $ref: "#/components/parameters/Date"
+      - $ref: "#/components/parameters/X-Forwarded-For"
+      - $ref: "#/components/parameters/FSPIOP-Source"
+      - $ref: "#/components/parameters/FSPIOP-Destination"
+      - $ref: "#/components/parameters/FSPIOP-Encryption"
+      - $ref: "#/components/parameters/FSPIOP-Signature"
+      - $ref: "#/components/parameters/FSPIOP-URI"
+      - $ref: "#/components/parameters/FSPIOP-HTTP-Method"
+    get:
+      description: The HTTP request `GET /transfers/{ID}` is used to get information regarding a transfer created or requested earlier. The `{ID}` in the URI should contain the `transferId` that was used for the creation of the transfer.
+      summary: Retrieve transfer information
+      tags:
+        - transfers
+      operationId: TransfersByIDGet
+      parameters:
+        #Headers
+        - $ref: "#/components/parameters/Accept"
+      responses:
+        202:
+          $ref: "#/components/responses/202"
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        403:
+          $ref: "#/components/responses/403"
+        404:
+          $ref: "#/components/responses/404"
+        405:
+          $ref: "#/components/responses/405"
+        406:
+          $ref: "#/components/responses/406"
+        501:
+          $ref: "#/components/responses/501"
+        503:
+          $ref: "#/components/responses/503"
+    put:
+      description: The callback `PUT /transfers/{ID}` is used to inform the client of a requested or created transfer. The `{ID}` in the URI should contain the `transferId` that was used for the creation of the transfer, or the `{ID}` that was used in the `GET /transfers/{ID}` request.
+      summary: Return transfer information
+      tags:
+        - transfers
+      operationId: TransfersByIDPut
+      # parameters:
+      #   #Headers
+      #   - $ref: "#/components/parameters/Content-Length"
+      requestBody:
+        description: Transfer information returned.
+        required: true
+        content:
+          application/xml:
+            schema:
+              $ref: "../xsd/pain.002.001.11.xsd"
+      responses:
+        200:
+          $ref: "#/components/responses/200"
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        403:
+          $ref: "#/components/responses/403"
+        404:
+          $ref: "#/components/responses/404"
+        405:
+          $ref: "#/components/responses/405"
+        406:
+          $ref: "#/components/responses/406"
+        501:
+          $ref: "#/components/responses/501"
+        503:
+          $ref: "#/components/responses/503"
+  /transfers/{ID}/error:
+    put:
+      description: If the server is unable to find or create a transfer, or another processing error occurs, the error callback `PUT /transfers/{ID}/error` is used. The `{ID}` in the URI should contain the `transferId` that was used for the creation of the transfer, or the `{ID}` that was used in the `GET /transfers/{ID}`.
+      summary: Return transfer information error
+      tags:
+        - transfers
+      operationId: TransfersByIDAndError
+      parameters:
+        #Path
+        - $ref: "#/components/parameters/ID"
+        #Headers
+        - $ref: "#/components/parameters/Content-Length"
+        - $ref: "#/components/parameters/Content-Type"
+        - $ref: "#/components/parameters/Date"
+        - $ref: "#/components/parameters/X-Forwarded-For"
+        - $ref: "#/components/parameters/FSPIOP-Source"
+        - $ref: "#/components/parameters/FSPIOP-Destination"
+        - $ref: "#/components/parameters/FSPIOP-Encryption"
+        - $ref: "#/components/parameters/FSPIOP-Signature"
+        - $ref: "#/components/parameters/FSPIOP-URI"
+        - $ref: "#/components/parameters/FSPIOP-HTTP-Method"
+      requestBody:
+        description: Details of the error returned.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ErrorInformationObject"
+      responses:
+        200:
+          $ref: "#/components/responses/200"
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        403:
+          $ref: "#/components/responses/403"
+        404:
+          $ref: "#/components/responses/404"
+        405:
+          $ref: "#/components/responses/405"
+        406:
+          $ref: "#/components/responses/406"
+        501:
+          $ref: "#/components/responses/501"
+        503:
+          $ref: "#/components/responses/503"
+
+components:
+  schemas:
+    #Element definitions
+    Currency:
+      title: Currency
+      description: The currency codes defined in [ISO 4217](https://www.iso.org/iso-4217-currency-codes.html) as three-letter alphabetic codes are used as the standard naming representation for currencies.
+      type: string
+      minLength: 3
+      maxLength: 3
+      enum:
+        - AED
+        - AFN
+        - ALL
+        - AMD
+        - ANG
+        - AOA
+        - ARS
+        - AUD
+        - AWG
+        - AZN
+        - BAM
+        - BBD
+        - BDT
+        - BGN
+        - BHD
+        - BIF
+        - BMD
+        - BND
+        - BOB
+        - BRL
+        - BSD
+        - BTN
+        - BWP
+        - BYN
+        - BZD
+        - CAD
+        - CDF
+        - CHF
+        - CLP
+        - CNY
+        - COP
+        - CRC
+        - CUC
+        - CUP
+        - CVE
+        - CZK
+        - DJF
+        - DKK
+        - DOP
+        - DZD
+        - EGP
+        - ERN
+        - ETB
+        - EUR
+        - FJD
+        - FKP
+        - GBP
+        - GEL
+        - GGP
+        - GHS
+        - GIP
+        - GMD
+        - GNF
+        - GTQ
+        - GYD
+        - HKD
+        - HNL
+        - HRK
+        - HTG
+        - HUF
+        - IDR
+        - ILS
+        - IMP
+        - INR
+        - IQD
+        - IRR
+        - ISK
+        - JEP
+        - JMD
+        - JOD
+        - JPY
+        - KES
+        - KGS
+        - KHR
+        - KMF
+        - KPW
+        - KRW
+        - KWD
+        - KYD
+        - KZT
+        - LAK
+        - LBP
+        - LKR
+        - LRD
+        - LSL
+        - LYD
+        - MAD
+        - MDL
+        - MGA
+        - MKD
+        - MMK
+        - MNT
+        - MOP
+        - MRO
+        - MUR
+        - MVR
+        - MWK
+        - MXN
+        - MYR
+        - MZN
+        - NAD
+        - NGN
+        - NIO
+        - NOK
+        - NPR
+        - NZD
+        - OMR
+        - PAB
+        - PEN
+        - PGK
+        - PHP
+        - PKR
+        - PLN
+        - PYG
+        - QAR
+        - RON
+        - RSD
+        - RUB
+        - RWF
+        - SAR
+        - SBD
+        - SCR
+        - SDG
+        - SEK
+        - SGD
+        - SHP
+        - SLL
+        - SOS
+        - SPL
+        - SRD
+        - STD
+        - SVC
+        - SYP
+        - SZL
+        - THB
+        - TJS
+        - TMT
+        - TND
+        - TOP
+        - TRY
+        - TTD
+        - TVD
+        - TWD
+        - TZS
+        - UAH
+        - UGX
+        - USD
+        - UYU
+        - UZS
+        - VEF
+        - VND
+        - VUV
+        - WST
+        - XAF
+        - XCD
+        - XDR
+        - XOF
+        - XPF
+        - YER
+        - ZAR
+        - ZMW
+        - ZWD
+    ErrorCode:
+      title: ErrorCode
+      type: string
+      pattern: ^[1-9]\d{3}$
+      description: The API data type ErrorCode is a JSON String of four characters, consisting of digits only. Negative numbers are not allowed. A leading zero is not allowed. Each error code in the API is a four-digit number, for example, 1234, where the first number (1 in the example) represents the high-level error category, the second number (2 in the example) represents the low-level error category, and the last two numbers (34 in the example) represent the specific error.
+    ErrorDescription:
+      title: ErrorDescription
+      type: string
+      minLength: 1
+      maxLength: 128
+      description: Error description string.
+    ExtensionKey:
+      title: ExtensionKey
+      type: string
+      minLength: 1
+      maxLength: 32
+      description: Extension key.
+    ExtensionValue:
+      title: ExtensionValue
+      type: string
+      minLength: 1
+      maxLength: 128
+      description: Extension value.
+    FspId:
+      title: FspId
+      type: string
+      minLength: 1
+      maxLength: 32
+      description: FSP identifier.
+
+    #Complex Types
+    ErrorInformation:
+      title: ErrorInformation
+      type: object
+      description: Data model for the complex type ErrorInformation.
+      properties:
+        errorCode:
+          $ref: "#/components/schemas/ErrorCode"
+        errorDescription:
+          $ref: "#/components/schemas/ErrorDescription"
+        extensionList:
+          $ref: "#/components/schemas/ExtensionList"
+      required:
+        - errorCode
+        - errorDescription
+    ErrorInformationObject:
+      title: ErrorInformationObject
+      type: object
+      description: Data model for the complex type object that contains ErrorInformation.
+      properties:
+        errorInformation:
+          $ref: "#/components/schemas/ErrorInformation"
+      required:
+        - errorInformation
+    ErrorInformationResponse:
+      title: ErrorInformationResponse
+      type: object
+      description: Data model for the complex type object that contains an optional element ErrorInformation used along with 4xx and 5xx responses.
+      properties:
+        errorInformation:
+          $ref: "#/components/schemas/ErrorInformation"
+    Extension:
+      title: Extension
+      type: object
+      description: Data model for the complex type Extension.
+      properties:
+        key:
+          $ref: "#/components/schemas/ExtensionKey"
+        value:
+          $ref: "#/components/schemas/ExtensionValue"
+      required:
+        - key
+        - value
+    ExtensionList:
+      title: ExtensionList
+      type: object
+      description: Data model for the complex type ExtensionList. An optional list of extensions, specific to deployment.
+      properties:
+        extension:
+          type: array
+          items:
+            $ref: "#/components/schemas/Extension"
+          minItems: 1
+          maxItems: 16
+          description: Number of Extension elements.
+      required:
+        - extension
+    ParticipantsTypeIDSubIDPostRequest:
+      title: ParticipantsTypeIDSubIDPostRequest
+      type: object
+      description: The object sent in the POST /participants/{Type}/{ID}/{SubId} and /participants/{Type}/{ID} requests. An additional optional ExtensionList element has been added as part of v1.1 changes.
+      properties:
+        fspId:
+          $ref: "#/components/schemas/FspId"
+          description: FSP Identifier that the Party belongs to.
+          example: 1234
+        currency:
+          $ref: "#/components/schemas/Currency"
+          description: Indicate that the provided Currency is supported by the Party.
+          example: USD
+        extensionList:
+          $ref: "#/components/schemas/ExtensionList"
+          description: Optional extension, specific to deployment.
+      required:
+        - fspId
+    ParticipantsTypeIDPutResponse:
+      title: ParticipantsTypeIDPutResponse
+      type: object
+      description: The object sent in the PUT /participants/{Type}/{ID}/{SubId} and /participants/{Type}/{ID} callbacks.
+      properties:
+        fspId:
+          $ref: "#/components/schemas/FspId"
+          description: FSP Identifier that the Party belongs to.
+          example: 1234
+
+  responses:
+    "200":
+      description: OK
+    "202":
+      description: Accepted
+    "400":
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorInformationResponse"
+    "401":
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorInformationResponse"
+    "403":
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorInformationResponse"
+    "404":
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorInformationResponse"
+    "405":
+      description: Method Not Allowed
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorInformationResponse"
+    "406":
+      description: Not Acceptable
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorInformationResponse"
+    "501":
+      description: Not Implemented
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorInformationResponse"
+    "503":
+      description: Service Unavailable
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorInformationResponse"
+
+  parameters:
+    #Header parameters
+    Accept:
+      name: Accept
+      in: header
+      required: true
+      schema:
+        type: string
+      description: The `Accept` header field indicates the version of the API the client would like the server to use.
+    Content-Length:
+      name: Content-Length
+      in: header
+      required: false
+      schema:
+        type: integer
+      description:
+        The `Content-Length` header field indicates the anticipated size of the payload body. Only sent if there is a body.
+
+
+        **Note:** The API supports a maximum size of 5242880 bytes (5 Megabytes).
+    Content-Type:
+      name: Content-Type
+      in: header
+      schema:
+        type: string
+      required: true
+      description: The `Content-Type` header indicates the specific version of the API used to send the payload body.
+    Date:
+      name: Date
+      in: header
+      schema:
+        type: string
+      required: true
+      description: The `Date` header field indicates the date when the request was sent.
+    X-Forwarded-For:
+      name: X-Forwarded-For
+      in: header
+      schema:
+        type: string
+      required: false
+      description:
+        The `X-Forwarded-For` header field is an unofficially accepted standard used for informational purposes of the originating client IP address, as a request might pass multiple proxies, firewalls, and so on. Multiple `X-Forwarded-For` values should be expected and supported by implementers of the API.
+
+
+        **Note:** An alternative to `X-Forwarded-For` is defined in [RFC 7239](https://tools.ietf.org/html/rfc7239). However, to this point RFC 7239 is less-used and supported than `X-Forwarded-For`.
+    FSPIOP-Source:
+      name: FSPIOP-Source
+      in: header
+      schema:
+        type: string
+      required: true
+      description: The `FSPIOP-Source` header field is a non-HTTP standard field used by the API for identifying the sender of the HTTP request. The field should be set by the original sender of the request. Required for routing and signature verification (see header field `FSPIOP-Signature`).
+    FSPIOP-Destination:
+      name: FSPIOP-Destination
+      in: header
+      schema:
+        type: string
+      required: false
+      description: The `FSPIOP-Destination` header field is a non-HTTP standard field used by the API for HTTP header based routing of requests and responses to the destination. The field must be set by the original sender of the request if the destination is known (valid for all services except GET /parties) so that any entities between the client and the server do not need to parse the payload for routing purposes. If the destination is not known (valid for service GET /parties), the field should be left empty.
+    FSPIOP-Encryption:
+      name: FSPIOP-Encryption
+      in: header
+      schema:
+        type: string
+      required: false
+      description: The `FSPIOP-Encryption` header field is a non-HTTP standard field used by the API for applying end-to-end encryption of the request.
+    FSPIOP-Signature:
+      name: FSPIOP-Signature
+      in: header
+      schema:
+        type: string
+      required: false
+      description: The `FSPIOP-Signature` header field is a non-HTTP standard field used by the API for applying an end-to-end request signature.
+    FSPIOP-URI:
+      name: FSPIOP-URI
+      in: header
+      schema:
+        type: string
+      required: false
+      description: The `FSPIOP-URI` header field is a non-HTTP standard field used by the API for signature verification, should contain the service URI. Required if signature verification is used, for more information, see [the API Signature document](https://github.com/mojaloop/docs/tree/master/Specification%20Document%20Set).
+    FSPIOP-HTTP-Method:
+      name: FSPIOP-HTTP-Method
+      in: header
+      schema:
+        type: string
+      required: false
+      description: The `FSPIOP-HTTP-Method` header field is a non-HTTP standard field used by the API for signature verification, should contain the service HTTP method. Required if signature verification is used, for more information, see [the API Signature document](https://github.com/mojaloop/docs/tree/master/Specification%20Document%20Set).
+    #Path parameters
+    ID:
+      name: ID
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The identifier value.
+    Type:
+      name: Type
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The type of the party identifier. For example, `MSISDN`, `PERSONAL_ID`.
+    SubId:
+      name: SubId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: A sub-identifier of the party identifier, or a sub-type of the party identifier's type. For example, `PASSPORT`, `DRIVING_LICENSE`.

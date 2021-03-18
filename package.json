@@ -20,6 +20,7 @@
     "start:noconfig": "npx lerna run --no-progress --stream start:noconfig",
     "start:gds": "npm run build --scope='@mojaloop-iso-hackathon/service-globaldiscovery' && npx lerna run --no-progress --stream --scope='@mojaloop-iso-hackathon/service-globaldiscovery' start",
     "start:gds:noconfig": "npm run build --scope='@mojaloop-iso-hackathon/service-globaldiscovery' && npx lerna run --no-progress --stream --scope='@mojaloop-iso-hackathon/service-globaldiscovery' start:noconfig",
+    "start:mojabank:noconfig": "npm run build --scope='@mojaloop-iso-hackathon/service-mojabank' && npx lerna run --no-progress --stream --scope='@mojaloop-iso-hackathon/service-mojabank' start:noconfig",
     "start:sender": "npm run build --scope='@mojaloop-iso-hackathon/service-sender' && npx lerna run --no-progress --stream --scope='@mojaloop-iso-hackathon/service-sender' start",
     "start:ui": "npx lerna run --no-progress --stream --scope='@mojaloop-iso-hackathon/service-sim-ui' start",
     "build": "npx lerna run --stream build",
