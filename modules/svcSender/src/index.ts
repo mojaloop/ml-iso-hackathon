@@ -47,7 +47,7 @@ import {
 import * as dotenv from 'dotenv'
 import { Command } from 'commander'
 import { resolve as Resolve } from 'path'
-import { Server } from './api'
+import { SenderServer } from './api'
 
 /* eslint-disable-next-line @typescript-eslint/no-var-requires */
 // const pckg = require('../package.json')
@@ -100,7 +100,7 @@ Program.command('start')
     logger.isDebugEnabled() && logger.debug(`appConfig=${JSON.stringify(appConfig)}`)
 
     // Instantiate Server
-    const server = new Server(appConfig, logger, metrics)
+    const server = new SenderServer(appConfig, logger, metrics)
 
     await server.init()
 
