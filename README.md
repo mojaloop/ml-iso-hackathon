@@ -10,6 +10,11 @@ Go to http://hackathon2.moja-lab.live to see a live demo.
 
 ## Quick Start
 
+Ensure the following is added to your hosts file"
+```hosts
+127.0.0.1   hackathon2.moja-lab.live ttk.hackathon2.moja-lab.live ttk-backend.hackathon2.moja-lab.live sim.hackathon2.moja-lab.live gds.hackathon2.moja-lab.live actlog.hackathon2.moja-lab.live senderbank.hackathon2.moja-lab.live mojabank.hackathon2.moja-lab.live
+```
+
 ```bash
 git clone git@github.com:mojaloop/ml-iso-hackathon.git
 cd ml-iso-hackathon

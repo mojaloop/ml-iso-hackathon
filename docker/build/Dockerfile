@@ -7,7 +7,6 @@ RUN apk add --no-cache -t build-dependencies git make gcc g++ python libtool zli
     && npm install -g node-gyp
 
 COPY package.json package-lock.json tsconfig.json lerna.json /opt/app/
-COPY docker-compose.env /opt/app/default.env
 COPY modules /opt/app/modules
 COPY xsd /opt/app/xsd
 
@@ -20,6 +19,7 @@ COPY --from=builder /opt/app .
 
 ## copy source code in case there are changes
 COPY modules /opt/app/modules
+COPY docker-compose.env /opt/app/default.env
 
 ## run build
 RUN npm run build
