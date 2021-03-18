@@ -71,12 +71,13 @@ services:
   svc-global-discovery:
     image: mojaloop/ml-iso-hackathon:snapshot
     container_name: hack_svc_global_disc
-    env_file:
-      - default.env
-      - docker-compose.env
+    # env_file:
+    #   - default.env
+    #   - docker-compose.env
     ports:
       - "3003:3003"
-    command: npm run start:gds:noconfig
+    # command: npm run start:gds:noconfig
+    command: npm run start:gds
     networks:
       - web
     labels:
@@ -91,15 +92,16 @@ services:
     #   dockerfile: modules/svcMojaBank/Dockerfile
     image: mojaloop/ml-iso-hackathon:snapshot
     container_name: hack_svc_moja_bank
-    command: npm run start:moja:noconfig
+    # command: npm run start:moja:noconfig
+    command: npm run start:moja
     restart: always
     ports:
       - "3002:3002"
     networks:
       - web
-    env_file:
-      - default.env
-      - docker-compose.env
+    # env_file:
+    #   - default.env
+    #   - docker-compose.env
 
   # svc-sender-bank:
   #   build:
@@ -135,16 +137,13 @@ services:
   svc-simulator-ui:
     image: mojaloop/ml-iso-hackathon:snapshot
     container_name: hack_svc_sim_ui
-    env_file:
-      - default.env
-      - docker-compose.env
+    # env_file:
+    #   - default.env
+    #   - docker-compose.env
     ports:
       - "7070:7070"
-    command: npm run start:ui:noconfig
-    volumes:
-      - type: bind
-        source: ./docker-compose.env
-        target: /opt/app/default.env
+    # command: npm run start:ui:noconfig
+    command: npm run start:ui
     networks:
       - web
     labels:
