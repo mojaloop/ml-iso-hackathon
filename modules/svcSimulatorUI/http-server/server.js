@@ -29,10 +29,9 @@ const fs = require('fs')
 const dotenv = require('dotenv')
 const Program = require('commander')
 
-const initServer = (port) => {
-  // For front-end UI
+const initServer = (appConfig) => {
   if (fs.existsSync(path.join('build'))) {
-    console.log('info', 'Folder build found: Serving Static Web UI')
+    console.log('info', 'Folder build found: Serving Static Web UI')    
     // app.use('*.(jpg|jpeg|gif|png|ico|cur|gz|svg|svgz|mp4|ogg|ogv|webm|htc|css|js)', express.static(path.join('build')))
     app.use(express.static(path.join('build')))
     app.get('*', (req, res) => {
@@ -42,8 +41,8 @@ const initServer = (port) => {
     console.log('warn', 'Folder build not found')
   }
 
-  http.listen(port)
-  console.log('info', 'Sim UI HTTP Server started on port ' + port)
+  http.listen(appConfig.httpPort)
+  console.log('info', 'Sim UI HTTP Server started on port ' + appConfig.httpPort)
 }
 
 Program
@@ -69,7 +68,7 @@ Program
       senderApiUrl: process.env.SIM_UI_SENDER_API_URL ? process.env.SIM_UI_SENDER_API_URL : 'http://localhost:3103'
     }
 
-    initServer(appConfig.httpPort)
+    initServer(appConfig)
 
     const killProcess = async () => {
 
