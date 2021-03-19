@@ -23,8 +23,7 @@
     "test:pre-commit"
   ],
   "scripts": {
-    "start": "echo 'DO NOTHING'",
-    "start:default": "tsc && node dist/index.js api --config ../../default.env",
+    "start": "tsc && node dist/index.js api --config ../../default.env",
     "start:noconfig": "node dist/index.js api",
     "build": "tsc",
     "watch": "tsc -w",
@@ -46,6 +45,10 @@
     "@mojaloop-iso-hackathon/lib-shared": "0.1.0",
     "@types/dotenv": "^8.2.0",
     "dotenv": "^8.2.0",
+    "fastify": "^3.14.0",
+    "got": "^11.8.2",
+    "jsonpath-plus": "^5.0.4",
+    "uuid": "^8.3.2",
     "path": "^0.12.7",
     "commander": "^7.1.0"
   },
@@ -53,6 +56,7 @@
     "@types/jest": "^26.0.20",
     "@types/node": "^14.14.35",
     "@types/uuid": "^8.3.0",
+    "@types/got": "^9.6.11", 
     "@typescript-eslint/eslint-plugin": "^4.18.0",
     "eslint": "^7.22.0",
     "eslint-config-prettier": "^8.1.0",

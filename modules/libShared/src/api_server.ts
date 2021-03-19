@@ -31,9 +31,8 @@
 
 'use strict'
 
-// import { fastify as Fastify, FastifyInstance, RouteShorthandOptions } from 'fastify'
-import { fastify as Fastify, FastifyInstance, FastifyRequest, RouteHandlerMethod } from 'fastify'
-import { RouteGenericInterface } from 'fastify/types/route'
+import { fastify as Fastify, FastifyInstance, FastifyReply, FastifyRequest, RouteHandlerMethod } from 'fastify'
+import { RouteGenericInterface, RouteOptions } from 'fastify/types/route'
 import { Server, IncomingMessage, ServerResponse } from 'http'
 import { ILogger } from './ilogger'
 // const XmlParser = require('fast-xml-parser')
@@ -53,7 +52,17 @@ export type TApiServerOptions = {
   port: number
 }
 
-type THandlerCallback = RouteHandlerMethod<Server, IncomingMessage, ServerResponse, RouteGenericInterface, unknown>
+export type XmlRequestBody = {
+  raw: string | Buffer,
+  parsed: any,
+}
+export interface RouteXmlInterface extends RouteGenericInterface {
+  Body?: XmlRequestBody
+}
+
+export type THandlerCallback<T extends RouteGenericInterface = RouteGenericInterface> = RouteHandlerMethod<Server, IncomingMessage, ServerResponse, T, unknown>
+export type TApiXmlRequest = FastifyRequest<RouteXmlInterface, Server, IncomingMessage>
+export type TApiXmlReply = FastifyReply<Server, IncomingMessage, ServerResponse, RouteXmlInterface, unknown>
 
 export class ApiServer {
   private readonly _logger: ILogger
@@ -99,7 +108,8 @@ export class ApiServer {
   private async _xmlContentTypeParser (request: FastifyRequest, payload: string | Buffer): Promise<any> {
     try {
       this._logger.debug(`ApiServerError::_xmlContentTypeParser - headers = ${JSON.stringify(request.headers)}`)
-      let body: object | null = null
+      let body: XmlRequestBody | null = null
+
       // convert serialised XML into a JSON representation, and validate XML integrity
       body = {
         parsed: XML.jsonify(payload, true),
@@ -181,13 +191,13 @@ export class ApiServer {
     return res
   }
 
-  async post (path: string, handlerCallback: THandlerCallback): Promise<any> {
+  async post<T extends RouteGenericInterface = RouteGenericInterface>  (path: string, handlerCallback: THandlerCallback<T>): Promise<any>{
     this._logger.isDebugEnabled() && this._logger.debug(`ApiServer::post - Registering POST:(${path})`)
     const res = this._server.post(path, handlerCallback)
     return res
   }
 
-  async put (path: string, handlerCallback: THandlerCallback): Promise<any> {
+  async put<T extends RouteGenericInterface = RouteGenericInterface> (path: string, handlerCallback: THandlerCallback<T>): Promise<any> {
     this._logger.isDebugEnabled() && this._logger.debug(`ApiServer::put -  Registering PUT:(${path})`)
     const res = this._server.put(path, handlerCallback)
     return res
@@ -209,6 +219,12 @@ export class ApiServer {
     this._logger.isDebugEnabled() && this._logger.debug(`ApiServer::options - Registering OPTIONS:(${path})`)
     const res = this._server.options(path, handlerCallback)
     return res
+  }
+
+
+  route<T> (opts: RouteOptions<Server, IncomingMessage, ServerResponse, T>) {
+    this._logger.isDebugEnabled() && this._logger.debug(`ApiServer::${(opts.method as string).toLowerCase()} - Registering ${opts.method}:(${opts.url})`)
+    return this._server.route<T>(opts)
   }
 
   async destroy (): Promise<void> {

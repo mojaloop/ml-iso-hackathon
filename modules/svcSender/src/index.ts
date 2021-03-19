@@ -47,7 +47,7 @@ import {
 import * as dotenv from 'dotenv'
 import { Command } from 'commander'
 import { resolve as Resolve } from 'path'
-import { Server } from './api'
+import { SenderServer } from './api'
 
 /* eslint-disable-next-line @typescript-eslint/no-var-requires */
 // const pckg = require('../package.json')
@@ -56,8 +56,7 @@ const Program = new Command()
 Program
   .version('0.1')
   .description('Sending Bank Simulator')
-Program.command('start')
-  .alias('s')
+Program.command('api')
   .description('Start the simulator and listen fro commands from the UI') // command description
   .option('-c, --config [configFilePath]', '.env config file')
   .action(async (args: any): Promise<void> => {
@@ -79,6 +78,15 @@ Program.command('start')
       api: {
         host: getEnvValueOrDefault(process.env.SENDER_API_HOST as string, '0.0.0.0') as string,
         port: getEnvIntegerOrDefault(process.env.SENDER_API_PORT as string, 3103) as number
+      },
+      peerEndpoints: {
+        gls: getEnvValueOrDefault(process.env.SENDER_GLS_ENDPOINT as string, 'http://localhost:3003') as string,
+        mojabank: getEnvValueOrDefault(process.env.SENDER_MOJABANK_ENDPOINT as string, 'http://localhost:3002') as string,
+      },
+      xsd: {
+        camt004: getEnvValueOrDefault('SENDER_XSD_CAMT004', null),
+        pain013: getEnvValueOrDefault('SENDER_XSD_PAIN013', null),
+        pain002: getEnvValueOrDefault('SENDER_XSD_PAIN002', null)
       }
     }
 
@@ -100,7 +108,7 @@ Program.command('start')
     logger.isDebugEnabled() && logger.debug(`appConfig=${JSON.stringify(appConfig)}`)
 
     // Instantiate Server
-    const server = new Server(appConfig, logger, metrics)
+    const server = new SenderServer(appConfig, logger, metrics)
 
     await server.init()
 
