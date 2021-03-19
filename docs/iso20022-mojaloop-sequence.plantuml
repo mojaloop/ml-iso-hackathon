@@ -135,7 +135,6 @@ deactivate Sender
 SendersBank ->> GALS: Resolve ID (+250)70610388 [synchronous]\n<**camt.003**>\nsimilar to GET /participants/{Type}/{ID} in ML
 activate GALS
 SendersBank <<- GALS: Reach out to Mojaloop Bank\n<**camt.004**>\n[synchronous response]\nsimilar to PUT /participants/{Type}/{ID} in ML
-
 deactivate GALS
 
 SendersBank ->> MojaloopBank: Quote request\n<**pain.001**>\nsimilar to POST /quotes in ML
@@ -152,7 +151,7 @@ MojaloopBank <<-- MLMMSystem: HTTP 202 (Accepted)
 MojaloopBank <<- MLMMSystem: Quote response [callback]\n**PUT /quotes/{ID}**
 MojaloopBank -->> MLMMSystem: HTTP 200 (OK)
 deactivate MLMMSystem
-SendersBank <<- MojaloopBank: Quote response [callback]\n<pain.013>\nsimilar to **PUT /quotes/{ID}** in ML
+SendersBank <<- MojaloopBank: Quote response [callback]\n<**pain.013**>\nsimilar to PUT /quotes/{ID} in ML
 activate SendersBank
 SendersBank -->> MojaloopBank: HTTP 200 (OK)
 deactivate MojaloopBank

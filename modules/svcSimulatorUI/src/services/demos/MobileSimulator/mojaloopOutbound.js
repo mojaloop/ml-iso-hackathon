@@ -22,8 +22,15 @@
  --------------
  ******/
 import axios from 'axios'
+import https from 'https'
 import getConfig from '../../../utils/getConfig'
 import { TraceHeaderUtils } from '@mojaloop/ml-testing-toolkit-shared-lib'
+
+const axiosInstance = axios.create({
+  httpsAgent: new https.Agent({  
+    rejectUnauthorized: false
+  })
+})
 
 class OutboundService {
 
@@ -64,26 +71,16 @@ class OutboundService {
       amount: amount,
       currency: currency
     }
-    const resp = await axios.post(this.senderApiUrl + "/api/quotes", httpBody , { headers: { 'Content-Type': 'application/json' } })
+    const resp = await axiosInstance.post(this.senderApiUrl + "/api/quotes", httpBody , { headers: { 'Content-Type': 'application/json' } })
     return resp
   }
-  // async postTransfers (amount, transactionId, expiration, ilpPacket, condition) {
-  //   const traceId = this.getTraceId()
-  //   const template = require('./template_postTransfers.json')
-  //   template.inputValues = this.inputValues
-  //   // Replace corresponding values in inputValues
-  //   template.inputValues.amount = amount + ''
-  //   template.inputValues.quotesCallbackTransactionId = transactionId + ''
-  //   template.inputValues.quotesCallbackExpiration = expiration + ''
-  //   template.inputValues.quotesCallbackIlpPacket = ilpPacket + ''
-  //   template.inputValues.quotesCallbackCondition = condition + ''
-  //   const resp = await axios.post(this.apiBaseUrl + "/api/outbound/template/" + traceId, template , { headers: { 'Content-Type': 'application/json' } })
-  //   // if(typeof response.data === 'object') {
-  //   //   return response.data
-  //   // }
-  //   // return null
-  //   return resp
-  // }
+  async postTransfers (transactionId) {
+    const httpBody = {
+      transactionId: transactionId
+    }
+    const resp = await axiosInstance.post(this.senderApiUrl + "/api/transfers", httpBody , { headers: { 'Content-Type': 'application/json' } })
+    return resp
+  }
 
 }
 

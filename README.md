@@ -1,16 +1,38 @@
 # ml-iso-hackathon
 
-Team Mojaloop's Incredible Submission for the ISO 2022 Hackathon
+Contents
 
-<!-- TODO: replace with better url -->
+- [1. Overview](#1-overview)
+- [2. Quick Start](#2-quick-start)
+- [3. Developing or running this Demo](#3-developing-or-running-this-demo)
+  * [3.1 Components](#31-components)
+  * [3.2 Building project](#32-building-project)
+  * [3.3 Installing dependencies](#33-installing-dependencies)
+  * [3.4 Build](#34-build)
+  * [3.5 Running application](#35-running-application)
+  * [3.6 Linting](#36-linting)
+  * [3.7 Tests](#37-tests)
+  * [3.8 Checking and updating dependencies](#38-checking-and-updating-dependencies)
+  * [3.9 Cleaning build files and dependencies](#39-cleaning-build-files-and-dependencies)
+- [4. Deploying](#4-deploying)
+- [5. Flow](#5-Flow)
+- [6. ISO message schema changes](#6-iso-message-schema-changes)
+- [7. Todo](#7-todo)
+
+## 1. Overview
+
+This repo contains "Team Mojaloop's Incredible Submission" for the ISO20022 Hackathon
+
 Go to http://hackathon2.moja-lab.live to see a live demo.
 
 ![](./docs/arch.png)
 
+The solution demonstrates a cross-border scenario for peer to peer transfer use-case, from a sender in an ISO20022 based (SWIFT) Scheme to a receiver in a Mojaloop scheme.
 
-## Quick Start
+## 2. Quick Start
 
 Ensure the following is added to your hosts file"
+
 ```hosts
 127.0.0.1   hackathon2.moja-lab.live ttk.hackathon2.moja-lab.live ttk-backend.hackathon2.moja-lab.live sim.hackathon2.moja-lab.live gds.hackathon2.moja-lab.live actlog.hackathon2.moja-lab.live senderbank.hackathon2.moja-lab.live mojabank.hackathon2.moja-lab.live
 ```
@@ -23,15 +45,18 @@ docker-compose up
 # now go to: [ todo ] in your browser to see it running!
 ```
 
-## Running this Demo
+## 3. Developing or running this Demo
 
-### Components
-[ todo - Michael... what are the components, what do they do, how do they fit together?]
+### 3.1 Components
 
+1. Senders App
+2. Senders Bank (ISO (SWIFT) Scheme)
+3. Moja Bank (Cross-border adaptation)
+4. Moja Mobile Money System (Mojaloop Scheme)
+5. Receivers App
+6. Mojaloop Testing Toolkit (TTK) caters for #1,#5 and #4 the App UI for both Sender and Receiver apps while also aggregating events / notification messages for visualization using the UI (logs, events, messages)
 
-## Developing
-
-### Building project
+### 3.2 Building project
 
 This Mono-repo is managed by [Lerna](https://github.com/lerna/lerna), but we have abstracted all Lerna specific commands where possible.
 
@@ -39,7 +64,7 @@ Most standard NPM commands will work normally, except for __install__ command. T
 
 See more information in the next section.
 
-### Installing dependencies
+### 3.3 Installing dependencies
 
 Ensure you run the following command at the project root:
 
@@ -54,7 +79,7 @@ This will install:
 > Do not run `npm install` directly in a modules folder. This will break the symbolic links created by the mono-repo tools (lerna). <br/><br/>
 > Instead, run `npm install` from the project root!<br/><br/>
 
-###  Build
+### 3.4 Build
 
 `$ npm run build`
 
@@ -67,9 +92,10 @@ This will install:
 > **NOTE**:<br/>
 > `npm run watch`is supported at root or for each module. <br/><br/>
 
-### Running application(s)
+### 3.5 Running application
 
 #### Start all
+
 `$ npm start`
 
 Note: If run at root, all __executable__ applications will be started.
@@ -79,13 +105,14 @@ With debug log level
 `$ LOG_LEVEL=debug npm start`
 
 #### Start module
+
 It is also possible to start a specific module:
 
 `$ npm run start:example`
 
 Refer to the main package.json for what applications can be started individually.
 
-### Linting
+### 3.6 Linting
 
 Check for lint errors:
 `$ npm run lint`
@@ -95,14 +122,14 @@ Auto-Fix lint errors:
 
 Note: If run at root, all modules will be __linted__.
 
-### Tests
+### 3.7 Tests
 
 Test:
 `$ npm run test:unit`
 
 Note: If run at root, all modules will be __tested__.
 
-### Checking / Updating dependencies
+### 3.8 Checking and updating dependencies
 
 Check for any outdated dependencies:
 `$ npm run dep:check`
@@ -112,7 +139,7 @@ Update all dependencies to latest versions:
 
 Note: If run at root, all modules __dependencies__ will be either be __checked__ or __updated__.
 
-### Cleaning build dependencies and dependencies
+### 3.9 Cleaning build files and dependencies
 
 Clean all build files:
 `$ npm run clean:dist`
@@ -120,7 +147,7 @@ Clean all build files:
 Clean all dependencies:
 `$ npm run clean:npm`
 
-## Deploying
+## 4. Deploying
 
 We deploy the application with `docker-compose` on an AWS ec2 instance.
 
@@ -128,18 +155,28 @@ We use terraform to automate the creation of the instance and required bits and 
 
 See [`./infra`](./infra) for more information.
 
-## TODO:
+## 5. Flow
+
+The sequence of steps for this cross border scenario is depicated below as a sequence diagram
+
+![P2P in a ISO20022 <-> Mojaloop Cross network scenario](docs/iso20022-mojaloop-sequence.svg)
+
+## 6. ISO message schema changes
+
+While we generally expect to use standard ISO messages, we have made two changes:
+
+1. All the Mojaloop Ids are expected to be UUIDs. We have therefore changed the data types on the ID fields which are exchanged between the two systems to UUIDv4Identifier.
+2. As explained here, Mojaloop uses a cryptographic lock using the ILP protocol.<br/>
+2.1 This allows participants to be confident that the eventual payee has been credited with the funds transferred.<br/>
+2.2 This cryptographic lock and its key need to be passed back in the appropriate messages to the originating FI (Lake City Bank)<br/>
+2.3 The form of the lock and key is an encoded version of a 256-bit signature (43 characters.)<br/>
+2.4 We therefore define the following data types:<br/>
+2.4.1 A **BinaryString32** simple type which uses a regular expression to specialise the string type.<br/>
+2.4.2 An **ILPData** type which contains either a Condition or a Fulfilment, both of whose type is _BinaryString32_.<br/>
+
+Copies of the modified schemas are included in our submission (example messages are provided in **[api/example-messages](./apis/example-messages)** folder and xsds are in **[xsd](./xsd)** folder).
+
+## 7. Todo
 
 - [x] Deploy a landing page, or even just the ttk UI to get started
 - [ ] Some circleci config that deploys this project when we push a new tag (is this _really_ necessary?)
-- [ ]
-
-## Sequence / Flow
-
-The sequence of steps for this cross border scenario is depicated below as a sequence diagram
-![P2P in a ISO20022 <-> Mojaloop Cross network scenario](docs/iso20022-mojaloop-sequence.svg)
-
-## Customizations, changes made to ISO 20022 messages
-
-1. Increased UUID size to 36
-2. Added ILPData element to pain.013, pacs.008 and pain.002 messages to support ILP Packet, Condition and Fulfilment (to support Interledger Protocol that Mojaloop uses)

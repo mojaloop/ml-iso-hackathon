@@ -234,7 +234,7 @@ class MobileSimulator extends React.Component {
   render() {
     return (
       <>
-      <Drawer
+      {/* <Drawer
         title="Sender Bank Logs"
         width="70%"
         placement='left'
@@ -259,7 +259,7 @@ class MobileSimulator extends React.Component {
         }}
       >
         <TestMonitor ref={this.payeeMonitorRef} />
-      </Drawer>
+      </Drawer> */}
       {/* <Modal
           style={{ top: 20 }}
           destroyOnClose
@@ -287,7 +287,7 @@ class MobileSimulator extends React.Component {
                 backgroundSize: '30vh',
                 backgroundRepeat: 'no-repeat'
               }}>
-              <Row align="top">
+              {/* <Row align="top">
                 <Col span={24}>                
                   <Button type='primary' className='mt-2' style={ {height: '40px', backgroundColor: '#F90085'} } onClick={() => {
                     this.setState({payerLogsDrawerVisible: true})
@@ -295,8 +295,8 @@ class MobileSimulator extends React.Component {
                     <Text style={{color: 'white', fontWeight: 'bold'}}>Sender Bank Logs</Text> <CaretRightFilled style={ {fontSize: '18px'} }/>
                   </Button>
                 </Col>
-              </Row>
-              <Row align="bottom" className='h-100'>
+              </Row> */}
+              <Row align="bottom" className='h-100 mt-4'>
                 <Col span={24}>
                   <Row style={{ marginLeft: '3vh', marginBottom: '8vh', width: '24vh', height: '45vh'}}>
                     <Col span={24}>
@@ -375,7 +375,7 @@ class MobileSimulator extends React.Component {
                 backgroundSize: '30vh',
                 backgroundRepeat: 'no-repeat'
               }}>
-              <Row align="top">
+              {/* <Row align="top">
                 <Col span={24}>             
                   <Button type='primary' className='mt-2 float-right' style={ {height: '40px', backgroundColor: '#13AA90'} } onClick={() => {
                       this.setState({payeeLogsDrawerVisible: true})
@@ -383,8 +383,8 @@ class MobileSimulator extends React.Component {
                     <CaretLeftFilled style={ {fontSize: '18px'} }/> <Text style={{color: 'white', fontWeight: 'bold'}}>Receiver Bank Logs</Text>
                   </Button>   
                 </Col>
-              </Row>
-              <Row align="bottom" className='h-100'>
+              </Row> */}
+              <Row align="bottom" className='h-100 mt-4'>
                 <Col span={24}>
                   <Row className="float-right" style={{ marginRight: '3vh', marginBottom: '8vh', width: '24vh', height: '45vh'}}>
                     <Col span={24} >

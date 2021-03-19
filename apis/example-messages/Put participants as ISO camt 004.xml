@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- PUT /participants/MSISDN/(+250)788301607 -->
+<Document xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:iso:std:iso:20022:tech:xsd:camt.004.001.08">
+   <RtrAcct>
+       <MsgHdr>
+           <MsgId>2d1f2fa1-582c-4ffa-afd2-fc426722f91a</MsgId>
+           <CreDtTm>2021-03-17T12:45:59.155Z</CreDtTm>
+           <OrgnlBizQry>
+               <MsgId>575b3623-5adf-4752-8da9-a159a179ec9f</MsgId>
+           </OrgnlBizQry>
+       </MsgHdr>
+       <RptOrErr>
+           <AcctRpt>
+               <AcctId>
+                   <Othr>
+                       <Id>dfsp.username.5678</Id>
+                       <SchmeNm>
+                           <Cd>BBAN</Cd>
+                       </SchmeNm>
+                   </Othr>
+               </AcctId>
+               <AcctOrErr>
+                   <Acct>
+                       <Svcr>
+                           <FinInstnId>
+                               <BICFI>EQBLRWRWXXX</BICFI>
+                               <Nm>EQUITY BANK RWANDA LIMITED</Nm>
+                           </FinInstnId>
+                       </Svcr>
+                   </Acct>
+               </AcctOrErr>
+           </AcctRpt>
+       </RptOrErr>
+   </RtrAcct>
+</Document>

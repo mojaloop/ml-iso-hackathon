@@ -1,0 +1,1113 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="8369px" preserveAspectRatio="none" style="width:1898px;height:8369px;" version="1.1" viewBox="0 0 1898 8369" width="1898px" zoomAndPan="magnify"><defs><filter height="300%" id="frutksc2q3grv" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><text fill="#000000" font-family="sans-serif" font-size="18" font-weight="bold" lengthAdjust="spacing" textLength="746" x="574.25" y="29.4023">P2P transfer in an ISO20022 &lt;-&gt; Mojaloop Cross border scenario: detailed view</text><text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacing" textLength="0" x="950.25" y="50.6016"/><rect fill="#ADD8E6" height="8301.3945" style="stroke:#A80036;stroke-width:1.0;" width="833.5" x="19" y="62.3984"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="131" x="370.25" y="74.9668">ISO Scheme (SWIFT)</text><rect fill="#90EE90" height="8301.3945" style="stroke:#A80036;stroke-width:1.0;" width="834" x="1044.5" y="62.3984"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="117" x="1403" y="74.9668">Mojaloop Scheme</text><rect fill="#FFFFFF" filter="url(#frutksc2q3grv)" height="123.5527" style="stroke:#A80036;stroke-width:1.0;" width="10" x="46.5" y="191.6855"/><rect fill="#FFFFFF" filter="url(#frutksc2q3grv)" height="29.3105" style="stroke:#A80036;stroke-width:1.0;" width="10" x="46.5" y="5795.0293"/><rect fill="#FFFFFF" filter="url(#frutksc2q3grv)" height="29.3105" style="stroke:#A80036;stroke-width:1.0;" width="10" x="46.5" y="8206.5059"/><rect fill="#FFFFFF" filter="url(#frutksc2q3grv)" height="2073.8184" style="stroke:#A80036;stroke-width:1.0;" width="10" x="323.5" y="285.9277"/><rect fill="#FFFFFF" filter="url(#frutksc2q3grv)" height="1789.5391" style="stroke:#A80036;stroke-width:1.0;" width="10" x="323.5" y="4870.3281"/><rect fill="#FFFFFF" filter="url(#frutksc2q3grv)" height="571.248" style="stroke:#A80036;stroke-width:1.0;" width="10" x="323.5" y="7664.5684"/><rect fill="#FFFFFF" filter="url(#frutksc2q3grv)" height="995.9434" style="stroke:#A80036;stroke-width:1.0;" width="10" x="818.5" y="359.8594"/><rect fill="#FFFFFF" filter="url(#frutksc2q3grv)" height="4316.6738" style="stroke:#A80036;stroke-width:1.0;" width="10" x="1078.5" y="1449.0449"/><rect fill="#FFFFFF" filter="url(#frutksc2q3grv)" height="2244.3027" style="stroke:#A80036;stroke-width:1.0;" width="10" x="1078.5" y="5917.582"/><rect fill="#FFFFFF" filter="url(#frutksc2q3grv)" height="2390.0293" style="stroke:#A80036;stroke-width:1.0;" width="10" x="1618.5" y="2428.6777"/><rect fill="#FFFFFF" filter="url(#frutksc2q3grv)" height="900.1484" style="stroke:#A80036;stroke-width:1.0;" width="10" x="1618.5" y="6704.4883"/><rect fill="#FFFFFF" filter="url(#frutksc2q3grv)" height="8045.1309" style="stroke:#000000;stroke-width:2.0;" width="1875.5" x="9" y="198.6855"/><rect fill="#FFFFFF" filter="url(#frutksc2q3grv)" height="2451.9609" style="stroke:#000000;stroke-width:2.0;" width="647.5" x="1038.5" y="2374.7461"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="51" x2="51" y1="181.6855" y2="8260.8164"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="328.5" x2="328.5" y1="181.6855" y2="8260.8164"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="823.5" x2="823.5" y1="181.6855" y2="8260.8164"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="948.5" x2="948.5" y1="181.6855" y2="8260.8164"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="1083.5" x2="1083.5" y1="181.6855" y2="8260.8164"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="1623" x2="1623" y1="181.6855" y2="8260.8164"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="1834.5" x2="1834.5" y1="181.6855" y2="8260.8164"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="48" x="24.5" y="162.2441">Sender</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="51" x="23" y="178.7324">(SWIFT)</text><ellipse cx="51.5" cy="91.709" fill="#FEFECE" filter="url(#frutksc2q3grv)" rx="8" ry="8" style="stroke:#A80036;stroke-width:2.0;"/><path d="M51.5,99.709 L51.5,126.709 M38.5,107.709 L64.5,107.709 M51.5,126.709 L38.5,141.709 M51.5,126.709 L64.5,141.709 " fill="none" filter="url(#frutksc2q3grv)" style="stroke:#A80036;stroke-width:2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="48" x="24.5" y="8273.3516">Sender</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="51" x="23" y="8289.8398">(SWIFT)</text><ellipse cx="51.5" cy="8302.793" fill="#FEFECE" filter="url(#frutksc2q3grv)" rx="8" ry="8" style="stroke:#A80036;stroke-width:2.0;"/><path d="M51.5,8310.793 L51.5,8337.793 M38.5,8318.793 L64.5,8318.793 M51.5,8337.793 L38.5,8352.793 M51.5,8337.793 L64.5,8352.793 " fill="none" filter="url(#frutksc2q3grv)" style="stroke:#A80036;stroke-width:2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="58" x="296.5" y="162.2441">Sender's</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="33" x="309" y="178.7324">Bank</text><ellipse cx="328.5" cy="132.709" fill="#FEFECE" filter="url(#frutksc2q3grv)" rx="12" ry="12" style="stroke:#A80036;stroke-width:2.0;"/><polygon fill="#A80036" points="324.5,120.709,330.5,115.709,328.5,120.709,330.5,125.709,324.5,120.709" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="58" x="296.5" y="8273.3516">Sender's</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="33" x="309" y="8289.8398">Bank</text><ellipse cx="328.5" cy="8308.793" fill="#FEFECE" filter="url(#frutksc2q3grv)" rx="12" ry="12" style="stroke:#A80036;stroke-width:2.0;"/><polygon fill="#A80036" points="324.5,8296.793,330.5,8291.793,328.5,8296.793,330.5,8301.793,324.5,8296.793" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="44" x="798.5" y="162.2441">Global</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="25" x="808" y="178.7324">ALS</text><ellipse cx="823.5" cy="132.709" fill="#FEFECE" filter="url(#frutksc2q3grv)" rx="12" ry="12" style="stroke:#A80036;stroke-width:2.0;"/><polygon fill="#A80036" points="819.5,120.709,825.5,115.709,823.5,120.709,825.5,125.709,819.5,120.709" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="44" x="798.5" y="8273.3516">Global</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="25" x="808" y="8289.8398">ALS</text><ellipse cx="823.5" cy="8308.793" fill="#FEFECE" filter="url(#frutksc2q3grv)" rx="12" ry="12" style="stroke:#A80036;stroke-width:2.0;"/><polygon fill="#A80036" points="819.5,8296.793,825.5,8291.793,823.5,8296.793,825.5,8301.793,819.5,8296.793" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="174" x="858.5" y="178.7324">ISO 20022 &lt;-&gt; Mojaloop</text><path d="M928,137.1973 L928,161.1973 M928,149.1973 L945,149.1973 " fill="none" filter="url(#frutksc2q3grv)" style="stroke:#A80036;stroke-width:2.0;"/><ellipse cx="957" cy="149.1973" fill="#FEFECE" filter="url(#frutksc2q3grv)" rx="12" ry="12" style="stroke:#A80036;stroke-width:2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="174" x="858.5" y="8273.3516">ISO 20022 &lt;-&gt; Mojaloop</text><path d="M928,8280.3047 L928,8304.3047 M928,8292.3047 L945,8292.3047 " fill="none" filter="url(#frutksc2q3grv)" style="stroke:#A80036;stroke-width:2.0;"/><ellipse cx="957" cy="8292.3047" fill="#FEFECE" filter="url(#frutksc2q3grv)" rx="12" ry="12" style="stroke:#A80036;stroke-width:2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="64" x="1048.5" y="162.2441">Mojaloop</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="33" x="1064" y="178.7324">Bank</text><ellipse cx="1083.5" cy="132.709" fill="#FEFECE" filter="url(#frutksc2q3grv)" rx="12" ry="12" style="stroke:#A80036;stroke-width:2.0;"/><polygon fill="#A80036" points="1079.5,120.709,1085.5,115.709,1083.5,120.709,1085.5,125.709,1079.5,120.709" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="64" x="1048.5" y="8273.3516">Mojaloop</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="33" x="1064" y="8289.8398">Bank</text><ellipse cx="1083.5" cy="8308.793" fill="#FEFECE" filter="url(#frutksc2q3grv)" rx="12" ry="12" style="stroke:#A80036;stroke-width:2.0;"/><polygon fill="#A80036" points="1079.5,8296.793,1085.5,8291.793,1083.5,8296.793,1085.5,8301.793,1079.5,8296.793" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="0" x="1622.5" y="129.2676"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="64" x="1588.5" y="145.7559">Mojaloop</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="99" x="1571" y="162.2441">Mobile-Money</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="48" x="1596.5" y="178.7324">System</text><ellipse cx="1623.5" cy="99.7324" fill="#FEFECE" filter="url(#frutksc2q3grv)" rx="12" ry="12" style="stroke:#A80036;stroke-width:2.0;"/><polygon fill="#A80036" points="1619.5,87.7324,1625.5,82.7324,1623.5,87.7324,1625.5,92.7324,1619.5,87.7324" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="0" x="1622.5" y="8273.3516"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="64" x="1588.5" y="8289.8398">Mojaloop</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="99" x="1571" y="8306.3281">Mobile-Money</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="48" x="1596.5" y="8322.8164">System</text><ellipse cx="1623.5" cy="8341.7695" fill="#FEFECE" filter="url(#frutksc2q3grv)" rx="12" ry="12" style="stroke:#A80036;stroke-width:2.0;"/><polygon fill="#A80036" points="1619.5,8329.7695,1625.5,8324.7695,1623.5,8329.7695,1625.5,8334.7695,1619.5,8329.7695" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="57" x="1803" y="162.2441">Receiver</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="74" x="1794.5" y="178.7324">(Mojaloop)</text><ellipse cx="1834.5" cy="91.709" fill="#FEFECE" filter="url(#frutksc2q3grv)" rx="8" ry="8" style="stroke:#A80036;stroke-width:2.0;"/><path d="M1834.5,99.709 L1834.5,126.709 M1821.5,107.709 L1847.5,107.709 M1834.5,126.709 L1821.5,141.709 M1834.5,126.709 L1847.5,141.709 " fill="none" filter="url(#frutksc2q3grv)" style="stroke:#A80036;stroke-width:2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="57" x="1803" y="8273.3516">Receiver</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="74" x="1794.5" y="8289.8398">(Mojaloop)</text><ellipse cx="1834.5" cy="8302.793" fill="#FEFECE" filter="url(#frutksc2q3grv)" rx="8" ry="8" style="stroke:#A80036;stroke-width:2.0;"/><path d="M1834.5,8310.793 L1834.5,8337.793 M1821.5,8318.793 L1847.5,8318.793 M1834.5,8337.793 L1821.5,8352.793 M1834.5,8337.793 L1847.5,8352.793 " fill="none" filter="url(#frutksc2q3grv)" style="stroke:#A80036;stroke-width:2.0;"/><rect fill="#FFFFFF" filter="url(#frutksc2q3grv)" height="123.5527" style="stroke:#A80036;stroke-width:1.0;" width="10" x="46.5" y="191.6855"/><rect fill="#FFFFFF" filter="url(#frutksc2q3grv)" height="29.3105" style="stroke:#A80036;stroke-width:1.0;" width="10" x="46.5" y="5795.0293"/><rect fill="#FFFFFF" filter="url(#frutksc2q3grv)" height="29.3105" style="stroke:#A80036;stroke-width:1.0;" width="10" x="46.5" y="8206.5059"/><rect fill="#FFFFFF" filter="url(#frutksc2q3grv)" height="2073.8184" style="stroke:#A80036;stroke-width:1.0;" width="10" x="323.5" y="285.9277"/><rect fill="#FFFFFF" filter="url(#frutksc2q3grv)" height="1789.5391" style="stroke:#A80036;stroke-width:1.0;" width="10" x="323.5" y="4870.3281"/><rect fill="#FFFFFF" filter="url(#frutksc2q3grv)" height="571.248" style="stroke:#A80036;stroke-width:1.0;" width="10" x="323.5" y="7664.5684"/><rect fill="#FFFFFF" filter="url(#frutksc2q3grv)" height="995.9434" style="stroke:#A80036;stroke-width:1.0;" width="10" x="818.5" y="359.8594"/><rect fill="#FFFFFF" filter="url(#frutksc2q3grv)" height="4316.6738" style="stroke:#A80036;stroke-width:1.0;" width="10" x="1078.5" y="1449.0449"/><rect fill="#FFFFFF" filter="url(#frutksc2q3grv)" height="2244.3027" style="stroke:#A80036;stroke-width:1.0;" width="10" x="1078.5" y="5917.582"/><rect fill="#FFFFFF" filter="url(#frutksc2q3grv)" height="2390.0293" style="stroke:#A80036;stroke-width:1.0;" width="10" x="1618.5" y="2428.6777"/><rect fill="#FFFFFF" filter="url(#frutksc2q3grv)" height="900.1484" style="stroke:#A80036;stroke-width:1.0;" width="10" x="1618.5" y="6704.4883"/><path d="M9,198.6855 L383,198.6855 L383,205.6855 L373,215.6855 L9,215.6855 L9,198.6855 " fill="#EEEEEE" style="stroke:#000000;stroke-width:1.0;"/><rect fill="none" height="8045.1309" style="stroke:#000000;stroke-width:2.0;" width="1875.5" x="9" y="198.6855"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="329" x="24" y="212.2539">Sender sends a P2P Transfer request to Receiver</text><polygon fill="#FFAAAA" filter="url(#frutksc2q3grv)" points="29,220.9961,1855,220.9961,1865,231.9961,1855,243.9961,29,243.9961,19,231.9961,29,220.9961" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="88" x="898.25" y="237.5645">Lookup phase</text><line style="stroke:#A80036;stroke-width:1.0;" x1="321.5" x2="311.5" y1="285.9277" y2="281.9277"/><line style="stroke:#A80036;stroke-width:1.0;" x1="321.5" x2="311.5" y1="285.9277" y2="289.9277"/><line style="stroke:#A80036;stroke-width:1.0;" x1="56.5" x2="322.5" y1="285.9277" y2="285.9277"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="9" x="63.5" y="273.5303">1</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="93" x="76.5" y="265.875">I'd like to send</text><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="76" x="173.5" y="265.875">RWF:20000</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="93" x="76.5" y="281.1855">to user with ID</text><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="119" x="173.5" y="281.1855">(+250)70610388</text><line style="stroke:#A80036;stroke-width:1.0;" x1="51.5" x2="61.5" y1="315.2383" y2="311.2383"/><line style="stroke:#A80036;stroke-width:1.0;" x1="51.5" x2="61.5" y1="315.2383" y2="319.2383"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="51.5" x2="322.5" y1="315.2383" y2="315.2383"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="9" x="68.5" y="310.4961">2</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="131" x="81.5" y="310.4961">HTTP 202 (Accepted)</text><line style="stroke:#A80036;stroke-width:1.0;" x1="816.5" x2="806.5" y1="359.8594" y2="355.8594"/><line style="stroke:#A80036;stroke-width:1.0;" x1="816.5" x2="806.5" y1="359.8594" y2="363.8594"/><line style="stroke:#A80036;stroke-width:1.0;" x1="333.5" x2="817.5" y1="359.8594" y2="359.8594"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="9" x="340.5" y="347.4619">3</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="283" x="353.5" y="339.8066">Resolve ID (+250)70610388 [synchronous] &lt;</text><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="63" x="636.5" y="339.8066">camt.003</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="10" x="699.5" y="339.8066">&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="286" x="353.5" y="355.1172">similar to GET /participants/{Type}/{ID} in ML</text><path d="M338,372.8594 L338,734.8594 L725,734.8594 L725,382.8594 L715,372.8594 L338,372.8594 " fill="#FFFF00" filter="url(#frutksc2q3grv)" style="stroke:#A80036;stroke-width:1.0;"/><path d="M715,372.8594 L715,382.8594 L725,382.8594 L715,372.8594 " fill="#FFFF00" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="127" x="344" y="390.4277">Payload - camt.003:</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="69" x="344" y="405.7383">&lt;GetAcct&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="69" x="360" y="421.0488">&lt;MsgHdr&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="334" x="376" y="436.3594">&lt;MsgId&gt;575b3623-5adf-4752-8da9-a159a179ec9f</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="65" x="376" y="451.6699">&lt;/MsgId&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="326" x="376" y="466.9805">&lt;CreDtTm&gt;2020-05-14T15:07:38.6875000+03:00</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="83" x="376" y="482.291">&lt;/CreDtTm&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="76" x="360" y="497.6016">&lt;/MsgHdr&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="92" x="360" y="512.9121">&lt;AcctQryDef&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="71" x="376" y="528.2227">&lt;AcctCrit&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="70" x="392" y="543.5332">&lt;NewCrit&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="65" x="408" y="558.8438">&lt;SchCrit&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="81" x="424" y="574.1543">&lt;AcctOwnr&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="72" x="440" y="589.4648">&lt;CtctDtls&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="65" x="456" y="604.7754">&lt;MobNb&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="126" x="521" y="604.7754">+250-788301607</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="72" x="456" y="620.0859">&lt;/MobNb&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="79" x="440" y="635.3965">&lt;/CtctDtls&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="88" x="424" y="650.707">&lt;/AcctOwnr&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="72" x="408" y="666.0176">&lt;/SchCrit&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="77" x="392" y="681.3281">&lt;/NewCrit&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="78" x="376" y="696.6387">&lt;/AcctCrit&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="99" x="360" y="711.9492">&lt;/AcctQryDef&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="76" x="344" y="727.2598">&lt;/GetAcct&gt;</text><path d="M406,749.002 L406,1294.002 L809,1294.002 L809,759.002 L799,749.002 L406,749.002 " fill="#FFFF00" filter="url(#frutksc2q3grv)" style="stroke:#A80036;stroke-width:1.0;"/><path d="M799,749.002 L799,759.002 L809,759.002 L799,749.002 " fill="#FFFF00" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="127" x="412" y="766.5703">Payload - camt.004:</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="66" x="412" y="781.8809">&lt;RtrAcct&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="69" x="428" y="797.1914">&lt;MsgHdr&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="319" x="444" y="812.502">&lt;MsgId&gt;2d1f2fa1-582c-4ffa-afd2-fc426722f91a</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="65" x="444" y="827.8125">&lt;/MsgId&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="339" x="444" y="843.123">&lt;CreDtTm&gt;2021-03-17T12:45:59.155Z&lt;/CreDtTm&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="95" x="444" y="858.4336">&lt;OrgnlBizQry&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="334" x="460" y="873.7441">&lt;MsgId&gt;575b3623-5adf-4752-8da9-a159a179ec9f</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="65" x="460" y="889.0547">&lt;/MsgId&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="102" x="444" y="904.3652">&lt;/OrgnlBizQry&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="76" x="428" y="919.6758">&lt;/MsgHdr&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="73" x="428" y="934.9863">&lt;RptOrErr&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="69" x="444" y="950.2969">&lt;AcctRpt&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="60" x="460" y="965.6074">&lt;AcctId&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="48" x="476" y="980.918">&lt;Othr&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="200" x="492" y="996.2285">&lt;Id&gt;dfsp.username.5678&lt;/Id&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="83" x="492" y="1011.5391">&lt;SchmeNm&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="114" x="508" y="1026.8496">&lt;Cd&gt;BBAN&lt;/Cd&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="90" x="492" y="1042.1602">&lt;/SchmeNm&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="55" x="476" y="1057.4707">&lt;/Othr&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="67" x="460" y="1072.7813">&lt;/AcctId&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="80" x="460" y="1088.0918">&lt;AcctOrErr&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="48" x="476" y="1103.4023">&lt;Acct&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="46" x="492" y="1118.7129">&lt;Svcr&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="83" x="508" y="1134.0234">&lt;FinInstnId&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="202" x="524" y="1149.334">&lt;BICFI&gt;EQBLRWRWXXX&lt;/BICFI&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="42" x="524" y="1164.6445">&lt;Nm&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="216" x="566" y="1164.6445">EQUITY BANK RWANDA LIMITED</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="49" x="524" y="1179.9551">&lt;/Nm&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="90" x="508" y="1195.2656">&lt;/FinInstnId&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="53" x="492" y="1210.5762">&lt;/Svcr&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="55" x="476" y="1225.8867">&lt;/Acct&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="87" x="460" y="1241.1973">&lt;/AcctOrErr&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="76" x="444" y="1256.5078">&lt;/AcctRpt&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="80" x="428" y="1271.8184">&lt;/RptOrErr&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="73" x="412" y="1287.1289">&lt;/RtrAcct&gt;</text><line style="stroke:#A80036;stroke-width:1.0;" x1="333.5" x2="343.5" y1="1355.8027" y2="1351.8027"/><line style="stroke:#A80036;stroke-width:1.0;" x1="333.5" x2="343.5" y1="1355.8027" y2="1359.8027"/><line style="stroke:#A80036;stroke-width:1.0;" x1="333.5" x2="822.5" y1="1355.8027" y2="1355.8027"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="9" x="350.5" y="1335.75">4</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="375" x="363.5" y="1320.4395">Reach out to Mojaloop Bank to which this ID is registered &lt;</text><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="63" x="738.5" y="1320.4395">camt.004</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="10" x="801.5" y="1320.4395">&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="150" x="363.5" y="1335.75">[synchronous response]</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="286" x="363.5" y="1351.0605">similar to PUT /participants/{Type}/{ID} in ML</text><polygon fill="#FFAAAA" filter="url(#frutksc2q3grv)" points="29,1368.8027,1855,1368.8027,1865,1379.8027,1855,1391.8027,29,1391.8027,19,1379.8027,29,1368.8027" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="109" x="887.75" y="1385.3711">Agreement phase</text><line style="stroke:#A80036;stroke-width:1.0;" x1="1076.5" x2="1066.5" y1="1449.0449" y2="1445.0449"/><line style="stroke:#A80036;stroke-width:1.0;" x1="1076.5" x2="1066.5" y1="1449.0449" y2="1453.0449"/><line style="stroke:#A80036;stroke-width:1.0;" x1="333.5" x2="1077.5" y1="1449.0449" y2="1449.0449"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="9" x="340.5" y="1428.9922">5</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="0" x="357.5" y="1413.6816"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="103" x="353.5" y="1428.9922">Quote request &lt;</text><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="60" x="456.5" y="1428.9922">pain.001</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="10" x="516.5" y="1428.9922">&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="188" x="353.5" y="1444.3027">similar to POST /quotes in ML</text><path d="M338,1462.0449 L338,2329.0449 L822,2329.0449 L822,1472.0449 L812,1462.0449 L338,1462.0449 " fill="#FFFF00" filter="url(#frutksc2q3grv)" style="stroke:#A80036;stroke-width:1.0;"/><path d="M812,1462.0449 L812,1472.0449 L822,1472.0449 L812,1462.0449 " fill="#FFFF00" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="123" x="344" y="1479.6133">Payload - pain.001:</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="127" x="344" y="1494.9238">&lt;CstmrCdtTrfInitn&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="65" x="360" y="1510.2344">&lt;GrpHdr&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="406" x="376" y="1525.5449">&lt;MsgId&gt;7d04b391-0c90-4ad4-9ba8-46232b04e18a&lt;/MsgId&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="409" x="376" y="1540.8555">&lt;CreDtTm&gt;2021-02-10T15:07:38.6875000+03:00&lt;/CreDtTm&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="167" x="376" y="1556.166">&lt;NbOfTxs&gt;1&lt;/NbOfTxs&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="68" x="376" y="1571.4766">&lt;InitgPty&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="42" x="392" y="1586.7871">&lt;Nm&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="111" x="434" y="1586.7871">LAKE CITY BANK</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="49" x="545" y="1586.7871">&lt;/Nm&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="32" x="392" y="1602.0977">&lt;Id&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="55" x="408" y="1617.4082">&lt;OrgId&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="200" x="424" y="1632.7188">&lt;AnyBIC&gt;LAKCUS33&lt;/AnyBIC&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="62" x="408" y="1648.0293">&lt;/OrgId&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="39" x="392" y="1663.3398">&lt;/Id&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="75" x="376" y="1678.6504">&lt;/InitgPty&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="72" x="360" y="1693.9609">&lt;/GrpHdr&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="61" x="360" y="1709.2715">&lt;PmtInf&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="431" x="376" y="1724.582">&lt;PmtInfId&gt;7e2599df-80a1-4f6e-b381-99536c4d2691&lt;/PmtInfId&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="166" x="376" y="1739.8926">&lt;PmtMtd&gt;TRF&lt;/PmtMtd&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="101" x="376" y="1755.2031">&lt;ReqdExctnDt&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="157" x="392" y="1770.5137">&lt;Dt&gt;2021-02-10&lt;/Dt&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="108" x="376" y="1785.8242">&lt;/ReqdExctnDt&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="48" x="376" y="1801.1348">&lt;Dbtr&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="72" x="392" y="1816.4453">&lt;CtctDtls&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="65" x="408" y="1831.7559">&lt;MobNb&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="133" x="473" y="1831.7559">+1-574-265-1752</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="72" x="606" y="1831.7559">&lt;/MobNb&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="79" x="392" y="1847.0664">&lt;/CtctDtls&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="55" x="376" y="1862.377">&lt;/Dbtr&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="76" x="376" y="1877.6875">&lt;DbtrAcct&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="32" x="392" y="1892.998">&lt;Id&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="48" x="408" y="1908.3086">&lt;Othr&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="163" x="424" y="1923.6191">&lt;Id&gt;NOTPROVIDED&lt;/Id&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="55" x="408" y="1938.9297">&lt;/Othr&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="39" x="392" y="1954.2402">&lt;/Id&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="83" x="376" y="1969.5508">&lt;/DbtrAcct&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="70" x="376" y="1984.8613">&lt;DbtrAgt&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="83" x="392" y="2000.1719">&lt;FinInstnId&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="174" x="408" y="2015.4824">&lt;BICFI&gt;LAKCUS33&lt;/BICFI&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="193" x="408" y="2030.793">&lt;Nm&gt;LAKE CITY BANK&lt;/Nm&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="90" x="392" y="2046.1035">&lt;/FinInstnId&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="77" x="376" y="2061.4141">&lt;/DbtrAgt&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="163" x="376" y="2076.7246">&lt;ChrgBr&gt;DEBT&lt;/ChrgBr&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="93" x="376" y="2092.0352">&lt;CdtTrfTxInf&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="56" x="392" y="2107.3457">&lt;PmtId&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="372" x="408" y="2122.6563">&lt;EndToEndId&gt;7e2599df-80a1-4f6e-b381-99536c4d2691</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="101" x="408" y="2137.9668">&lt;/EndToEndId&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="63" x="392" y="2153.2773">&lt;/PmtId&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="46" x="392" y="2168.5879">&lt;Amt&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="151" x="408" y="2183.8984">&lt;InstdAmt Ccy="RWF"&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="45" x="559" y="2183.8984">20000</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="85" x="604" y="2183.8984">&lt;/InstdAmt&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="53" x="392" y="2199.209">&lt;/Amt&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="47" x="392" y="2214.5195">&lt;Cdtr&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="72" x="408" y="2229.8301">&lt;CtctDtls&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="65" x="424" y="2245.1406">&lt;MobNb&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="117" x="489" y="2245.1406">+250-70610388</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="72" x="606" y="2245.1406">&lt;/MobNb&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="79" x="408" y="2260.4512">&lt;/CtctDtls&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="54" x="392" y="2275.7617">&lt;/Cdtr&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="100" x="376" y="2291.0723">&lt;/CdtTrfTxInf&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="68" x="360" y="2306.3828">&lt;/PmtInf&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="134" x="344" y="2321.6934">&lt;/CstmrCdtTrfInitn&gt;</text><line style="stroke:#A80036;stroke-width:1.0;" x1="328.5" x2="338.5" y1="2359.7461" y2="2355.7461"/><line style="stroke:#A80036;stroke-width:1.0;" x1="328.5" x2="338.5" y1="2359.7461" y2="2363.7461"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="328.5" x2="1077.5" y1="2359.7461" y2="2359.7461"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="9" x="345.5" y="2355.0039">6</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="131" x="358.5" y="2355.0039">HTTP 202 (Accepted)</text><path d="M1038.5,2374.7461 L1258.5,2374.7461 L1258.5,2381.7461 L1248.5,2391.7461 L1038.5,2391.7461 L1038.5,2374.7461 " fill="#EEEEEE" style="stroke:#000000;stroke-width:1.0;"/><rect fill="none" height="2451.9609" style="stroke:#000000;stroke-width:2.0;" width="647.5" x="1038.5" y="2374.7461"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="175" x="1053.5" y="2388.3145">moja-lookup-and-quotes</text><line style="stroke:#A80036;stroke-width:1.0;" x1="1616.5" x2="1606.5" y1="2428.6777" y2="2424.6777"/><line style="stroke:#A80036;stroke-width:1.0;" x1="1616.5" x2="1606.5" y1="2428.6777" y2="2432.6777"/><line style="stroke:#A80036;stroke-width:1.0;" x1="1088.5" x2="1617.5" y1="2428.6777" y2="2428.6777"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="9" x="1095.5" y="2416.2803">7</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="175" x="1108.5" y="2408.625">Lookup ID (+250)70610388</text><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="160" x="1108.5" y="2423.9355">GET parties/{Type}/{ID}</text><line style="stroke:#A80036;stroke-width:1.0;" x1="1088.5" x2="1098.5" y1="2457.9883" y2="2453.9883"/><line style="stroke:#A80036;stroke-width:1.0;" x1="1088.5" x2="1098.5" y1="2457.9883" y2="2461.9883"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="1088.5" x2="1617.5" y1="2457.9883" y2="2457.9883"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="9" x="1105.5" y="2453.2461">8</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="131" x="1118.5" y="2453.2461">HTTP 202 (Accepted)</text><line style="stroke:#A80036;stroke-width:1.0;" x1="1088.5" x2="1098.5" y1="2487.2988" y2="2483.2988"/><line style="stroke:#A80036;stroke-width:1.0;" x1="1088.5" x2="1098.5" y1="2487.2988" y2="2491.2988"/><line style="stroke:#A80036;stroke-width:1.0;" x1="1088.5" x2="1617.5" y1="2487.2988" y2="2487.2988"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="9" x="1105.5" y="2482.5566">9</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="329" x="1118.5" y="2482.5566">Lookup resolution for ID (+250)70610388 [callback]</text><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="160" x="1451.5" y="2482.5566">PUT parties/{Type}/{ID}</text><path d="M1322,2500.2988 L1322,2984.2988 L1609,2984.2988 L1609,2510.2988 L1599,2500.2988 L1322,2500.2988 " fill="#FFFF00" filter="url(#frutksc2q3grv)" style="stroke:#A80036;stroke-width:1.0;"/><path d="M1599,2500.2988 L1599,2510.2988 L1609,2510.2988 L1599,2500.2988 " fill="#FFFF00" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="179" x="1328" y="2517.8672">Headers - transferHeaders: {</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="234" x="1344" y="2533.1777">Content-Length: &lt;Content-Length&gt;,</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="208" x="1344" y="2548.4883">Content-Type: &lt;Content-Type&gt;,</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="90" x="1344" y="2563.7988">Date: &lt;Date&gt;,</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="250" x="1344" y="2579.1094">X-Forwarded-For: &lt;X-Forwarded-For&gt;,</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="12" x="1344" y="2594.4199">...</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="4" x="1328" y="2609.7305">}</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="52" x="1328" y="2625.041">Payload:</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="4" x="1328" y="2640.3516">{</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="46" x="1328" y="2655.6621">"party":</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="4" x="1328" y="2670.9727">{</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="83" x="1344" y="2686.2832">"partyIdInfo":</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="4" x="1344" y="2701.5938">{</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="155" x="1344" y="2716.9043">"partyIdType": "MSISDN",</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="209" x="1344" y="2732.2148">"partyIdentifier": "25070610388",</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="96" x="1344" y="2747.5254">"fspId": "5678",</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="0" x="1344" y="2762.8359"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="8" x="1344" y="2778.1465">},</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="158" x="1344" y="2793.457">"name": "Aunt Honorine",</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="93" x="1344" y="2808.7676">"personalInfo":</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="4" x="1360" y="2824.0781">{</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="104" x="1360" y="2839.3887">"complexName":</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="4" x="1376" y="2854.6992">{</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="85" x="1376" y="2870.0098">"firstName": "</text><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="62" x="1461" y="2870.0098">Honorine</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="9" x="1523" y="2870.0098">",</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="118" x="1376" y="2885.3203">"middleName": "P",</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="117" x="1376" y="2900.6309">"lastName": "Aunt"</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="8" x="1376" y="2915.9414">},</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="179" x="1376" y="2931.252">"dateOfBirth": "1961-12-25"</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="4" x="1360" y="2946.5625">}</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="4" x="1344" y="2961.873">}</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="4" x="1328" y="2977.1836">}</text><line style="stroke:#A80036;stroke-width:1.0;" x1="1616.5" x2="1606.5" y1="3015.2363" y2="3011.2363"/><line style="stroke:#A80036;stroke-width:1.0;" x1="1616.5" x2="1606.5" y1="3015.2363" y2="3019.2363"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="1088.5" x2="1617.5" y1="3015.2363" y2="3015.2363"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="18" x="1095.5" y="3010.4941">10</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="91" x="1117.5" y="3010.4941">HTTP 200 (OK)</text><line style="stroke:#A80036;stroke-width:1.0;" x1="1616.5" x2="1606.5" y1="3044.5469" y2="3040.5469"/><line style="stroke:#A80036;stroke-width:1.0;" x1="1616.5" x2="1606.5" y1="3044.5469" y2="3048.5469"/><line style="stroke:#A80036;stroke-width:1.0;" x1="1088.5" x2="1617.5" y1="3044.5469" y2="3044.5469"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="18" x="1095.5" y="3039.8047">11</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="89" x="1117.5" y="3039.8047">Quote request</text><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="92" x="1210.5" y="3039.8047">POST /quotes</text><path d="M1093,3057.5469 L1093,4062.5469 L1535,4062.5469 L1535,3067.5469 L1525,3057.5469 L1093,3057.5469 " fill="#FFFF00" filter="url(#frutksc2q3grv)" style="stroke:#A80036;stroke-width:1.0;"/><path d="M1525,3057.5469 L1525,3067.5469 L1535,3067.5469 L1525,3057.5469 " fill="#FFFF00" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="179" x="1115" y="3075.1152">Headers - transferHeaders: {</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="234" x="1131" y="3090.4258">Content-Length: &lt;Content-Length&gt;,</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="208" x="1131" y="3105.7363">Content-Type: &lt;Content-Type&gt;,</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="90" x="1131" y="3121.0469">Date: &lt;Date&gt;,</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="250" x="1131" y="3136.3574">X-Forwarded-For: &lt;X-Forwarded-For&gt;,</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="12" x="1131" y="3151.668">...</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="4" x="1115" y="3166.9785">}</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="52" x="1115" y="3182.2891">Payload:</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="4" x="1115" y="3197.5996">{</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="361" x="1131" y="3212.9102">"quoteId": "b51ec534-ee48-4575-b6a9-ead2955b8069",</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="389" x="1131" y="3228.2207">"transactionId": "a8323bc6-c228-4df2-ae82-e5a997baf899",</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="50" x="1131" y="3243.5313">"payee":</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="4" x="1131" y="3258.8418">{</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="83" x="1147" y="3274.1523">"partyIdInfo":</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="4" x="1147" y="3289.4629">{</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="155" x="1147" y="3304.7734">"partyIdType": "MSISDN",</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="209" x="1147" y="3320.084">"partyIdentifier": "25070610388",</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="92" x="1147" y="3335.3945">"fspId": "5678"</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="8" x="1147" y="3350.7051">},</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="158" x="1147" y="3366.0156">"name": "Aunt Honorine",</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="93" x="1147" y="3381.3262">"personalInfo":</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="4" x="1147" y="3396.6367">{</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="104" x="1163" y="3411.9473">"complexName":</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="4" x="1163" y="3427.2578">{</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="152" x="1179" y="3442.5684">"firstName": "Honorine",</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="118" x="1179" y="3457.8789">"middleName": "P",</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="117" x="1179" y="3473.1895">"lastName": "Aunt"</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="8" x="1163" y="3488.5">},</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="179" x="1163" y="3503.8105">"dateOfBirth": "1961-12-25"</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="4" x="1147" y="3519.1211">}</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="8" x="1131" y="3534.4316">},</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="48" x="1131" y="3549.7422">"payer":</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="4" x="1131" y="3565.0527">{</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="83" x="1147" y="3580.3633">"partyIdInfo":</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="4" x="1147" y="3595.6738">{</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="155" x="1147" y="3610.9844">"partyIdType": "MSISDN",</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="243" x="1147" y="3626.2949">"partyIdentifier": "+1-574-265-1752",</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="92" x="1147" y="3641.6055">"fspId": "1234"</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="8" x="1147" y="3656.916">},</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="161" x="1147" y="3672.2266">"name": "Amanda Nunes",</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="93" x="1147" y="3687.5371">"personalInfo":</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="4" x="1147" y="3702.8477">{</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="104" x="1163" y="3718.1582">"complexName":</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="4" x="1163" y="3733.4688">{</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="145" x="1179" y="3748.7793">"firstName": "Amanda",</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="115" x="1179" y="3764.0898">"middleName": "J",</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="127" x="1179" y="3779.4004">"lastName": "Nunes"</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="8" x="1163" y="3794.7109">},</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="179" x="1163" y="3810.0215">"dateOfBirth": "1984-01-01"</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="4" x="1147" y="3825.332">}</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="8" x="1131" y="3840.6426">},</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="160" x="1131" y="3855.9531">"amountType": "RECEIVE",</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="62" x="1131" y="3871.2637">"amount":</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="4" x="1131" y="3886.5742">{</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="112" x="1147" y="3901.8848">"currency": "RWF",</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="71" x="1147" y="3917.1953">"amount": "</text><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="45" x="1218" y="3917.1953">20000</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="5" x="1263" y="3917.1953">"</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="8" x="1131" y="3932.5059">},</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="115" x="1131" y="3947.8164">"transactionType":</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="4" x="1131" y="3963.127">{</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="138" x="1147" y="3978.4375">"scenario": "DEPOSIT",</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="121" x="1147" y="3993.748">"initiator": "PAYER",</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="179" x="1147" y="4009.0586">"initiatorType": "CONSUMER"</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="8" x="1131" y="4024.3691">},</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="312" x="1131" y="4039.6797">"expiration": "2021-03-19T08:38:08.699-04:00",</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="4" x="1099" y="4054.9902">}</text><line style="stroke:#A80036;stroke-width:1.0;" x1="1088.5" x2="1098.5" y1="4093.043" y2="4089.043"/><line style="stroke:#A80036;stroke-width:1.0;" x1="1088.5" x2="1098.5" y1="4093.043" y2="4097.043"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="1088.5" x2="1617.5" y1="4093.043" y2="4093.043"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="18" x="1105.5" y="4088.3008">12</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="131" x="1127.5" y="4088.3008">HTTP 202 (Accepted)</text><line style="stroke:#A80036;stroke-width:1.0;" x1="1088.5" x2="1098.5" y1="4137.6641" y2="4133.6641"/><line style="stroke:#A80036;stroke-width:1.0;" x1="1088.5" x2="1098.5" y1="4137.6641" y2="4141.6641"/><line style="stroke:#A80036;stroke-width:1.0;" x1="1088.5" x2="1617.5" y1="4137.6641" y2="4137.6641"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="18" x="1105.5" y="4125.2666">13</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="163" x="1127.5" y="4117.6113">Quote response [callback]</text><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="115" x="1127.5" y="4132.9219">PUT /quotes/{ID}</text><path d="M1142,4150.6641 L1142,4787.6641 L1609,4787.6641 L1609,4160.6641 L1599,4150.6641 L1142,4150.6641 " fill="#FFFF00" filter="url(#frutksc2q3grv)" style="stroke:#A80036;stroke-width:1.0;"/><path d="M1599,4150.6641 L1599,4160.6641 L1609,4160.6641 L1599,4150.6641 " fill="#FFFF00" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="179" x="1164" y="4168.2324">Headers - transferHeaders: {</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="234" x="1180" y="4183.543">Content-Length: &lt;Content-Length&gt;,</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="208" x="1180" y="4198.8535">Content-Type: &lt;Content-Type&gt;,</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="90" x="1180" y="4214.1641">Date: &lt;Date&gt;,</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="250" x="1180" y="4229.4746">X-Forwarded-For: &lt;X-Forwarded-For&gt;,</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="12" x="1180" y="4244.7852">...</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="4" x="1164" y="4260.0957">}</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="52" x="1164" y="4275.4063">Payload:</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="4" x="1164" y="4290.7168">{</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="113" x="1164" y="4306.0273">"transferAmount":</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="4" x="1164" y="4321.3379">{</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="112" x="1180" y="4336.6484">"currency": "RWF",</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="71" x="1180" y="4351.959">"amount": "</text><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="45" x="1251" y="4351.959">20200</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="5" x="1296" y="4351.959">"</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="8" x="1164" y="4367.2695">},</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="147" x="1164" y="4382.5801">"payeeReceiveAmount":</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="4" x="1164" y="4397.8906">{</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="112" x="1180" y="4413.2012">"currency": "RWF",</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="116" x="1180" y="4428.5117">"amount": "20000"</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="8" x="1164" y="4443.8223">},</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="93" x="1164" y="4459.1328">"payeeFspFee":</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="4" x="1164" y="4474.4434">{</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="112" x="1180" y="4489.7539">"currency": "RWF",</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="71" x="1180" y="4505.0645">"amount": "</text><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="27" x="1251" y="4505.0645">200</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="5" x="1278" y="4505.0645">"</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="4" x="1164" y="4520.375">}</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="308" x="1164" y="4535.6855">"expiration": "2016-05-24T08:38:08.699-04:00"</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="430" x="1164" y="4550.9961">"ilpPacket": "AYIBgQAAAAAAAASwNGxldmVsb25lLmRmc3AxLm1lci4</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="326" x="1228" y="4566.3066">5T2RTOF81MDdqUUZERmZlakgyOVc4bXFmNEpLMH</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="311" x="1228" y="4581.6172">lGTFGCAUBQU0svMS4wCk5vbmNlOiB1SXlweUYzY</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="304" x="1228" y="4596.9277">3pYSXBFdzVVc05TYWh3CkVuY3J5cHRpb246IG5v</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="321" x="1228" y="4612.2383">bmUKUGF5bWVudC1JZDogMTMyMzZhM2ItOGZhOC</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="319" x="1228" y="4627.5488">00MTYzLTg0NDctNGMzZWQzZGE5OGE3CgpDb250</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="311" x="1228" y="4642.8594">ZW50LUxlbmd0aDogMTM1CkNvbnRlbnQtVHlwZT</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="291" x="1228" y="4658.1699">ogYXBwbGljYXRpb24vanNvbgpTZW5kZXItSWRl</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="286" x="1228" y="4673.4805">bnRpZmllcjogOTI4MDYzOTEKCiJ7XCJmZWVcIj</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="293" x="1228" y="4688.791">owLFwidHJhbnNmZXJDb2RlXCI6XCJpbnZvaWNl</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="284" x="1228" y="4704.1016">XCIsXCJkZWJpdE5hbWVcIjpcImFsaWNlIGNvb3</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="272" x="1228" y="4719.4121">BlclwiLFwiY3JlZGl0TmFtZVwiOlwibWVyIGNo</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="277" x="1228" y="4734.7227">YW50XCIsXCJkZWJpdElkZW50aWZpZXJcIjpcIj</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="145" x="1228" y="4750.0332">kyODA2MzkxXCJ9IgA",</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="425" x="1164" y="4765.3438">"condition": "f5sqb7tBTWPd5Y8BDFdMm9BJR_MNI4isf8p8n4D5pHA"</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="4" x="1148" y="4780.6543">}</text><line style="stroke:#A80036;stroke-width:1.0;" x1="1621.5" x2="1611.5" y1="4818.707" y2="4814.707"/><line style="stroke:#A80036;stroke-width:1.0;" x1="1621.5" x2="1611.5" y1="4818.707" y2="4822.707"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="1088.5" x2="1622.5" y1="4818.707" y2="4818.707"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="18" x="1095.5" y="4813.9648">14</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="91" x="1117.5" y="4813.9648">HTTP 200 (OK)</text><line style="stroke:#A80036;stroke-width:1.0;" x1="333.5" x2="343.5" y1="4870.3281" y2="4866.3281"/><line style="stroke:#A80036;stroke-width:1.0;" x1="333.5" x2="343.5" y1="4870.3281" y2="4874.3281"/><line style="stroke:#A80036;stroke-width:1.0;" x1="333.5" x2="1077.5" y1="4870.3281" y2="4870.3281"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="18" x="350.5" y="4857.9307">15</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="177" x="372.5" y="4850.2754">Quote response [callback] &lt;</text><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="60" x="549.5" y="4850.2754">pain.013</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="10" x="609.5" y="4850.2754">&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="60" x="372.5" y="4865.5859">similar to</text><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="115" x="436.5" y="4865.5859">PUT /quotes/{ID}</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="34" x="555.5" y="4865.5859">in ML</text><path d="M495,4883.3281 L495,5735.3281 L1069,5735.3281 L1069,4893.3281 L1059,4883.3281 L495,4883.3281 " fill="#FFFF00" filter="url(#frutksc2q3grv)" style="stroke:#A80036;stroke-width:1.0;"/><path d="M1059,4883.3281 L1059,4893.3281 L1069,4893.3281 L1059,4883.3281 " fill="#FFFF00" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="123" x="501" y="4900.8965">Payload - pain.013:</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="135" x="517" y="4916.207">&lt;CdtrPmtActvtnReq&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="65" x="533" y="4931.5176">&lt;GrpHdr&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="402" x="549" y="4946.8281">&lt;MsgId&gt;ca7797b6-c3be-4bfd-a101-904da8b75207&lt;/MsgId&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="409" x="549" y="4962.1387">&lt;CreDtTm&gt;2021-02-10T15:07:38.6875000+03:00&lt;/CreDtTm&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="167" x="549" y="4977.4492">&lt;NbOfTxs&gt;1&lt;/NbOfTxs&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="68" x="549" y="4992.7598">&lt;InitgPty&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="42" x="565" y="5008.0703">&lt;Nm&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="216" x="607" y="5008.0703">EQUITY BANK RWANDA LIMITED</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="49" x="823" y="5008.0703">&lt;/Nm&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="32" x="565" y="5023.3809">&lt;Id&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="228" x="581" y="5038.6914">&lt;AnyBIC&gt;EQBLRWRWXXX&lt;/AnyBIC&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="39" x="565" y="5054.002">&lt;/Id&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="75" x="549" y="5069.3125">&lt;/InitgPty&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="72" x="533" y="5084.623">&lt;/GrpHdr&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="61" x="533" y="5099.9336">&lt;PmtInf&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="431" x="549" y="5115.2441">&lt;PmtInfId&gt;7e2599df-80a1-4f6e-b381-99536c4d2691&lt;/PmtInfId&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="166" x="549" y="5130.5547">&lt;PmtMtd&gt;TRF&lt;/PmtMtd&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="289" x="549" y="5145.8652">&lt;ReqdExctnDt&gt;2021-02-10&lt;/ReqdExctnDt&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="59" x="549" y="5161.1758">&lt;SvcLvl&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="115" x="565" y="5176.4863">&lt;Cd&gt;SDVA&lt;/Cd&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="66" x="549" y="5191.7969">&lt;/SvcLvl&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="48" x="549" y="5207.1074">&lt;Dbtr&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="72" x="565" y="5222.418">&lt;CtctDtls&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="65" x="581" y="5237.7285">&lt;MobNb&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="133" x="646" y="5237.7285">+1-574-265-1752</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="72" x="779" y="5237.7285">&lt;/MobNb&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="79" x="565" y="5253.0391">&lt;/CtctDtls&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="55" x="549" y="5268.3496">&lt;/Dbtr&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="70" x="549" y="5283.6602">&lt;DbtrAgt&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="83" x="565" y="5298.9707">&lt;FinInstnId&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="174" x="581" y="5314.2813">&lt;BICFI&gt;LAKCUS33&lt;/BICFI&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="193" x="581" y="5329.5918">&lt;Nm&gt;LAKE CITY BANK&lt;/Nm&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="90" x="565" y="5344.9023">&lt;/FinInstnId&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="77" x="549" y="5360.2129">&lt;/DbtrAgt&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="163" x="549" y="5375.5234">&lt;ChrgBr&gt;DEBT&lt;/ChrgBr&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="464" x="549" y="5390.834">&lt;Cndtn&gt;fH9pAYDQbmoZLPbvv3CSW2RfjU4jvM4ApG_fqGnR7Xs&lt;/Cndtn&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="93" x="549" y="5406.1445">&lt;CdtTrfTxInf&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="56" x="565" y="5421.4551">&lt;PmtId&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="473" x="581" y="5436.7656">&lt;EndToEndId&gt;7e2599df-80a1-4f6e-b381-99536c4d2691&lt;/EndToEndId&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="63" x="565" y="5452.0762">&lt;/PmtId&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="46" x="565" y="5467.3867">&lt;Amt&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="151" x="581" y="5482.6973">&lt;InstdAmt Ccy="RWF"&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="45" x="732" y="5482.6973">20200</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="85" x="777" y="5482.6973">&lt;/InstdAmt&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="53" x="565" y="5498.0078">&lt;/Amt&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="69" x="565" y="5513.3184">&lt;CdtrAgt&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="83" x="581" y="5528.6289">&lt;FinInstnId&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="202" x="597" y="5543.9395">&lt;BICFI&gt;EQBLRWRWXXX&lt;/BICFI&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="42" x="597" y="5559.25">&lt;Nm&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="226" x="639" y="5559.25">EQUITY BANK RWANDA LIMITED&lt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="39" x="865" y="5559.25">/Nm&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="90" x="581" y="5574.5605">&lt;/FinInstnId&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="76" x="549" y="5589.8711">&lt;/CdtrAgt&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="47" x="549" y="5605.1816">&lt;Cdtr&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="72" x="581" y="5620.4922">&lt;CtctDtls&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="42" x="597" y="5635.8027">&lt;Nm&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="99" x="639" y="5635.8027">Aunt Honorine</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="49" x="738" y="5635.8027">&lt;/Nm&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="65" x="597" y="5651.1133">&lt;MobNb&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="117" x="662" y="5651.1133">+250-70610388</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="72" x="779" y="5651.1133">&lt;/MobNb&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="79" x="581" y="5666.4238">&lt;/CtctDtls&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="54" x="549" y="5681.7344">&lt;/Cdtr&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="100" x="549" y="5697.0449">&lt;/CdtTrfTxInf&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="68" x="533" y="5712.3555">&lt;/PmtInf&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="142" x="517" y="5727.666">&lt;/CdtrPmtActvtnReq&gt;</text><line style="stroke:#A80036;stroke-width:1.0;" x1="1081.5" x2="1071.5" y1="5765.7188" y2="5761.7188"/><line style="stroke:#A80036;stroke-width:1.0;" x1="1081.5" x2="1071.5" y1="5765.7188" y2="5769.7188"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="333.5" x2="1082.5" y1="5765.7188" y2="5765.7188"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="18" x="340.5" y="5760.9766">16</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="91" x="362.5" y="5760.9766">HTTP 200 (OK)</text><line style="stroke:#A80036;stroke-width:1.0;" x1="56.5" x2="66.5" y1="5795.0293" y2="5791.0293"/><line style="stroke:#A80036;stroke-width:1.0;" x1="56.5" x2="66.5" y1="5795.0293" y2="5799.0293"/><line style="stroke:#A80036;stroke-width:1.0;" x1="56.5" x2="322.5" y1="5795.0293" y2="5795.0293"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="18" x="73.5" y="5790.2871">17</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="164" x="95.5" y="5790.2871">Are you ok with charges -</text><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="58" x="263.5" y="5790.2871">RWF:200</text><line style="stroke:#A80036;stroke-width:1.0;" x1="321.5" x2="311.5" y1="5824.3398" y2="5820.3398"/><line style="stroke:#A80036;stroke-width:1.0;" x1="321.5" x2="311.5" y1="5824.3398" y2="5828.3398"/><line style="stroke:#A80036;stroke-width:1.0;" x1="51.5" x2="322.5" y1="5824.3398" y2="5824.3398"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="18" x="58.5" y="5819.5977">18</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="124" x="80.5" y="5819.5977">Yes, please proceed</text><polygon fill="#FFAAAA" filter="url(#frutksc2q3grv)" points="29,5837.3398,1855,5837.3398,1865,5848.3398,1855,5860.3398,29,5860.3398,19,5848.3398,29,5837.3398" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="93" x="895.75" y="5853.9082">Transfer phase</text><line style="stroke:#A80036;stroke-width:1.0;" x1="1076.5" x2="1066.5" y1="5917.582" y2="5913.582"/><line style="stroke:#A80036;stroke-width:1.0;" x1="1076.5" x2="1066.5" y1="5917.582" y2="5921.582"/><line style="stroke:#A80036;stroke-width:1.0;" x1="333.5" x2="1077.5" y1="5917.582" y2="5917.582"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="18" x="340.5" y="5897.5293">19</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="103" x="362.5" y="5882.2188">Transfer request</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="10" x="362.5" y="5897.5293">&lt;</text><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="61" x="372.5" y="5897.5293">pacs.008</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="10" x="433.5" y="5897.5293">&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="163" x="362.5" y="5912.8398">similar to POST /transfers</text><path d="M338,5930.582 L338,6628.582 L846,6628.582 L846,5940.582 L836,5930.582 L338,5930.582 " fill="#FFFF00" filter="url(#frutksc2q3grv)" style="stroke:#A80036;stroke-width:1.0;"/><path d="M836,5930.582 L836,5940.582 L846,5940.582 L836,5930.582 " fill="#FFFF00" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="125" x="344" y="5948.1504">Payload - pacs.008:</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="136" x="360" y="5963.4609">&lt;FIToFICstmrCdtTrf&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="65" x="376" y="5978.7715">&lt;GrpHdr&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="401" x="392" y="5994.082">&lt;MsgId&gt;7e2599df-80a1-4f6e-b381-99536c4d2691&lt;/MsgId&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="409" x="392" y="6009.3926">&lt;CreDtTm&gt;2021-02-10T15:07:38.6875000+03:00&lt;/CreDtTm&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="167" x="392" y="6024.7031">&lt;NbOfTxs&gt;1&lt;/NbOfTxs&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="70" x="392" y="6040.0137">&lt;SttlmInf&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="194" x="408" y="6055.3242">&lt;SttlmMtd&gt;CLRG&lt;/SttlmMtd&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="77" x="392" y="6070.6348">&lt;/SttlmInf&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="72" x="376" y="6085.9453">&lt;/GrpHdr&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="93" x="376" y="6101.2559">&lt;CdtTrfTxInf&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="56" x="392" y="6116.5664">&lt;PmtId&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="368" x="408" y="6131.877">&lt;EndToEndId&gt;0120a604-aa80-43da-b6f6-c1d5f8aa622e</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="101" x="408" y="6147.1875">&lt;/EndToEndId&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="63" x="392" y="6162.498">&lt;/PmtId&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="58" x="392" y="6177.8086">&lt;Cndtn&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="423" x="408" y="6193.1191">&lt;Condition&gt;fH9pAYDQbmoZLPbvv3CSW2RfjU4jvM4ApG_fqGnR7Xs</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="89" x="408" y="6208.4297">&lt;/Condition&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="65" x="392" y="6223.7402">&lt;/Cndtn&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="189" x="392" y="6239.0508">&lt;IntrBkSttlmAmt Ccy="RWF"&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="45" x="581" y="6239.0508">20200</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="123" x="626" y="6239.0508">&lt;/IntrBkSttlmAmt&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="163" x="392" y="6254.3613">&lt;ChrgBr&gt;DEBT&lt;/ChrgBr&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="48" x="376" y="6269.6719">&lt;Dbtr&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="72" x="408" y="6284.9824">&lt;CtctDtls&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="259" x="424" y="6300.293">&lt;MobNb&gt;+1-574-265-1752&lt;/MobNb&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="79" x="408" y="6315.6035">&lt;/CtctDtls&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="55" x="392" y="6330.9141">&lt;/Dbtr&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="70" x="392" y="6346.2246">&lt;DbtrAgt&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="83" x="408" y="6361.5352">&lt;FinInstnId&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="174" x="424" y="6376.8457">&lt;BICFI&gt;LAKCUS33&lt;/BICFI&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="193" x="424" y="6392.1563">&lt;Nm&gt;LAKE CITY BANK&lt;/Nm&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="90" x="408" y="6407.4668">&lt;/FinInstnId&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="77" x="392" y="6422.7773">&lt;/DbtrAgt&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="69" x="392" y="6438.0879">&lt;CdtrAgt&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="83" x="408" y="6453.3984">&lt;FinInstnId&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="202" x="424" y="6468.709">&lt;BICFI&gt;EQBLRWRWXXX&lt;/BICFI&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="291" x="424" y="6484.0195">&lt;Nm&gt;EQUITY BANK RWANDA LIMITED&lt;/Nm&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="90" x="408" y="6499.3301">&lt;/FinInstnId&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="76" x="392" y="6514.6406">&lt;/CdtrAgt&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="47" x="376" y="6529.9512">&lt;Cdtr&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="72" x="408" y="6545.2617">&lt;CtctDtls&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="243" x="424" y="6560.5723">&lt;MobNb&gt;+250-70610388&lt;/MobNb&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="79" x="408" y="6575.8828">&lt;/CtctDtls&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="54" x="392" y="6591.1934">&lt;/Cdtr&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="100" x="376" y="6606.5039">&lt;/CdtTrfTxInf&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="143" x="360" y="6621.8145">&lt;/FIToFICstmrCdtTrf&gt;</text><line style="stroke:#A80036;stroke-width:1.0;" x1="328.5" x2="338.5" y1="6659.8672" y2="6655.8672"/><line style="stroke:#A80036;stroke-width:1.0;" x1="328.5" x2="338.5" y1="6659.8672" y2="6663.8672"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="328.5" x2="1077.5" y1="6659.8672" y2="6659.8672"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="18" x="345.5" y="6655.125">20</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="131" x="367.5" y="6655.125">HTTP 202 (Accepted)</text><line style="stroke:#A80036;stroke-width:1.0;" x1="1616.5" x2="1606.5" y1="6704.4883" y2="6700.4883"/><line style="stroke:#A80036;stroke-width:1.0;" x1="1616.5" x2="1606.5" y1="6704.4883" y2="6708.4883"/><line style="stroke:#A80036;stroke-width:1.0;" x1="1088.5" x2="1617.5" y1="6704.4883" y2="6704.4883"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="18" x="1095.5" y="6692.0908">21</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="103" x="1117.5" y="6684.4355">Transfer request</text><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="107" x="1117.5" y="6699.7461">POST /transfers</text><path d="M1093,6717.4883 L1093,7232.4883 L1568,7232.4883 L1568,6727.4883 L1558,6717.4883 L1093,6717.4883 " fill="#FFFF00" filter="url(#frutksc2q3grv)" style="stroke:#A80036;stroke-width:1.0;"/><path d="M1558,6717.4883 L1558,6727.4883 L1568,6727.4883 L1558,6717.4883 " fill="#FFFF00" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="179" x="1107" y="6735.0566">Headers - transferHeaders: {</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="234" x="1123" y="6750.3672">Content-Length: &lt;Content-Length&gt;,</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="208" x="1123" y="6765.6777">Content-Type: &lt;Content-Type&gt;,</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="90" x="1123" y="6780.9883">Date: &lt;Date&gt;,</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="250" x="1123" y="6796.2988">X-Forwarded-For: &lt;X-Forwarded-For&gt;,</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="12" x="1123" y="6811.6094">...</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="4" x="1107" y="6826.9199">}</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="52" x="1107" y="6842.2305">Payload:</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="4" x="1107" y="6857.541">{</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="374" x="1123" y="6872.8516">"transferId": "b51ec534-ee48-4575-b6a9-ead2955b8069",</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="122" x="1123" y="6888.1621">"payeeFsp": "5678",</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="120" x="1123" y="6903.4727">"payerFsp": "1234",</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="62" x="1123" y="6918.7832">"amount":</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="4" x="1123" y="6934.0938">{</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="112" x="1139" y="6949.4043">"currency": "RWF",</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="71" x="1139" y="6964.7148">"amount": "</text><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="45" x="1210" y="6964.7148">20200</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="5" x="1255" y="6964.7148">"</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="8" x="1123" y="6980.0254">},</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="430" x="1123" y="6995.3359">"ilpPacket": "AYIBgQAAAAAAAASwNGxldmVsb25lLmRmc3AxLm1lci4</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="339" x="1187" y="7010.6465">5T2RTOF81MDdqUUZERmZlakgyOVc4bXFmNEpLMHlG</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="329" x="1187" y="7025.957">TFGCAUBQU0svMS4wCk5vbmNlOiB1SXlweUYzY3pYS</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="328" x="1187" y="7041.2676">XBFdzVVc05TYWh3CkVuY3J5cHRpb246IG5vbmUKUG</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="339" x="1187" y="7056.5781">F5bWVudC1JZDogMTMyMzZhM2ItOGZhOC00MTYzLTg</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="345" x="1187" y="7071.8887">0NDctNGMzZWQzZGE5OGE3CgpDb250ZW50LUxlbmd0</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="326" x="1187" y="7087.1992">aDogMTM1CkNvbnRlbnQtVHlwZTogYXBwbGljYXRpb</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="315" x="1187" y="7102.5098">24vanNvbgpTZW5kZXItSWRlbnRpZmllcjogOTI4MD</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="316" x="1187" y="7117.8203">YzOTEKCiJ7XCJmZWVcIjowLFwidHJhbnNmZXJDb2R</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="301" x="1187" y="7133.1309">lXCI6XCJpbnZvaWNlXCIsXCJkZWJpdE5hbWVcIjpc</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="297" x="1187" y="7148.4414">ImFsaWNlIGNvb3BlclwiLFwiY3JlZGl0TmFtZVwiO</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="318" x="1187" y="7163.752">lwibWVyIGNoYW50XCIsXCJkZWJpdElkZW50aWZpZX</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="187" x="1187" y="7179.0625">JcIjpcIjkyODA2MzkxXCJ9IgA",</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="429" x="1123" y="7194.373">"condition": "f5sqb7tBTWPd5Y8BDFdMm9BJR_MNI4isf8p8n4D5pHA",</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="308" x="1123" y="7209.6836">"expiration": "2021-03-19T08:38:08.699-04:00"</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="4" x="1099" y="7224.9941">}</text><line style="stroke:#A80036;stroke-width:1.0;" x1="1088.5" x2="1098.5" y1="7263.0469" y2="7259.0469"/><line style="stroke:#A80036;stroke-width:1.0;" x1="1088.5" x2="1098.5" y1="7263.0469" y2="7267.0469"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="1088.5" x2="1617.5" y1="7263.0469" y2="7263.0469"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="18" x="1105.5" y="7258.3047">22</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="131" x="1127.5" y="7258.3047">HTTP 202 (Accepted)</text><line style="stroke:#A80036;stroke-width:1.0;" x1="1088.5" x2="1098.5" y1="7307.668" y2="7303.668"/><line style="stroke:#A80036;stroke-width:1.0;" x1="1088.5" x2="1098.5" y1="7307.668" y2="7311.668"/><line style="stroke:#A80036;stroke-width:1.0;" x1="1088.5" x2="1617.5" y1="7307.668" y2="7307.668"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="18" x="1105.5" y="7295.2705">23</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="184" x="1127.5" y="7287.6152">Transfer Fulfilment [callback]</text><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="130" x="1127.5" y="7302.9258">PUT /transfers/{ID}</text><path d="M1145,7320.668 L1145,7529.668 L1609,7529.668 L1609,7330.668 L1599,7320.668 L1145,7320.668 " fill="#FFFF00" filter="url(#frutksc2q3grv)" style="stroke:#A80036;stroke-width:1.0;"/><path d="M1599,7320.668 L1599,7330.668 L1609,7330.668 L1599,7320.668 " fill="#FFFF00" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="179" x="1151" y="7338.2363">Headers - transferHeaders: {</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="234" x="1167" y="7353.5469">Content-Length: &lt;Content-Length&gt;,</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="208" x="1167" y="7368.8574">Content-Type: &lt;Content-Type&gt;,</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="90" x="1167" y="7384.168">Date: &lt;Date&gt;,</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="250" x="1167" y="7399.4785">X-Forwarded-For: &lt;X-Forwarded-For&gt;,</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="12" x="1167" y="7414.7891">...</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="4" x="1151" y="7430.0996">}</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="52" x="1151" y="7445.4102">Payload:</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="4" x="1151" y="7460.7207">{</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="427" x="1167" y="7476.0313">"fulfilment": "WLctttbu2HvTsa1XWvUoGRcQozHsqeu9Ahl2JW9Bsu8",</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="384" x="1167" y="7491.3418">"completedTimestamp": "2016-05-24T08:38:08.699-04:00",</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="103" x="1167" y="7506.6523">"transferState": "</text><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="84" x="1270" y="7506.6523">COMMITTED</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="5" x="1354" y="7506.6523">"</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="4" x="1151" y="7521.9629">}</text><line style="stroke:#A80036;stroke-width:1.0;" x1="1616.5" x2="1606.5" y1="7560.0156" y2="7556.0156"/><line style="stroke:#A80036;stroke-width:1.0;" x1="1616.5" x2="1606.5" y1="7560.0156" y2="7564.0156"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="1088.5" x2="1617.5" y1="7560.0156" y2="7560.0156"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="18" x="1095.5" y="7555.2734">24</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="91" x="1117.5" y="7555.2734">HTTP 200 (OK)</text><line style="stroke:#A80036;stroke-width:1.0;" x1="1832.5" x2="1822.5" y1="7604.6367" y2="7600.6367"/><line style="stroke:#A80036;stroke-width:1.0;" x1="1832.5" x2="1822.5" y1="7604.6367" y2="7608.6367"/><line style="stroke:#A80036;stroke-width:1.0;" x1="1623.5" x2="1833.5" y1="7604.6367" y2="7604.6367"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="18" x="1630.5" y="7592.2393">25</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="134" x="1652.5" y="7584.584">Payment notification:</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="80" x="1652.5" y="7599.8945">You received</text><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="76" x="1736.5" y="7599.8945">RWF:20000</text><line style="stroke:#A80036;stroke-width:1.0;" x1="333.5" x2="343.5" y1="7664.5684" y2="7660.5684"/><line style="stroke:#A80036;stroke-width:1.0;" x1="333.5" x2="343.5" y1="7664.5684" y2="7668.5684"/><line style="stroke:#A80036;stroke-width:1.0;" x1="333.5" x2="1077.5" y1="7664.5684" y2="7664.5684"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="18" x="350.5" y="7644.5156">26</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="177" x="372.5" y="7629.2051">Transfer response [callback]</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="10" x="372.5" y="7644.5156">&lt;</text><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="60" x="382.5" y="7644.5156">pain.002</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="10" x="442.5" y="7644.5156">&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="222" x="372.5" y="7659.8262">similar to PUT /transfers/{ID} in ML</text><path d="M563,7677.5684 L563,8131.5684 L1069,8131.5684 L1069,7687.5684 L1059,7677.5684 L563,7677.5684 " fill="#FFFF00" filter="url(#frutksc2q3grv)" style="stroke:#A80036;stroke-width:1.0;"/><path d="M1059,7677.5684 L1059,7687.5684 L1069,7687.5684 L1059,7677.5684 " fill="#FFFF00" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="123" x="569" y="7695.1367">Payload - pain.002:</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="122" x="585" y="7710.4473">&lt;CstmrPmtStsRpt&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="65" x="601" y="7725.7578">&lt;GrpHdr&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="401" x="617" y="7741.0684">&lt;MsgId&gt;7e2599df-80a1-4f6e-b381-99536c4d2691&lt;/MsgId&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="409" x="617" y="7756.3789">&lt;CreDtTm&gt;2021-02-10T15:07:38.6875000+03:00&lt;/CreDtTm&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="65" x="617" y="7771.6895">&lt;IlpData&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="421" x="633" y="7787">&lt;Fulfilment&gt;mhPUT9ZAwd-BXLfeSd7-YPh46rBWRNBiTCSWjpku90s</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="91" x="633" y="7802.3105">&lt;/Fulfilment&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="72" x="617" y="7817.6211">&lt;/IlpData&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="70" x="617" y="7832.9316">&lt;DbtrAgt&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="83" x="633" y="7848.2422">&lt;FinInstnId&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="174" x="649" y="7863.5527">&lt;BICFI&gt;LAKCUS33&lt;/BICFI&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="193" x="649" y="7878.8633">&lt;Nm&gt;LAKE CITY BANK&lt;/Nm&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="90" x="633" y="7894.1738">&lt;/FinInstnId&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="77" x="617" y="7909.4844">&lt;/DbtrAgt&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="69" x="617" y="7924.7949">&lt;CdtrAgt&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="83" x="633" y="7940.1055">&lt;FinInstnId&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="202" x="649" y="7955.416">&lt;BICFI&gt;EQBLRWRWXXX&lt;/BICFI&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="291" x="649" y="7970.7266">&lt;Nm&gt;EQUITY BANK RWANDA LIMITED&lt;/Nm&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="90" x="633" y="7986.0371">&lt;/FinInstnId&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="76" x="617" y="8001.3477">&lt;/CdtrAgt&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="72" x="601" y="8016.6582">&lt;/GrpHdr&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="138" x="601" y="8031.9688">&lt;OrgnlGrpInfAndSts&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="371" x="617" y="8047.2793">&lt;OrgnlMsgId&gt;7e2599df-80a1-4f6e-b381-99536c4d2691</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="100" x="617" y="8062.5898">&lt;/OrgnlMsgId&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="342" x="617" y="8077.9004">&lt;OrgnlMsgNmId&gt;pacs.008.001.09&lt;/OrgnlMsgNmId&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="165" x="617" y="8093.2109">&lt;GrpSts&gt;ACCC&lt;/GrpSts&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="145" x="601" y="8108.5215">&lt;/OrgnlGrpInfAndSts&gt;</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="129" x="585" y="8123.832">&lt;/CstmrPmtStsRpt&gt;</text><line style="stroke:#A80036;stroke-width:1.0;" x1="1081.5" x2="1071.5" y1="8161.8848" y2="8157.8848"/><line style="stroke:#A80036;stroke-width:1.0;" x1="1081.5" x2="1071.5" y1="8161.8848" y2="8165.8848"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="333.5" x2="1082.5" y1="8161.8848" y2="8161.8848"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="18" x="340.5" y="8157.1426">27</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="91" x="362.5" y="8157.1426">HTTP 200 (OK)</text><line style="stroke:#A80036;stroke-width:1.0;" x1="56.5" x2="66.5" y1="8206.5059" y2="8202.5059"/><line style="stroke:#A80036;stroke-width:1.0;" x1="56.5" x2="66.5" y1="8206.5059" y2="8210.5059"/><line style="stroke:#A80036;stroke-width:1.0;" x1="56.5" x2="322.5" y1="8206.5059" y2="8206.5059"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="18" x="73.5" y="8194.1084">28</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="134" x="95.5" y="8186.4531">Payment notification:</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="27" x="95.5" y="8201.7637">Sent</text><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="76" x="126.5" y="8201.7637">RWF:20200</text><line style="stroke:#A80036;stroke-width:1.0;" x1="326.5" x2="316.5" y1="8235.8164" y2="8231.8164"/><line style="stroke:#A80036;stroke-width:1.0;" x1="326.5" x2="316.5" y1="8235.8164" y2="8239.8164"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="51.5" x2="327.5" y1="8235.8164" y2="8235.8164"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="18" x="58.5" y="8231.0742">29</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="91" x="80.5" y="8231.0742">HTTP 200 (OK)</text><!--MD5=[6acf7c0b83c03ee28f953eeaa47d73ea]
+@startuml
+' declate title
+title P2P in a ISO20022 <-> Mojaloop Cross network scenario: Detailed
+
+autonumber
+
+' Actor Keys:
+'   boundary - APIs/Interfaces, etc
+'   collections - Kafka Topics
+'   control - Kafka Consumers
+'   entity - Database Access Objects
+'   database - Database Persistance Store
+
+' Actor Keys:
+' participant - SendersBank, MojaloopBank, MLMMSystem and GALS
+' actor - Sender/Receiver
+
+
+' declare actors
+actor "Sender\n(SWIFT)" as Sender
+actor "Receiver\n(Mojaloop)" as Receiver
+control "Global\nALS" as GALS
+control "Sender's\nBank" as SendersBank
+control "Mojaloop\nBank" as MojaloopBank
+boundary "ISO 20022 <-> Mojaloop" as crossborder
+
+control "\nMojaloop\nMobile-Money\nSystem" as MLMMSystem
+
+box "ISO Scheme (SWIFT)" #LightBlue
+	participant Sender
+	participant SendersBank
+    participant GALS
+end box
+
+boundary "ISO 20022 <-> Mojaloop" as crossborder
+
+box "Mojaloop Scheme" #LightGreen
+    participant MojaloopBank
+	participant MLMMSystem
+    participant Receiver
+end box
+
+title **P2P transfer in an ISO20022 <-> Mojaloop Cross border scenario: detailed view**\n
+
+' start flow
+group Sender sends a P2P Transfer request to Receiver
+    hnote across #FFAAAA: Lookup phase
+    activate Sender
+    Sender ->> SendersBank: I'd like to send **RWF:20000**\nto user with ID **(+250)70610388**
+    activate SendersBank
+    Sender <<- - SendersBank: HTTP 202 (Accepted)
+    deactivate Sender
+    SendersBank ->> GALS: Resolve ID (+250)70610388 [synchronous] <**camt.003**>\nsimilar to GET /participants/{Type}/{ID} in ML
+        note right of SendersBank #yellow
+            Payload - camt.003:
+            <GetAcct>
+                <MsgHdr>
+                    <MsgId>575b3623-5adf-4752-8da9-a159a179ec9f
+                    </MsgId>
+                    <CreDtTm>2020-05-14T15:07:38.6875000+03:00
+                    </CreDtTm>
+                </MsgHdr>
+                <AcctQryDef>
+                    <AcctCrit>
+                        <NewCrit>
+                            <SchCrit>
+                                <AcctOwnr>
+                                    <CtctDtls>
+                                        <MobNb>**+250-788301607**
+                                        </MobNb>
+                                    </CtctDtls>
+                                </AcctOwnr>
+                            </SchCrit>
+                        </NewCrit>
+                    </AcctCrit>
+                </AcctQryDef>
+            </GetAcct>
+        end note
+    activate GALS
+    note left of GALS #yellow
+        Payload - camt.004:
+        <RtrAcct>
+            <MsgHdr>
+                <MsgId>2d1f2fa1-582c-4ffa-afd2-fc426722f91a
+                </MsgId>
+                <CreDtTm>2021-03-17T12:45:59.155Z</CreDtTm>
+                <OrgnlBizQry>
+                    <MsgId>575b3623-5adf-4752-8da9-a159a179ec9f
+                    </MsgId>
+                </OrgnlBizQry>
+            </MsgHdr>
+            <RptOrErr>
+                <AcctRpt>
+                    <AcctId>
+                        <Othr>
+                            <Id>dfsp.username.5678</Id>
+                            <SchmeNm>
+                                <Cd>BBAN</Cd>
+                            </SchmeNm>
+                        </Othr>
+                    </AcctId>
+                    <AcctOrErr>
+                        <Acct>
+                            <Svcr>
+                                <FinInstnId>
+                                    <BICFI>EQBLRWRWXXX</BICFI>
+                                    <Nm>**EQUITY BANK RWANDA LIMITED**
+                                    </Nm>
+                                </FinInstnId>
+                            </Svcr>
+                        </Acct>
+                    </AcctOrErr>
+                </AcctRpt>
+            </RptOrErr>
+        </RtrAcct>
+    end note
+    SendersBank <<- GALS: Reach out to Mojaloop Bank to which this ID is registered <**camt.004**>\n[synchronous response] \nsimilar to PUT /participants/{Type}/{ID} in ML
+    deactivate GALS
+
+    hnote across #FFAAAA: Agreement phase
+    SendersBank ->> MojaloopBank: \nQuote request <**pain.001**>\nsimilar to POST /quotes in ML
+        note right of SendersBank #yellow
+            Payload - pain.001:
+            <CstmrCdtTrfInitn>
+                <GrpHdr>
+                    <MsgId>7d04b391-0c90-4ad4-9ba8-46232b04e18a</MsgId>
+                    <CreDtTm>2021-02-10T15:07:38.6875000+03:00</CreDtTm>
+                    <NbOfTxs>1</NbOfTxs>
+                    <InitgPty>
+                        <Nm>**LAKE CITY BANK**</Nm>
+                        <Id>
+                            <OrgId>
+                                <AnyBIC>LAKCUS33</AnyBIC>
+                            </OrgId>
+                        </Id>
+                    </InitgPty>
+                </GrpHdr>
+                <PmtInf>
+                    <PmtInfId>7e2599df-80a1-4f6e-b381-99536c4d2691</PmtInfId>
+                    <PmtMtd>TRF</PmtMtd>
+                    <ReqdExctnDt>
+                        <Dt>2021-02-10</Dt>
+                    </ReqdExctnDt>
+                    <Dbtr>
+                        <CtctDtls>
+                            <MobNb>**+1-574-265-1752**</MobNb>
+                        </CtctDtls>
+                    </Dbtr>
+                    <DbtrAcct>
+                        <Id>
+                            <Othr>
+                                <Id>NOTPROVIDED</Id>
+                            </Othr>
+                        </Id>
+                    </DbtrAcct>
+                    <DbtrAgt>
+                        <FinInstnId>
+                            <BICFI>LAKCUS33</BICFI>
+                            <Nm>LAKE CITY BANK</Nm>
+                        </FinInstnId>
+                    </DbtrAgt>
+                    <ChrgBr>DEBT</ChrgBr>
+                    <CdtTrfTxInf>
+                        <PmtId>
+                            <EndToEndId>7e2599df-80a1-4f6e-b381-99536c4d2691
+                            </EndToEndId>
+                        </PmtId>
+                        <Amt>
+                            <InstdAmt Ccy="RWF">**20000**</InstdAmt>
+                        </Amt>
+                        <Cdtr>
+                            <CtctDtls>
+                                <MobNb>**+250-70610388**</MobNb>
+                            </CtctDtls>
+                        </Cdtr>
+                    </CdtTrfTxInf>
+                </PmtInf>
+            </CstmrCdtTrfInitn>
+        end note
+    activate MojaloopBank
+    SendersBank <<- - MojaloopBank: HTTP 202 (Accepted)
+    deactivate SendersBank
+    group moja-lookup-and-quotes
+        MojaloopBank ->> MLMMSystem: Lookup ID (+250)70610388\n**GET parties/{Type}/{ID}**
+        activate MLMMSystem
+        MojaloopBank <<- - MLMMSystem: HTTP 202 (Accepted)
+        MojaloopBank <<- MLMMSystem: Lookup resolution for ID (+250)70610388 [callback] **PUT parties/{Type}/{ID}**
+            note left of MLMMSystem #yellow
+                Headers - transferHeaders: {
+                    Content-Length: <Content-Length>,
+                    Content-Type: <Content-Type>,
+                    Date: <Date>,
+                    X-Forwarded-For: <X-Forwarded-For>,
+                    ...
+                }
+                Payload:
+                {
+                "party":
+                {
+                    "partyIdInfo":
+                    {
+                    "partyIdType": "MSISDN", 
+                    "partyIdentifier": "25070610388",
+                    "fspId": "5678",
+                    
+                    },
+                    "name": "Aunt Honorine",
+                    "personalInfo": 
+                        { 
+                        "complexName": 
+                            { 
+                            "firstName": "**Honorine**",
+                            "middleName": "P",
+                            "lastName": "Aunt"
+                            },
+                            "dateOfBirth": "1961-12-25"
+                        }
+                    }
+                } 
+            end note
+        MojaloopBank - ->> MLMMSystem: HTTP 200 (OK)
+        MojaloopBank ->> MLMMSystem: Quote request **POST /quotes**
+            note right of MojaloopBank #yellow
+                Headers - transferHeaders: {
+                    Content-Length: <Content-Length>,
+                    Content-Type: <Content-Type>,
+                    Date: <Date>,
+                    X-Forwarded-For: <X-Forwarded-For>,
+                    ...
+                }
+                Payload:
+                { 
+                    "quoteId": "b51ec534-ee48-4575-b6a9-ead2955b8069",
+                    "transactionId": "a8323bc6-c228-4df2-ae82-e5a997baf899",
+                    "payee": 
+                    { 
+                        "partyIdInfo":
+                        {
+                        "partyIdType": "MSISDN", 
+                        "partyIdentifier": "25070610388",
+                        "fspId": "5678"
+                        },
+                        "name": "Aunt Honorine",
+                        "personalInfo": 
+                        { 
+                            "complexName": 
+                            { 
+                                "firstName": "Honorine",
+                                "middleName": "P",
+                                "lastName": "Aunt"
+                            }, 
+                            "dateOfBirth": "1961-12-25" 
+                        } 
+                    }, 
+                    "payer": 
+                    { 
+                        "partyIdInfo":
+                        {
+                        "partyIdType": "MSISDN", 
+                        "partyIdentifier": "+1-574-265-1752",
+                        "fspId": "1234"
+                        },
+                        "name": "Amanda Nunes",
+                        "personalInfo": 
+                        { 
+                            "complexName": 
+                            { 
+                                "firstName": "Amanda",
+                                "middleName": "J", 
+                                "lastName": "Nunes" 
+                            }, 
+                            "dateOfBirth": "1984-01-01" 
+                        } 
+                    }, 
+                    "amountType": "RECEIVE",
+                    "amount":
+                    { 
+                        "currency": "RWF", 
+                        "amount": "**20000**"
+                    },
+                    "transactionType": 
+                    { 
+                        "scenario": "DEPOSIT",  
+                        "initiator": "PAYER", 
+                        "initiatorType": "CONSUMER"
+                    },
+                    "expiration": "2021-03-19T08:38:08.699-04:00", 
+            } 
+            end note
+        MojaloopBank <<- - MLMMSystem: HTTP 202 (Accepted)
+        MojaloopBank <<- MLMMSystem: Quote response [callback]\n**PUT /quotes/{ID}**
+            note left of MLMMSystem #yellow
+                Headers - transferHeaders: {
+                    Content-Length: <Content-Length>,
+                    Content-Type: <Content-Type>,
+                    Date: <Date>,
+                    X-Forwarded-For: <X-Forwarded-For>,
+                    ...
+                }
+                Payload:
+                { 
+                "transferAmount": 
+                { 
+                    "currency": "RWF", 
+                    "amount": "**20200**" 
+                },
+                "payeeReceiveAmount": 
+                { 
+                    "currency": "RWF", 
+                    "amount": "20000" 
+                },
+                "payeeFspFee":
+                { 
+                    "currency": "RWF",
+                    "amount": "**200**" 
+                }
+                "expiration": "2016-05-24T08:38:08.699-04:00"
+                "ilpPacket": "AYIBgQAAAAAAAASwNGxldmVsb25lLmRmc3AxLm1lci4
+                                5T2RTOF81MDdqUUZERmZlakgyOVc4bXFmNEpLMH
+                                lGTFGCAUBQU0svMS4wCk5vbmNlOiB1SXlweUYzY
+                                3pYSXBFdzVVc05TYWh3CkVuY3J5cHRpb246IG5v
+                                bmUKUGF5bWVudC1JZDogMTMyMzZhM2ItOGZhOC
+                                00MTYzLTg0NDctNGMzZWQzZGE5OGE3CgpDb250
+                                ZW50LUxlbmd0aDogMTM1CkNvbnRlbnQtVHlwZT
+                                ogYXBwbGljYXRpb24vanNvbgpTZW5kZXItSWRl
+                                bnRpZmllcjogOTI4MDYzOTEKCiJ7XCJmZWVcIj
+                                owLFwidHJhbnNmZXJDb2RlXCI6XCJpbnZvaWNl
+                                XCIsXCJkZWJpdE5hbWVcIjpcImFsaWNlIGNvb3
+                                BlclwiLFwiY3JlZGl0TmFtZVwiOlwibWVyIGNo
+                                YW50XCIsXCJkZWJpdElkZW50aWZpZXJcIjpcIj
+                                kyODA2MzkxXCJ9IgA",
+                "condition": "f5sqb7tBTWPd5Y8BDFdMm9BJR_MNI4isf8p8n4D5pHA"
+            }
+            end note
+        MojaloopBank - ->> MLMMSystem: HTTP 200 (OK)
+        deactivate MLMMSystem
+    end
+    SendersBank <<- MojaloopBank: Quote response [callback] <**pain.013**>\nsimilar to **PUT /quotes/{ID}** in ML
+    activate SendersBank
+        note left of MojaloopBank #yellow
+            Payload - pain.013:
+                <CdtrPmtActvtnReq>
+                    <GrpHdr>
+                        <MsgId>ca7797b6-c3be-4bfd-a101-904da8b75207</MsgId>
+                        <CreDtTm>2021-02-10T15:07:38.6875000+03:00</CreDtTm>
+                        <NbOfTxs>1</NbOfTxs>
+                        <InitgPty>
+                            <Nm>**EQUITY BANK RWANDA LIMITED**</Nm>
+                            <Id>
+                                <AnyBIC>EQBLRWRWXXX</AnyBIC>
+                            </Id>
+                        </InitgPty>
+                    </GrpHdr>
+                    <PmtInf>
+                        <PmtInfId>7e2599df-80a1-4f6e-b381-99536c4d2691</PmtInfId>
+                        <PmtMtd>TRF</PmtMtd>
+                        <ReqdExctnDt>2021-02-10</ReqdExctnDt>
+                        <SvcLvl>
+                            <Cd>SDVA</Cd>
+                        </SvcLvl>
+                        <Dbtr>
+                            <CtctDtls>
+                                <MobNb>**+1-574-265-1752**</MobNb>
+                            </CtctDtls>
+                        </Dbtr>
+                        <DbtrAgt>
+                            <FinInstnId>
+                                <BICFI>LAKCUS33</BICFI>
+                                <Nm>LAKE CITY BANK</Nm>
+                            </FinInstnId>
+                        </DbtrAgt>
+                        <ChrgBr>DEBT</ChrgBr>
+                        <Cndtn>fH9pAYDQbmoZLPbvv3CSW2RfjU4jvM4ApG_fqGnR7Xs</Cndtn>
+                        <CdtTrfTxInf>
+                            <PmtId>
+                                <EndToEndId>7e2599df-80a1-4f6e-b381-99536c4d2691</EndToEndId>
+                            </PmtId>
+                            <Amt>
+                                <InstdAmt Ccy="RWF">**20200**</InstdAmt>
+                            </Amt>
+                            <CdtrAgt>
+                                <FinInstnId>
+                                    <BICFI>EQBLRWRWXXX</BICFI>
+                                    <Nm>**EQUITY BANK RWANDA LIMITED<**/Nm>
+                                </FinInstnId>
+                        </CdtrAgt>
+                        <Cdtr>
+                                <CtctDtls>
+                                    <Nm>**Aunt Honorine**</Nm>
+                                    <MobNb>**+250-70610388**</MobNb>
+                                </CtctDtls>
+                        </Cdtr>
+                        </CdtTrfTxInf>
+                    </PmtInf>
+                </CdtrPmtActvtnReq>
+        end note
+    SendersBank - ->> MojaloopBank: HTTP 200 (OK)
+    deactivate MojaloopBank
+    Sender <<- SendersBank: Are you ok with charges - **RWF:200**
+    activate Sender
+    Sender ->> SendersBank: Yes, please proceed
+    deactivate Sender
+
+    hnote across #FFAAAA: Transfer phase
+    SendersBank ->> MojaloopBank: Transfer request\n<**pacs.008**>\nsimilar to POST /transfers
+    activate MojaloopBank
+        note right of SendersBank #yellow
+            Payload - pacs.008:
+                <FIToFICstmrCdtTrf>
+                    <GrpHdr>
+                        <MsgId>7e2599df-80a1-4f6e-b381-99536c4d2691</MsgId>
+                        <CreDtTm>2021-02-10T15:07:38.6875000+03:00</CreDtTm>
+                        <NbOfTxs>1</NbOfTxs>
+                        <SttlmInf>
+                            <SttlmMtd>CLRG</SttlmMtd>
+                        </SttlmInf>
+                    </GrpHdr>
+                    <CdtTrfTxInf>
+                        <PmtId>
+                            <EndToEndId>0120a604-aa80-43da-b6f6-c1d5f8aa622e
+                            </EndToEndId>
+                        </PmtId>
+                        <Cndtn>
+                            <Condition>fH9pAYDQbmoZLPbvv3CSW2RfjU4jvM4ApG_fqGnR7Xs
+                            </Condition>
+                        </Cndtn>
+                        <IntrBkSttlmAmt Ccy="RWF">**20200**</IntrBkSttlmAmt>
+                        <ChrgBr>DEBT</ChrgBr>
+                    <Dbtr>
+                            <CtctDtls>
+                                <MobNb>+1-574-265-1752</MobNb>
+                            </CtctDtls>
+                        </Dbtr>
+                        <DbtrAgt>
+                            <FinInstnId>
+                                <BICFI>LAKCUS33</BICFI>
+                                <Nm>LAKE CITY BANK</Nm>
+                            </FinInstnId>
+                        </DbtrAgt>
+                        <CdtrAgt>
+                            <FinInstnId>
+                                <BICFI>EQBLRWRWXXX</BICFI>
+                                <Nm>EQUITY BANK RWANDA LIMITED</Nm>
+                            </FinInstnId>
+                        </CdtrAgt>
+                    <Cdtr>
+                            <CtctDtls>
+                                <MobNb>+250-70610388</MobNb>
+                            </CtctDtls>
+                        </Cdtr>
+                    </CdtTrfTxInf>
+                </FIToFICstmrCdtTrf>
+        end note
+    SendersBank <<- - MojaloopBank: HTTP 202 (Accepted)
+    deactivate SendersBank
+    MojaloopBank ->> MLMMSystem: Transfer request\n**POST /transfers**
+    activate MLMMSystem
+        note right of MojaloopBank #yellow
+            Headers - transferHeaders: {
+                Content-Length: <Content-Length>,
+                Content-Type: <Content-Type>,
+                Date: <Date>,
+                X-Forwarded-For: <X-Forwarded-For>,
+                ...
+            }
+            Payload:
+            { 
+                "transferId": "b51ec534-ee48-4575-b6a9-ead2955b8069", 
+                "payeeFsp": "5678", 
+                "payerFsp": "1234",
+                "amount": 
+                { 
+                    "currency": "RWF", 
+                    "amount": "**20200**" 
+                }, 
+                "ilpPacket": "AYIBgQAAAAAAAASwNGxldmVsb25lLmRmc3AxLm1lci4
+                                5T2RTOF81MDdqUUZERmZlakgyOVc4bXFmNEpLMHlG
+                                TFGCAUBQU0svMS4wCk5vbmNlOiB1SXlweUYzY3pYS
+                                XBFdzVVc05TYWh3CkVuY3J5cHRpb246IG5vbmUKUG
+                                F5bWVudC1JZDogMTMyMzZhM2ItOGZhOC00MTYzLTg
+                                0NDctNGMzZWQzZGE5OGE3CgpDb250ZW50LUxlbmd0
+                                aDogMTM1CkNvbnRlbnQtVHlwZTogYXBwbGljYXRpb
+                                24vanNvbgpTZW5kZXItSWRlbnRpZmllcjogOTI4MD
+                                YzOTEKCiJ7XCJmZWVcIjowLFwidHJhbnNmZXJDb2R
+                                lXCI6XCJpbnZvaWNlXCIsXCJkZWJpdE5hbWVcIjpc
+                                ImFsaWNlIGNvb3BlclwiLFwiY3JlZGl0TmFtZVwiO
+                                lwibWVyIGNoYW50XCIsXCJkZWJpdElkZW50aWZpZX
+                                JcIjpcIjkyODA2MzkxXCJ9IgA",
+                "condition": "f5sqb7tBTWPd5Y8BDFdMm9BJR_MNI4isf8p8n4D5pHA",
+                "expiration": "2021-03-19T08:38:08.699-04:00"
+          }
+        end note
+    MojaloopBank <<- - MLMMSystem: HTTP 202 (Accepted)
+    MojaloopBank <<- MLMMSystem: Transfer Fulfilment [callback]\n**PUT /transfers/{ID}**
+        note left of MLMMSystem #yellow
+            Headers - transferHeaders: {
+                Content-Length: <Content-Length>,
+                Content-Type: <Content-Type>,
+                Date: <Date>,
+                X-Forwarded-For: <X-Forwarded-For>,
+                ...
+            }
+            Payload:
+            { 
+                "fulfilment": "WLctttbu2HvTsa1XWvUoGRcQozHsqeu9Ahl2JW9Bsu8",
+                "completedTimestamp": "2016-05-24T08:38:08.699-04:00",
+                "transferState": "**COMMITTED**"
+            }
+        end note
+    MojaloopBank - ->> MLMMSystem: HTTP 200 (OK)
+    MLMMSystem ->> Receiver: Payment notification:\nYou received **RWF:20000**
+    deactivate MLMMSystem
+    SendersBank <<- MojaloopBank: Transfer response [callback]\n<**pain.002**>\nsimilar to PUT /transfers/{ID} in ML
+    activate SendersBank
+        note left of MojaloopBank #yellow
+            Payload - pain.002:
+                <CstmrPmtStsRpt>
+                    <GrpHdr>
+                        <MsgId>7e2599df-80a1-4f6e-b381-99536c4d2691</MsgId>
+                        <CreDtTm>2021-02-10T15:07:38.6875000+03:00</CreDtTm>
+                        <IlpData>
+                            <Fulfilment>mhPUT9ZAwd-BXLfeSd7-YPh46rBWRNBiTCSWjpku90s
+                            </Fulfilment>
+                        </IlpData>
+                        <DbtrAgt>                                                  
+                            <FinInstnId>
+                                <BICFI>LAKCUS33</BICFI>
+                                <Nm>LAKE CITY BANK</Nm>
+                            </FinInstnId>
+                        </DbtrAgt>
+                        <CdtrAgt>                                              
+                            <FinInstnId>
+                                <BICFI>EQBLRWRWXXX</BICFI>
+                                <Nm>EQUITY BANK RWANDA LIMITED</Nm>
+                            </FinInstnId>
+                        </CdtrAgt>
+                    </GrpHdr>
+                    <OrgnlGrpInfAndSts>
+                        <OrgnlMsgId>7e2599df-80a1-4f6e-b381-99536c4d2691
+                        </OrgnlMsgId>
+                        <OrgnlMsgNmId>pacs.008.001.09</OrgnlMsgNmId>
+                        <GrpSts>ACCC</GrpSts>
+                    </OrgnlGrpInfAndSts>
+                </CstmrPmtStsRpt>
+        end note
+    SendersBank - ->> MojaloopBank: HTTP 200 (OK)
+    deactivate MojaloopBank
+
+    Sender <<- SendersBank: Payment notification:\nSent **RWF:20200**
+    activate Sender
+    Sender - ->> SendersBank: HTTP 200 (OK)
+    deactivate Sender
+    deactivate SendersBank
+    deactivate Sender
+end
+
+@enduml
+
+@startuml
+title P2P in a ISO20022 <-> Mojaloop Cross network scenario: Detailed
+
+autonumber
+
+
+
+
+actor "Sender\n(SWIFT)" as Sender
+actor "Receiver\n(Mojaloop)" as Receiver
+control "Global\nALS" as GALS
+control "Sender's\nBank" as SendersBank
+control "Mojaloop\nBank" as MojaloopBank
+boundary "ISO 20022 <-> Mojaloop" as crossborder
+
+control "\nMojaloop\nMobile-Money\nSystem" as MLMMSystem
+
+box "ISO Scheme (SWIFT)" #LightBlue
+	participant Sender
+	participant SendersBank
+    participant GALS
+end box
+
+boundary "ISO 20022 <-> Mojaloop" as crossborder
+
+box "Mojaloop Scheme" #LightGreen
+    participant MojaloopBank
+	participant MLMMSystem
+    participant Receiver
+end box
+
+title **P2P transfer in an ISO20022 <-> Mojaloop Cross border scenario: detailed view**\n
+
+group Sender sends a P2P Transfer request to Receiver
+    hnote across #FFAAAA: Lookup phase
+    activate Sender
+    Sender ->> SendersBank: I'd like to send **RWF:20000**\nto user with ID **(+250)70610388**
+    activate SendersBank
+    Sender <<- - SendersBank: HTTP 202 (Accepted)
+    deactivate Sender
+    SendersBank ->> GALS: Resolve ID (+250)70610388 [synchronous] <**camt.003**>\nsimilar to GET /participants/{Type}/{ID} in ML
+        note right of SendersBank #yellow
+            Payload - camt.003:
+            <GetAcct>
+                <MsgHdr>
+                    <MsgId>575b3623-5adf-4752-8da9-a159a179ec9f
+                    </MsgId>
+                    <CreDtTm>2020-05-14T15:07:38.6875000+03:00
+                    </CreDtTm>
+                </MsgHdr>
+                <AcctQryDef>
+                    <AcctCrit>
+                        <NewCrit>
+                            <SchCrit>
+                                <AcctOwnr>
+                                    <CtctDtls>
+                                        <MobNb>**+250-788301607**
+                                        </MobNb>
+                                    </CtctDtls>
+                                </AcctOwnr>
+                            </SchCrit>
+                        </NewCrit>
+                    </AcctCrit>
+                </AcctQryDef>
+            </GetAcct>
+        end note
+    activate GALS
+    note left of GALS #yellow
+        Payload - camt.004:
+        <RtrAcct>
+            <MsgHdr>
+                <MsgId>2d1f2fa1-582c-4ffa-afd2-fc426722f91a
+                </MsgId>
+                <CreDtTm>2021-03-17T12:45:59.155Z</CreDtTm>
+                <OrgnlBizQry>
+                    <MsgId>575b3623-5adf-4752-8da9-a159a179ec9f
+                    </MsgId>
+                </OrgnlBizQry>
+            </MsgHdr>
+            <RptOrErr>
+                <AcctRpt>
+                    <AcctId>
+                        <Othr>
+                            <Id>dfsp.username.5678</Id>
+                            <SchmeNm>
+                                <Cd>BBAN</Cd>
+                            </SchmeNm>
+                        </Othr>
+                    </AcctId>
+                    <AcctOrErr>
+                        <Acct>
+                            <Svcr>
+                                <FinInstnId>
+                                    <BICFI>EQBLRWRWXXX</BICFI>
+                                    <Nm>**EQUITY BANK RWANDA LIMITED**
+                                    </Nm>
+                                </FinInstnId>
+                            </Svcr>
+                        </Acct>
+                    </AcctOrErr>
+                </AcctRpt>
+            </RptOrErr>
+        </RtrAcct>
+    end note
+    SendersBank <<- GALS: Reach out to Mojaloop Bank to which this ID is registered <**camt.004**>\n[synchronous response] \nsimilar to PUT /participants/{Type}/{ID} in ML
+    deactivate GALS
+
+    hnote across #FFAAAA: Agreement phase
+    SendersBank ->> MojaloopBank: \nQuote request <**pain.001**>\nsimilar to POST /quotes in ML
+        note right of SendersBank #yellow
+            Payload - pain.001:
+            <CstmrCdtTrfInitn>
+                <GrpHdr>
+                    <MsgId>7d04b391-0c90-4ad4-9ba8-46232b04e18a</MsgId>
+                    <CreDtTm>2021-02-10T15:07:38.6875000+03:00</CreDtTm>
+                    <NbOfTxs>1</NbOfTxs>
+                    <InitgPty>
+                        <Nm>**LAKE CITY BANK**</Nm>
+                        <Id>
+                            <OrgId>
+                                <AnyBIC>LAKCUS33</AnyBIC>
+                            </OrgId>
+                        </Id>
+                    </InitgPty>
+                </GrpHdr>
+                <PmtInf>
+                    <PmtInfId>7e2599df-80a1-4f6e-b381-99536c4d2691</PmtInfId>
+                    <PmtMtd>TRF</PmtMtd>
+                    <ReqdExctnDt>
+                        <Dt>2021-02-10</Dt>
+                    </ReqdExctnDt>
+                    <Dbtr>
+                        <CtctDtls>
+                            <MobNb>**+1-574-265-1752**</MobNb>
+                        </CtctDtls>
+                    </Dbtr>
+                    <DbtrAcct>
+                        <Id>
+                            <Othr>
+                                <Id>NOTPROVIDED</Id>
+                            </Othr>
+                        </Id>
+                    </DbtrAcct>
+                    <DbtrAgt>
+                        <FinInstnId>
+                            <BICFI>LAKCUS33</BICFI>
+                            <Nm>LAKE CITY BANK</Nm>
+                        </FinInstnId>
+                    </DbtrAgt>
+                    <ChrgBr>DEBT</ChrgBr>
+                    <CdtTrfTxInf>
+                        <PmtId>
+                            <EndToEndId>7e2599df-80a1-4f6e-b381-99536c4d2691
+                            </EndToEndId>
+                        </PmtId>
+                        <Amt>
+                            <InstdAmt Ccy="RWF">**20000**</InstdAmt>
+                        </Amt>
+                        <Cdtr>
+                            <CtctDtls>
+                                <MobNb>**+250-70610388**</MobNb>
+                            </CtctDtls>
+                        </Cdtr>
+                    </CdtTrfTxInf>
+                </PmtInf>
+            </CstmrCdtTrfInitn>
+        end note
+    activate MojaloopBank
+    SendersBank <<- - MojaloopBank: HTTP 202 (Accepted)
+    deactivate SendersBank
+    group moja-lookup-and-quotes
+        MojaloopBank ->> MLMMSystem: Lookup ID (+250)70610388\n**GET parties/{Type}/{ID}**
+        activate MLMMSystem
+        MojaloopBank <<- - MLMMSystem: HTTP 202 (Accepted)
+        MojaloopBank <<- MLMMSystem: Lookup resolution for ID (+250)70610388 [callback] **PUT parties/{Type}/{ID}**
+            note left of MLMMSystem #yellow
+                Headers - transferHeaders: {
+                    Content-Length: <Content-Length>,
+                    Content-Type: <Content-Type>,
+                    Date: <Date>,
+                    X-Forwarded-For: <X-Forwarded-For>,
+                    ...
+                }
+                Payload:
+                {
+                "party":
+                {
+                    "partyIdInfo":
+                    {
+                    "partyIdType": "MSISDN", 
+                    "partyIdentifier": "25070610388",
+                    "fspId": "5678",
+                    
+                    },
+                    "name": "Aunt Honorine",
+                    "personalInfo": 
+                        { 
+                        "complexName": 
+                            { 
+                            "firstName": "**Honorine**",
+                            "middleName": "P",
+                            "lastName": "Aunt"
+                            },
+                            "dateOfBirth": "1961-12-25"
+                        }
+                    }
+                } 
+            end note
+        MojaloopBank - ->> MLMMSystem: HTTP 200 (OK)
+        MojaloopBank ->> MLMMSystem: Quote request **POST /quotes**
+            note right of MojaloopBank #yellow
+                Headers - transferHeaders: {
+                    Content-Length: <Content-Length>,
+                    Content-Type: <Content-Type>,
+                    Date: <Date>,
+                    X-Forwarded-For: <X-Forwarded-For>,
+                    ...
+                }
+                Payload:
+                { 
+                    "quoteId": "b51ec534-ee48-4575-b6a9-ead2955b8069",
+                    "transactionId": "a8323bc6-c228-4df2-ae82-e5a997baf899",
+                    "payee": 
+                    { 
+                        "partyIdInfo":
+                        {
+                        "partyIdType": "MSISDN", 
+                        "partyIdentifier": "25070610388",
+                        "fspId": "5678"
+                        },
+                        "name": "Aunt Honorine",
+                        "personalInfo": 
+                        { 
+                            "complexName": 
+                            { 
+                                "firstName": "Honorine",
+                                "middleName": "P",
+                                "lastName": "Aunt"
+                            }, 
+                            "dateOfBirth": "1961-12-25" 
+                        } 
+                    }, 
+                    "payer": 
+                    { 
+                        "partyIdInfo":
+                        {
+                        "partyIdType": "MSISDN", 
+                        "partyIdentifier": "+1-574-265-1752",
+                        "fspId": "1234"
+                        },
+                        "name": "Amanda Nunes",
+                        "personalInfo": 
+                        { 
+                            "complexName": 
+                            { 
+                                "firstName": "Amanda",
+                                "middleName": "J", 
+                                "lastName": "Nunes" 
+                            }, 
+                            "dateOfBirth": "1984-01-01" 
+                        } 
+                    }, 
+                    "amountType": "RECEIVE",
+                    "amount":
+                    { 
+                        "currency": "RWF", 
+                        "amount": "**20000**"
+                    },
+                    "transactionType": 
+                    { 
+                        "scenario": "DEPOSIT",  
+                        "initiator": "PAYER", 
+                        "initiatorType": "CONSUMER"
+                    },
+                    "expiration": "2021-03-19T08:38:08.699-04:00", 
+            } 
+            end note
+        MojaloopBank <<- - MLMMSystem: HTTP 202 (Accepted)
+        MojaloopBank <<- MLMMSystem: Quote response [callback]\n**PUT /quotes/{ID}**
+            note left of MLMMSystem #yellow
+                Headers - transferHeaders: {
+                    Content-Length: <Content-Length>,
+                    Content-Type: <Content-Type>,
+                    Date: <Date>,
+                    X-Forwarded-For: <X-Forwarded-For>,
+                    ...
+                }
+                Payload:
+                { 
+                "transferAmount": 
+                { 
+                    "currency": "RWF", 
+                    "amount": "**20200**" 
+                },
+                "payeeReceiveAmount": 
+                { 
+                    "currency": "RWF", 
+                    "amount": "20000" 
+                },
+                "payeeFspFee":
+                { 
+                    "currency": "RWF",
+                    "amount": "**200**" 
+                }
+                "expiration": "2016-05-24T08:38:08.699-04:00"
+                "ilpPacket": "AYIBgQAAAAAAAASwNGxldmVsb25lLmRmc3AxLm1lci4
+                                5T2RTOF81MDdqUUZERmZlakgyOVc4bXFmNEpLMH
+                                lGTFGCAUBQU0svMS4wCk5vbmNlOiB1SXlweUYzY
+                                3pYSXBFdzVVc05TYWh3CkVuY3J5cHRpb246IG5v
+                                bmUKUGF5bWVudC1JZDogMTMyMzZhM2ItOGZhOC
+                                00MTYzLTg0NDctNGMzZWQzZGE5OGE3CgpDb250
+                                ZW50LUxlbmd0aDogMTM1CkNvbnRlbnQtVHlwZT
+                                ogYXBwbGljYXRpb24vanNvbgpTZW5kZXItSWRl
+                                bnRpZmllcjogOTI4MDYzOTEKCiJ7XCJmZWVcIj
+                                owLFwidHJhbnNmZXJDb2RlXCI6XCJpbnZvaWNl
+                                XCIsXCJkZWJpdE5hbWVcIjpcImFsaWNlIGNvb3
+                                BlclwiLFwiY3JlZGl0TmFtZVwiOlwibWVyIGNo
+                                YW50XCIsXCJkZWJpdElkZW50aWZpZXJcIjpcIj
+                                kyODA2MzkxXCJ9IgA",
+                "condition": "f5sqb7tBTWPd5Y8BDFdMm9BJR_MNI4isf8p8n4D5pHA"
+            }
+            end note
+        MojaloopBank - ->> MLMMSystem: HTTP 200 (OK)
+        deactivate MLMMSystem
+    end
+    SendersBank <<- MojaloopBank: Quote response [callback] <**pain.013**>\nsimilar to **PUT /quotes/{ID}** in ML
+    activate SendersBank
+        note left of MojaloopBank #yellow
+            Payload - pain.013:
+                <CdtrPmtActvtnReq>
+                    <GrpHdr>
+                        <MsgId>ca7797b6-c3be-4bfd-a101-904da8b75207</MsgId>
+                        <CreDtTm>2021-02-10T15:07:38.6875000+03:00</CreDtTm>
+                        <NbOfTxs>1</NbOfTxs>
+                        <InitgPty>
+                            <Nm>**EQUITY BANK RWANDA LIMITED**</Nm>
+                            <Id>
+                                <AnyBIC>EQBLRWRWXXX</AnyBIC>
+                            </Id>
+                        </InitgPty>
+                    </GrpHdr>
+                    <PmtInf>
+                        <PmtInfId>7e2599df-80a1-4f6e-b381-99536c4d2691</PmtInfId>
+                        <PmtMtd>TRF</PmtMtd>
+                        <ReqdExctnDt>2021-02-10</ReqdExctnDt>
+                        <SvcLvl>
+                            <Cd>SDVA</Cd>
+                        </SvcLvl>
+                        <Dbtr>
+                            <CtctDtls>
+                                <MobNb>**+1-574-265-1752**</MobNb>
+                            </CtctDtls>
+                        </Dbtr>
+                        <DbtrAgt>
+                            <FinInstnId>
+                                <BICFI>LAKCUS33</BICFI>
+                                <Nm>LAKE CITY BANK</Nm>
+                            </FinInstnId>
+                        </DbtrAgt>
+                        <ChrgBr>DEBT</ChrgBr>
+                        <Cndtn>fH9pAYDQbmoZLPbvv3CSW2RfjU4jvM4ApG_fqGnR7Xs</Cndtn>
+                        <CdtTrfTxInf>
+                            <PmtId>
+                                <EndToEndId>7e2599df-80a1-4f6e-b381-99536c4d2691</EndToEndId>
+                            </PmtId>
+                            <Amt>
+                                <InstdAmt Ccy="RWF">**20200**</InstdAmt>
+                            </Amt>
+                            <CdtrAgt>
+                                <FinInstnId>
+                                    <BICFI>EQBLRWRWXXX</BICFI>
+                                    <Nm>**EQUITY BANK RWANDA LIMITED<**/Nm>
+                                </FinInstnId>
+                        </CdtrAgt>
+                        <Cdtr>
+                                <CtctDtls>
+                                    <Nm>**Aunt Honorine**</Nm>
+                                    <MobNb>**+250-70610388**</MobNb>
+                                </CtctDtls>
+                        </Cdtr>
+                        </CdtTrfTxInf>
+                    </PmtInf>
+                </CdtrPmtActvtnReq>
+        end note
+    SendersBank - ->> MojaloopBank: HTTP 200 (OK)
+    deactivate MojaloopBank
+    Sender <<- SendersBank: Are you ok with charges - **RWF:200**
+    activate Sender
+    Sender ->> SendersBank: Yes, please proceed
+    deactivate Sender
+
+    hnote across #FFAAAA: Transfer phase
+    SendersBank ->> MojaloopBank: Transfer request\n<**pacs.008**>\nsimilar to POST /transfers
+    activate MojaloopBank
+        note right of SendersBank #yellow
+            Payload - pacs.008:
+                <FIToFICstmrCdtTrf>
+                    <GrpHdr>
+                        <MsgId>7e2599df-80a1-4f6e-b381-99536c4d2691</MsgId>
+                        <CreDtTm>2021-02-10T15:07:38.6875000+03:00</CreDtTm>
+                        <NbOfTxs>1</NbOfTxs>
+                        <SttlmInf>
+                            <SttlmMtd>CLRG</SttlmMtd>
+                        </SttlmInf>
+                    </GrpHdr>
+                    <CdtTrfTxInf>
+                        <PmtId>
+                            <EndToEndId>0120a604-aa80-43da-b6f6-c1d5f8aa622e
+                            </EndToEndId>
+                        </PmtId>
+                        <Cndtn>
+                            <Condition>fH9pAYDQbmoZLPbvv3CSW2RfjU4jvM4ApG_fqGnR7Xs
+                            </Condition>
+                        </Cndtn>
+                        <IntrBkSttlmAmt Ccy="RWF">**20200**</IntrBkSttlmAmt>
+                        <ChrgBr>DEBT</ChrgBr>
+                    <Dbtr>
+                            <CtctDtls>
+                                <MobNb>+1-574-265-1752</MobNb>
+                            </CtctDtls>
+                        </Dbtr>
+                        <DbtrAgt>
+                            <FinInstnId>
+                                <BICFI>LAKCUS33</BICFI>
+                                <Nm>LAKE CITY BANK</Nm>
+                            </FinInstnId>
+                        </DbtrAgt>
+                        <CdtrAgt>
+                            <FinInstnId>
+                                <BICFI>EQBLRWRWXXX</BICFI>
+                                <Nm>EQUITY BANK RWANDA LIMITED</Nm>
+                            </FinInstnId>
+                        </CdtrAgt>
+                    <Cdtr>
+                            <CtctDtls>
+                                <MobNb>+250-70610388</MobNb>
+                            </CtctDtls>
+                        </Cdtr>
+                    </CdtTrfTxInf>
+                </FIToFICstmrCdtTrf>
+        end note
+    SendersBank <<- - MojaloopBank: HTTP 202 (Accepted)
+    deactivate SendersBank
+    MojaloopBank ->> MLMMSystem: Transfer request\n**POST /transfers**
+    activate MLMMSystem
+        note right of MojaloopBank #yellow
+            Headers - transferHeaders: {
+                Content-Length: <Content-Length>,
+                Content-Type: <Content-Type>,
+                Date: <Date>,
+                X-Forwarded-For: <X-Forwarded-For>,
+                ...
+            }
+            Payload:
+            { 
+                "transferId": "b51ec534-ee48-4575-b6a9-ead2955b8069", 
+                "payeeFsp": "5678", 
+                "payerFsp": "1234",
+                "amount": 
+                { 
+                    "currency": "RWF", 
+                    "amount": "**20200**" 
+                }, 
+                "ilpPacket": "AYIBgQAAAAAAAASwNGxldmVsb25lLmRmc3AxLm1lci4
+                                5T2RTOF81MDdqUUZERmZlakgyOVc4bXFmNEpLMHlG
+                                TFGCAUBQU0svMS4wCk5vbmNlOiB1SXlweUYzY3pYS
+                                XBFdzVVc05TYWh3CkVuY3J5cHRpb246IG5vbmUKUG
+                                F5bWVudC1JZDogMTMyMzZhM2ItOGZhOC00MTYzLTg
+                                0NDctNGMzZWQzZGE5OGE3CgpDb250ZW50LUxlbmd0
+                                aDogMTM1CkNvbnRlbnQtVHlwZTogYXBwbGljYXRpb
+                                24vanNvbgpTZW5kZXItSWRlbnRpZmllcjogOTI4MD
+                                YzOTEKCiJ7XCJmZWVcIjowLFwidHJhbnNmZXJDb2R
+                                lXCI6XCJpbnZvaWNlXCIsXCJkZWJpdE5hbWVcIjpc
+                                ImFsaWNlIGNvb3BlclwiLFwiY3JlZGl0TmFtZVwiO
+                                lwibWVyIGNoYW50XCIsXCJkZWJpdElkZW50aWZpZX
+                                JcIjpcIjkyODA2MzkxXCJ9IgA",
+                "condition": "f5sqb7tBTWPd5Y8BDFdMm9BJR_MNI4isf8p8n4D5pHA",
+                "expiration": "2021-03-19T08:38:08.699-04:00"
+          }
+        end note
+    MojaloopBank <<- - MLMMSystem: HTTP 202 (Accepted)
+    MojaloopBank <<- MLMMSystem: Transfer Fulfilment [callback]\n**PUT /transfers/{ID}**
+        note left of MLMMSystem #yellow
+            Headers - transferHeaders: {
+                Content-Length: <Content-Length>,
+                Content-Type: <Content-Type>,
+                Date: <Date>,
+                X-Forwarded-For: <X-Forwarded-For>,
+                ...
+            }
+            Payload:
+            { 
+                "fulfilment": "WLctttbu2HvTsa1XWvUoGRcQozHsqeu9Ahl2JW9Bsu8",
+                "completedTimestamp": "2016-05-24T08:38:08.699-04:00",
+                "transferState": "**COMMITTED**"
+            }
+        end note
+    MojaloopBank - ->> MLMMSystem: HTTP 200 (OK)
+    MLMMSystem ->> Receiver: Payment notification:\nYou received **RWF:20000**
+    deactivate MLMMSystem
+    SendersBank <<- MojaloopBank: Transfer response [callback]\n<**pain.002**>\nsimilar to PUT /transfers/{ID} in ML
+    activate SendersBank
+        note left of MojaloopBank #yellow
+            Payload - pain.002:
+                <CstmrPmtStsRpt>
+                    <GrpHdr>
+                        <MsgId>7e2599df-80a1-4f6e-b381-99536c4d2691</MsgId>
+                        <CreDtTm>2021-02-10T15:07:38.6875000+03:00</CreDtTm>
+                        <IlpData>
+                            <Fulfilment>mhPUT9ZAwd-BXLfeSd7-YPh46rBWRNBiTCSWjpku90s
+                            </Fulfilment>
+                        </IlpData>
+                        <DbtrAgt>                                                  
+                            <FinInstnId>
+                                <BICFI>LAKCUS33</BICFI>
+                                <Nm>LAKE CITY BANK</Nm>
+                            </FinInstnId>
+                        </DbtrAgt>
+                        <CdtrAgt>                                              
+                            <FinInstnId>
+                                <BICFI>EQBLRWRWXXX</BICFI>
+                                <Nm>EQUITY BANK RWANDA LIMITED</Nm>
+                            </FinInstnId>
+                        </CdtrAgt>
+                    </GrpHdr>
+                    <OrgnlGrpInfAndSts>
+                        <OrgnlMsgId>7e2599df-80a1-4f6e-b381-99536c4d2691
+                        </OrgnlMsgId>
+                        <OrgnlMsgNmId>pacs.008.001.09</OrgnlMsgNmId>
+                        <GrpSts>ACCC</GrpSts>
+                    </OrgnlGrpInfAndSts>
+                </CstmrPmtStsRpt>
+        end note
+    SendersBank - ->> MojaloopBank: HTTP 200 (OK)
+    deactivate MojaloopBank
+
+    Sender <<- SendersBank: Payment notification:\nSent **RWF:20200**
+    activate Sender
+    Sender - ->> SendersBank: HTTP 200 (OK)
+    deactivate Sender
+    deactivate SendersBank
+    deactivate Sender
+end
+
+@enduml
+
+PlantUML version 1.2021.00(Sun Jan 10 15:55:05 IST 2021)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>
