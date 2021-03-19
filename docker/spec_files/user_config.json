@@ -3,6 +3,7 @@
   "CALLBACK_ENDPOINT_LOCAL_DEBUG_MAC": "http://host.docker.internal:3002",
   "CALLBACK_ENDPOINT_DOCKER_COMPOSE": "http://svc-moja-bank:3002",
   "CALLBACK_ENDPOINT": "http://svc-moja-bank:3002",
+  "CALLBACK_ENDPOINT1": "http://host.docker.internal:3002",
   "ALS_ENDPOINT": "http://account-lookup-service:4002",
   "CALLBACK_RESOURCE_ENDPOINTS": {
     "enabled": false,
