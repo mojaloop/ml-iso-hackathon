@@ -92,7 +92,8 @@ export class ApiServer {
     this._logger.isInfoEnabled() && this._logger.info(`ApiServer::init - Http Server starting with opts: ${JSON.stringify(this._serverOptions)}`)
 
     // Handle multiple content types with the same function
-    this._server.addContentTypeParser(['text/xml', 'application/xml'], { parseAs: 'string' }, this._xmlContentTypeParser)
+    this._server.addContentTypeParser(['text/xml', 'application/xml'], { parseAs: 'string' }, this._xmlContentTypeParser.bind(this))
+    this._server.addContentTypeParser(['application/vnd.interoperability.parties+json;version=1.0', 'application/vnd.interoperability.parties+json;version=1.1', 'application/vnd.interoperability.quotes+json;version=1.0', 'application/vnd.interoperability.quotes+json;version=1.1', 'application/vnd.interoperability.transfers+json;version=1.0', 'application/vnd.interoperability.transfers+json;version=1.1'], { parseAs: 'string' }, this._interoperabilityContentTypeParser.bind(this))
 
     this._server.addHook('preHandler', this._onPreHandler.bind(this))
     this._server.addHook('onSend', this._onSend.bind(this))
@@ -106,12 +107,26 @@ export class ApiServer {
 
   private async _xmlContentTypeParser (request: FastifyRequest, payload: string | Buffer): Promise<any> {
     try {
+      this._logger.debug(`ApiServerError::_xmlContentTypeParser - headers = ${JSON.stringify(request.headers)}`)
       let body: XmlRequestBody | null = null
+
       // convert serialised XML into a JSON representation, and validate XML integrity
       body = {
         parsed: XML.jsonify(payload, true),
         raw: payload
       }
+      // this._logger.info(`WTFContent-type = ${JSON.stringify(request.headers)}`)
+      return body
+    } catch (err) {
+      err.statusCode = 400
+      throw err
+    }
+  }
+
+  private async _interoperabilityContentTypeParser (request: FastifyRequest, payload: string | Buffer): Promise<any> {
+    try {
+      this._logger.debug(`ApiServerError::_interoperabilityContentTypeParser - headers = ${JSON.stringify(request.headers)}`)
+      const body: object | null = JSON.parse(payload as string)
       return body
     } catch (err) {
       err.statusCode = 400

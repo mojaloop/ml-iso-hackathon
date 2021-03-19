@@ -8,8 +8,9 @@
   "homepage": "https://localhost:7070/",
   "scripts": {
     "start": "node http-server/server.js --config ../../default.env",
-    "start-dev": "react-scripts start",
+    "start-dev": "react-app-env --env-file=../../default.env start",
     "build": "react-app-env --env-file=../../default.env build",
+    "build:run": "npm run build && npm start",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "clean": "rm -rf node_modules && rm -rf build",

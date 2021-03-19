@@ -87,6 +87,11 @@
     <xs:simpleType name="BatchBookingIndicator">
         <xs:restriction base="xs:boolean"/>
     </xs:simpleType>
+	<xs:simpleType name="BinaryString32">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="^[A-Za-z0-9-_]{43}"/>
+		</xs:restriction>
+	</xs:simpleType>
     <xs:complexType name="BranchAndFinancialInstitutionIdentification6">
         <xs:sequence>
             <xs:element name="FinInstnId" type="FinancialInstitutionIdentification18"/>
@@ -205,6 +210,7 @@
     <xs:complexType name="CreditTransferTransaction43">
         <xs:sequence>
             <xs:element name="PmtId" type="PaymentIdentification13"/>
+			<xs:element maxOccurs="1" minOccurs="0" name="Cndtn" type="ILPData"/>
             <xs:element maxOccurs="1" minOccurs="0" name="PmtTpInf" type="PaymentTypeInformation28"/>
             <xs:element name="IntrBkSttlmAmt" type="ActiveCurrencyAndAmount"/>
             <xs:element maxOccurs="1" minOccurs="0" name="IntrBkSttlmDt" type="ISODate"/>
@@ -606,7 +612,7 @@
     </xs:complexType>
     <xs:complexType name="GroupHeader93">
         <xs:sequence>
-            <xs:element name="MsgId" type="Max35Text"/>
+            <xs:element name="MsgId" type="UUIDv4Identifier"/>
             <xs:element name="CreDtTm" type="ISODateTime"/>
             <xs:element maxOccurs="1" minOccurs="0" name="BtchBookg" type="BatchBookingIndicator"/>
             <xs:element name="NbOfTxs" type="Max15NumericText"/>
@@ -624,6 +630,13 @@
             <xs:pattern value="[A-Z]{2,2}[0-9]{2,2}[a-zA-Z0-9]{1,30}"/>
         </xs:restriction>
     </xs:simpleType>
+	<!-- included to carry cryptographic information to support reliable transfers -->
+	<xs:complexType name="ILPData">
+		<xs:choice>
+			<xs:element name="Condition" type="BinaryString32"/>
+			<xs:element name="Fulfilment" type="BinaryString32"/>
+		</xs:choice>
+    </xs:complexType>
     <xs:simpleType name="ISODate">
         <xs:restriction base="xs:date"/>
     </xs:simpleType>
@@ -818,7 +831,7 @@
     <xs:complexType name="PaymentIdentification13">
         <xs:sequence>
             <xs:element maxOccurs="1" minOccurs="0" name="InstrId" type="Max35Text"/>
-            <xs:element name="EndToEndId" type="Max35Text"/>
+            <xs:element name="EndToEndId" type="UUIDv4Identifier"/>
             <xs:element maxOccurs="1" minOccurs="0" name="TxId" type="Max35Text"/>
             <xs:element maxOccurs="1" minOccurs="0" name="UETR" type="UUIDv4Identifier"/>
             <xs:element maxOccurs="1" minOccurs="0" name="ClrSysRef" type="Max35Text"/>

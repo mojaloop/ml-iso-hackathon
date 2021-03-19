@@ -40,7 +40,7 @@ class NotificationService {
   constructor () {
     const { apiBaseUrl } = getConfig()
     this.apiBaseUrl = apiBaseUrl
-    this.socket = socketIOClient(this.apiBaseUrl)
+    this.socket = socketIOClient(this.apiBaseUrl, { transports: ['websocket'], rejectUnauthorized: false })
     this.socket.on('activityLog', log => {
       this.notificationEventFunction(log)
     })

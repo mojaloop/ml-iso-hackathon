@@ -112,7 +112,57 @@ export class Server {
 
     this._apiServer = new ApiServer(apiServerOptions, this._logger)
     this._redis = createRedisService(appConfig.redisUrl)
-    this._mojaClient = new MojaloopRequests({ dfspId: 'mojabank', logger: new Logger.Logger(), jwsSign: false, tls: { mutualTLS: { enabled: false }, creds: { ca: "", cert: "" } }, peerEndpoint: this._config.peerEndpoints.mojaloop })
+    this._mojaClient = new MojaloopRequests({ 
+      dfspId: 'mojabank', 
+      logger: new Logger.Logger(), 
+      jwsSign: false, 
+      tls: { 
+        mutualTLS: { enabled: false }, 
+        creds: { ca: "", cert: "" }
+      },
+      resourceVersions: {
+        parties: {
+          contentVersion: '1.1',
+          acceptVersion: '1',
+        },
+        participants: {
+            contentVersion: '1.1',
+            acceptVersion: '1',
+        },
+        quotes: {
+            contentVersion: '1.1',
+            acceptVersion: '1',
+        },
+        bulkQuotes: {
+            contentVersion: '1.1',
+            acceptVersion: '1',
+        },
+        bulkTransfers: {
+            contentVersion: '1.1',
+            acceptVersion: '1',
+        },
+        transactionRequests: {
+            contentVersion: '1.1',
+            acceptVersion: '1',
+        },
+        authorizations: {
+            contentVersion: '1.1',
+            acceptVersion: '1',
+        },
+        transfers: {
+            contentVersion: '1.1',
+            acceptVersion: '1',
+        },
+        custom: {
+            contentVersion: '1.1',
+            acceptVersion: '1',
+        },
+        thirdparty: {
+            contentVersion: '1.1',
+            acceptVersion: '1',
+        }
+      },
+      peerEndpoint: this._config.peerEndpoints.mojaloop })
   }
 
   async init (): Promise<void> {
@@ -165,23 +215,23 @@ export class Server {
     try {
       this._logger.debug(`request.body=${JSON.stringify(request.body)}`)
 
-      const pmtId = JSONPath({ path: '$..CdtTrfTxInf.PmtId', json: request.body })
-      const transactionId = pmtId?.[0]
-  
+      const pmtIdEndToEndId = JSONPath({ path: '$..CdtTrfTxInf.PmtId.EndToEndId', json: request.body })
+      const transactionId = pmtIdEndToEndId?.[0]
+
       const pmtInfId = JSONPath({ path: '$..PmtInf.PmtInfId', json: request.body })
       const quoteId = pmtInfId?.[0]
-  
+
       const instdAmt = JSONPath({ path: '$..CdtTrfTxInf.Amt.InstdAmt', json: request.body })
       const amtObject = instdAmt?.[0]
       const amount = amtObject['#text']
       const currency = amtObject?.attr?.Ccy
-  
+
       const dbtrMobNb = JSONPath({ path: '$..Dbtr.CtctDtls.MobNb', json: request.body })
       const payerMsisdn = dbtrMobNb?.[0]
-      
+
       const crdtrMobNb = JSONPath({ path: '$..Cdtr.CtctDtls.MobNb', json: request.body })
       const payeeMsisdn = crdtrMobNb?.[0]
-  
+
       const dbtrBicfi = JSONPath({ path: '$..Dbtr.DbtrAgt.FinInstnId.BICFI', json: request.body })
       const payerFspId = dbtrBicfi?.[0]
   
@@ -254,13 +304,16 @@ export class Server {
         payee: {
           partyIdInfo: {
             partyIdType: 'MSISDN',
-            partyIdentifier: quote.payeeMsisdn
+            partyIdentifier: quote.payeeMsisdn,
+            fspId: payload.party.partyIdInfo.fspId
           }
         },
         payer: {
-          partyIdType: 'MSISDN',
-          partyIdentifier: quote.payerMsisdn,
-          fspId: payload.party.partyIdInfo.fspId
+          partyIdInfo: {
+            partyIdType: 'MSISDN',
+            partyIdentifier: quote.payerMsisdn
+            // fspId: payload.party.partyIdInfo.fspId
+          }
         },
         amountType: 'SEND',
         amount: {
@@ -272,14 +325,14 @@ export class Server {
           initiator: 'PAYER',
           initiatorType: 'CONSUMER'
         },
-        extensionList: {
-          extension: [
-            {
-              key: 'pain.001',
-              value: JSON.stringify(request.body)
-            }
-          ]
-        }
+        // extensionList: { // This has been disabled as the extension.value field needs to be less than 128 characters
+        //   extension: [
+        //     {
+        //       key: 'pain.001',
+        //       value: JSON.stringify(request.body)
+        //     }
+        //   ]
+        // }
       }, payload.party.partyIdInfo.fspId)
   
       return reply.code(200).send("")

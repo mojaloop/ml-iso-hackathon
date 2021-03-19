@@ -1,0 +1,585 @@
+/'*****
+License
+--------------
+Copyright © 2020 Mojaloop Foundation
+
+The Mojaloop files are made available by the Mojaloop Foundation under the Apache License, Version 2.0
+(the "License") and you may not use these files except in compliance with the [License](http://www.apache.org/licenses/LICENSE-2.0). 
+
+You may obtain a copy of the License at [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
+
+Unless required by applicable law or agreed to in writing, the Mojaloop files are distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the [License](http://www.apache.org/licenses/LICENSE-2.0).
+--------------
+This is the official list of the Mojaloop project contributors for this file.
+Names of the original copyright holders (individuals or organizations)
+should be listed with a '*' in the first column. People who have
+contributed from an organization can be listed under the organization
+that actually holds the copyright for their contributions (see the
+Gates Foundation organization for an example). Those individuals should have
+their names indented and be marked with a '-'. Email address can be added
+optionally within square brackets <email>.
+* Gates Foundation
+
+- Name Surname <name.surname@gatesfoundation.com>
+
+- Sam Kummary <sam@modusbox.com>
+ --------------
+ ******'/
+
+@startuml
+' declate title
+title P2P in a ISO20022 <-> Mojaloop Cross network scenario: Detailed
+
+autonumber
+
+' Actor Keys:
+'   boundary - APIs/Interfaces, etc
+'   collections - Kafka Topics
+'   control - Kafka Consumers
+'   entity - Database Access Objects
+'   database - Database Persistance Store
+
+' Actor Keys:
+' participant - SendersBank, MojaloopBank, MLMMSystem and GALS
+' actor - Sender/Receiver
+
+
+' declare actors
+actor "Sender\n(SWIFT)" as Sender
+actor "Receiver\n(Mojaloop)" as Receiver
+control "Global\nALS" as GALS
+control "Sender's\nBank" as SendersBank
+control "Mojaloop\nBank" as MojaloopBank
+boundary "ISO 20022 <-> Mojaloop" as crossborder
+
+control "\nMojaloop\nMobile-Money\nSystem" as MLMMSystem
+
+box "ISO Scheme (SWIFT)" #LightBlue
+	participant Sender
+	participant SendersBank
+    participant GALS
+end box
+
+boundary "ISO 20022 <-> Mojaloop" as crossborder
+
+box "Mojaloop Scheme" #LightGreen
+    participant MojaloopBank
+	participant MLMMSystem
+    participant Receiver
+end box
+
+title **P2P transfer in an ISO20022 <-> Mojaloop Cross border scenario: detailed view**\n
+
+' start flow
+group Sender sends a P2P Transfer request to Receiver
+    hnote across #FFAAAA: Lookup phase
+    activate Sender
+    Sender ->> SendersBank: I'd like to send **RWF:20000**\nto user with ID **(+250)70610388**
+    activate SendersBank
+    Sender <<-- SendersBank: HTTP 202 (Accepted)
+    deactivate Sender
+    SendersBank ->> GALS: Resolve ID (+250)70610388 [synchronous] <**camt.003**>\nsimilar to GET /participants/{Type}/{ID} in ML
+        note right of SendersBank #yellow
+            Payload - camt.003:
+            <GetAcct>
+                <MsgHdr>
+                    <MsgId>575b3623-5adf-4752-8da9-a159a179ec9f
+                    </MsgId>
+                    <CreDtTm>2020-05-14T15:07:38.6875000+03:00
+                    </CreDtTm>
+                </MsgHdr>
+                <AcctQryDef>
+                    <AcctCrit>
+                        <NewCrit>
+                            <SchCrit>
+                                <AcctOwnr>
+                                    <CtctDtls>
+                                        <MobNb>**+250-788301607**
+                                        </MobNb>
+                                    </CtctDtls>
+                                </AcctOwnr>
+                            </SchCrit>
+                        </NewCrit>
+                    </AcctCrit>
+                </AcctQryDef>
+            </GetAcct>
+        end note
+    activate GALS
+    note left of GALS #yellow
+        Payload - camt.004:
+        <RtrAcct>
+            <MsgHdr>
+                <MsgId>2d1f2fa1-582c-4ffa-afd2-fc426722f91a
+                </MsgId>
+                <CreDtTm>2021-03-17T12:45:59.155Z</CreDtTm>
+                <OrgnlBizQry>
+                    <MsgId>575b3623-5adf-4752-8da9-a159a179ec9f
+                    </MsgId>
+                </OrgnlBizQry>
+            </MsgHdr>
+            <RptOrErr>
+                <AcctRpt>
+                    <AcctId>
+                        <Othr>
+                            <Id>dfsp.username.5678</Id>
+                            <SchmeNm>
+                                <Cd>BBAN</Cd>
+                            </SchmeNm>
+                        </Othr>
+                    </AcctId>
+                    <AcctOrErr>
+                        <Acct>
+                            <Svcr>
+                                <FinInstnId>
+                                    <BICFI>EQBLRWRWXXX</BICFI>
+                                    <Nm>**EQUITY BANK RWANDA LIMITED**
+                                    </Nm>
+                                </FinInstnId>
+                            </Svcr>
+                        </Acct>
+                    </AcctOrErr>
+                </AcctRpt>
+            </RptOrErr>
+        </RtrAcct>
+    end note
+    SendersBank <<- GALS: Reach out to Mojaloop Bank to which this ID is registered <**camt.004**>\n[synchronous response] \nsimilar to PUT /participants/{Type}/{ID} in ML
+    deactivate GALS
+
+    hnote across #FFAAAA: Agreement phase
+    SendersBank ->> MojaloopBank: \nQuote request <**pain.001**>\nsimilar to POST /quotes in ML
+        note right of SendersBank #yellow
+            Payload - pain.001:
+            <CstmrCdtTrfInitn>
+                <GrpHdr>
+                    <MsgId>7d04b391-0c90-4ad4-9ba8-46232b04e18a</MsgId>
+                    <CreDtTm>2021-02-10T15:07:38.6875000+03:00</CreDtTm>
+                    <NbOfTxs>1</NbOfTxs>
+                    <InitgPty>
+                        <Nm>**LAKE CITY BANK**</Nm>
+                        <Id>
+                            <OrgId>
+                                <AnyBIC>LAKCUS33</AnyBIC>
+                            </OrgId>
+                        </Id>
+                    </InitgPty>
+                </GrpHdr>
+                <PmtInf>
+                    <PmtInfId>7e2599df-80a1-4f6e-b381-99536c4d2691</PmtInfId>
+                    <PmtMtd>TRF</PmtMtd>
+                    <ReqdExctnDt>
+                        <Dt>2021-02-10</Dt>
+                    </ReqdExctnDt>
+                    <Dbtr>
+                        <CtctDtls>
+                            <MobNb>**+1-574-265-1752**</MobNb>
+                        </CtctDtls>
+                    </Dbtr>
+                    <DbtrAcct>
+                        <Id>
+                            <Othr>
+                                <Id>NOTPROVIDED</Id>
+                            </Othr>
+                        </Id>
+                    </DbtrAcct>
+                    <DbtrAgt>
+                        <FinInstnId>
+                            <BICFI>LAKCUS33</BICFI>
+                            <Nm>LAKE CITY BANK</Nm>
+                        </FinInstnId>
+                    </DbtrAgt>
+                    <ChrgBr>DEBT</ChrgBr>
+                    <CdtTrfTxInf>
+                        <PmtId>
+                            <EndToEndId>7e2599df-80a1-4f6e-b381-99536c4d2691
+                            </EndToEndId>
+                        </PmtId>
+                        <Amt>
+                            <InstdAmt Ccy="RWF">**20000**</InstdAmt>
+                        </Amt>
+                        <Cdtr>
+                            <CtctDtls>
+                                <MobNb>**+250-70610388**</MobNb>
+                            </CtctDtls>
+                        </Cdtr>
+                    </CdtTrfTxInf>
+                </PmtInf>
+            </CstmrCdtTrfInitn>
+        end note
+    activate MojaloopBank
+    SendersBank <<-- MojaloopBank: HTTP 202 (Accepted)
+    deactivate SendersBank
+    group moja-lookup-and-quotes
+        MojaloopBank ->> MLMMSystem: Lookup ID (+250)70610388\n**GET parties/{Type}/{ID}**
+        activate MLMMSystem
+        MojaloopBank <<-- MLMMSystem: HTTP 202 (Accepted)
+        MojaloopBank <<- MLMMSystem: Lookup resolution for ID (+250)70610388 [callback] **PUT parties/{Type}/{ID}**
+            note left of MLMMSystem #yellow
+                Headers - transferHeaders: {
+                    Content-Length: <Content-Length>,
+                    Content-Type: <Content-Type>,
+                    Date: <Date>,
+                    X-Forwarded-For: <X-Forwarded-For>,
+                    ...
+                }
+                Payload:
+                {
+                "party":
+                {
+                    "partyIdInfo":
+                    {
+                    "partyIdType": "MSISDN", 
+                    "partyIdentifier": "25070610388",
+                    "fspId": "5678",
+                    
+                    },
+                    "name": "Aunt Honorine",
+                    "personalInfo": 
+                        { 
+                        "complexName": 
+                            { 
+                            "firstName": "**Honorine**",
+                            "middleName": "P",
+                            "lastName": "Aunt"
+                            },
+                            "dateOfBirth": "1961-12-25"
+                        }
+                    }
+                } 
+            end note
+        MojaloopBank -->> MLMMSystem: HTTP 200 (OK)
+        MojaloopBank ->> MLMMSystem: Quote request **POST /quotes**
+            note right of MojaloopBank #yellow
+                Headers - transferHeaders: {
+                    Content-Length: <Content-Length>,
+                    Content-Type: <Content-Type>,
+                    Date: <Date>,
+                    X-Forwarded-For: <X-Forwarded-For>,
+                    ...
+                }
+                Payload:
+                { 
+                    "quoteId": "b51ec534-ee48-4575-b6a9-ead2955b8069",
+                    "transactionId": "a8323bc6-c228-4df2-ae82-e5a997baf899",
+                    "payee": 
+                    { 
+                        "partyIdInfo":
+                        {
+                        "partyIdType": "MSISDN", 
+                        "partyIdentifier": "25070610388",
+                        "fspId": "5678"
+                        },
+                        "name": "Aunt Honorine",
+                        "personalInfo": 
+                        { 
+                            "complexName": 
+                            { 
+                                "firstName": "Honorine",
+                                "middleName": "P",
+                                "lastName": "Aunt"
+                            }, 
+                            "dateOfBirth": "1961-12-25" 
+                        } 
+                    }, 
+                    "payer": 
+                    { 
+                        "partyIdInfo":
+                        {
+                        "partyIdType": "MSISDN", 
+                        "partyIdentifier": "+1-574-265-1752",
+                        "fspId": "1234"
+                        },
+                        "name": "Amanda Nunes",
+                        "personalInfo": 
+                        { 
+                            "complexName": 
+                            { 
+                                "firstName": "Amanda",
+                                "middleName": "J", 
+                                "lastName": "Nunes" 
+                            }, 
+                            "dateOfBirth": "1984-01-01" 
+                        } 
+                    }, 
+                    "amountType": "RECEIVE",
+                    "amount":
+                    { 
+                        "currency": "RWF", 
+                        "amount": "**20000**"
+                    },
+                    "transactionType": 
+                    { 
+                        "scenario": "DEPOSIT",  
+                        "initiator": "PAYER", 
+                        "initiatorType": "CONSUMER"
+                    },
+                    "expiration": "2021-03-19T08:38:08.699-04:00", 
+            } 
+            end note
+        MojaloopBank <<-- MLMMSystem: HTTP 202 (Accepted)
+        MojaloopBank <<- MLMMSystem: Quote response [callback]\n**PUT /quotes/{ID}**
+            note left of MLMMSystem #yellow
+                Headers - transferHeaders: {
+                    Content-Length: <Content-Length>,
+                    Content-Type: <Content-Type>,
+                    Date: <Date>,
+                    X-Forwarded-For: <X-Forwarded-For>,
+                    ...
+                }
+                Payload:
+                { 
+                "transferAmount": 
+                { 
+                    "currency": "RWF", 
+                    "amount": "**20200**" 
+                },
+                "payeeReceiveAmount": 
+                { 
+                    "currency": "RWF", 
+                    "amount": "20000" 
+                },
+                "payeeFspFee":
+                { 
+                    "currency": "RWF",
+                    "amount": "**200**" 
+                }
+                "expiration": "2016-05-24T08:38:08.699-04:00"
+                "ilpPacket": "AYIBgQAAAAAAAASwNGxldmVsb25lLmRmc3AxLm1lci4
+                                5T2RTOF81MDdqUUZERmZlakgyOVc4bXFmNEpLMH
+                                lGTFGCAUBQU0svMS4wCk5vbmNlOiB1SXlweUYzY
+                                3pYSXBFdzVVc05TYWh3CkVuY3J5cHRpb246IG5v
+                                bmUKUGF5bWVudC1JZDogMTMyMzZhM2ItOGZhOC
+                                00MTYzLTg0NDctNGMzZWQzZGE5OGE3CgpDb250
+                                ZW50LUxlbmd0aDogMTM1CkNvbnRlbnQtVHlwZT
+                                ogYXBwbGljYXRpb24vanNvbgpTZW5kZXItSWRl
+                                bnRpZmllcjogOTI4MDYzOTEKCiJ7XCJmZWVcIj
+                                owLFwidHJhbnNmZXJDb2RlXCI6XCJpbnZvaWNl
+                                XCIsXCJkZWJpdE5hbWVcIjpcImFsaWNlIGNvb3
+                                BlclwiLFwiY3JlZGl0TmFtZVwiOlwibWVyIGNo
+                                YW50XCIsXCJkZWJpdElkZW50aWZpZXJcIjpcIj
+                                kyODA2MzkxXCJ9IgA",
+                "condition": "f5sqb7tBTWPd5Y8BDFdMm9BJR_MNI4isf8p8n4D5pHA"
+            }
+            end note
+        MojaloopBank -->> MLMMSystem: HTTP 200 (OK)
+        deactivate MLMMSystem
+    end
+    SendersBank <<- MojaloopBank: Quote response [callback] <**pain.013**>\nsimilar to **PUT /quotes/{ID}** in ML
+    activate SendersBank
+        note left of MojaloopBank #yellow
+            Payload - pain.013:
+                <CdtrPmtActvtnReq>
+                    <GrpHdr>
+                        <MsgId>ca7797b6-c3be-4bfd-a101-904da8b75207</MsgId>
+                        <CreDtTm>2021-02-10T15:07:38.6875000+03:00</CreDtTm>
+                        <NbOfTxs>1</NbOfTxs>
+                        <InitgPty>
+                            <Nm>**EQUITY BANK RWANDA LIMITED**</Nm>
+                            <Id>
+                                <AnyBIC>EQBLRWRWXXX</AnyBIC>
+                            </Id>
+                        </InitgPty>
+                    </GrpHdr>
+                    <PmtInf>
+                        <PmtInfId>7e2599df-80a1-4f6e-b381-99536c4d2691</PmtInfId>
+                        <PmtMtd>TRF</PmtMtd>
+                        <ReqdExctnDt>2021-02-10</ReqdExctnDt>
+                        <SvcLvl>
+                            <Cd>SDVA</Cd>
+                        </SvcLvl>
+                        <Dbtr>
+                            <CtctDtls>
+                                <MobNb>**+1-574-265-1752**</MobNb>
+                            </CtctDtls>
+                        </Dbtr>
+                        <DbtrAgt>
+                            <FinInstnId>
+                                <BICFI>LAKCUS33</BICFI>
+                                <Nm>LAKE CITY BANK</Nm>
+                            </FinInstnId>
+                        </DbtrAgt>
+                        <ChrgBr>DEBT</ChrgBr>
+                        <Cndtn>fH9pAYDQbmoZLPbvv3CSW2RfjU4jvM4ApG_fqGnR7Xs</Cndtn>
+                        <CdtTrfTxInf>
+                            <PmtId>
+                                <EndToEndId>7e2599df-80a1-4f6e-b381-99536c4d2691</EndToEndId>
+                            </PmtId>
+                            <Amt>
+                                <InstdAmt Ccy="RWF">**20200**</InstdAmt>
+                            </Amt>
+                            <CdtrAgt>
+                                <FinInstnId>
+                                    <BICFI>EQBLRWRWXXX</BICFI>
+                                    <Nm>**EQUITY BANK RWANDA LIMITED<**/Nm>
+                                </FinInstnId>
+                        </CdtrAgt>
+                        <Cdtr>
+                                <CtctDtls>
+                                    <Nm>**Aunt Honorine**</Nm>
+                                    <MobNb>**+250-70610388**</MobNb>
+                                </CtctDtls>
+                        </Cdtr>
+                        </CdtTrfTxInf>
+                    </PmtInf>
+                </CdtrPmtActvtnReq>
+        end note
+    SendersBank -->> MojaloopBank: HTTP 200 (OK)
+    deactivate MojaloopBank
+    Sender <<- SendersBank: Are you ok with charges - **RWF:200**
+    activate Sender
+    Sender ->> SendersBank: Yes, please proceed
+    deactivate Sender
+
+    hnote across #FFAAAA: Transfer phase
+    SendersBank ->> MojaloopBank: Transfer request\n<**pacs.008**>\nsimilar to POST /transfers
+    activate MojaloopBank
+        note right of SendersBank #yellow
+            Payload - pacs.008:
+                <FIToFICstmrCdtTrf>
+                    <GrpHdr>
+                        <MsgId>7e2599df-80a1-4f6e-b381-99536c4d2691</MsgId>
+                        <CreDtTm>2021-02-10T15:07:38.6875000+03:00</CreDtTm>
+                        <NbOfTxs>1</NbOfTxs>
+                        <SttlmInf>
+                            <SttlmMtd>CLRG</SttlmMtd>
+                        </SttlmInf>
+                    </GrpHdr>
+                    <CdtTrfTxInf>
+                        <PmtId>
+                            <EndToEndId>0120a604-aa80-43da-b6f6-c1d5f8aa622e
+                            </EndToEndId>
+                        </PmtId>
+                        <Cndtn>
+                            <Condition>fH9pAYDQbmoZLPbvv3CSW2RfjU4jvM4ApG_fqGnR7Xs
+                            </Condition>
+                        </Cndtn>
+                        <IntrBkSttlmAmt Ccy="RWF">**20200**</IntrBkSttlmAmt>
+                        <ChrgBr>DEBT</ChrgBr>
+                    <Dbtr>
+                            <CtctDtls>
+                                <MobNb>+1-574-265-1752</MobNb>
+                            </CtctDtls>
+                        </Dbtr>
+                        <DbtrAgt>
+                            <FinInstnId>
+                                <BICFI>LAKCUS33</BICFI>
+                                <Nm>LAKE CITY BANK</Nm>
+                            </FinInstnId>
+                        </DbtrAgt>
+                        <CdtrAgt>
+                            <FinInstnId>
+                                <BICFI>EQBLRWRWXXX</BICFI>
+                                <Nm>EQUITY BANK RWANDA LIMITED</Nm>
+                            </FinInstnId>
+                        </CdtrAgt>
+                    <Cdtr>
+                            <CtctDtls>
+                                <MobNb>+250-70610388</MobNb>
+                            </CtctDtls>
+                        </Cdtr>
+                    </CdtTrfTxInf>
+                </FIToFICstmrCdtTrf>
+        end note
+    SendersBank <<-- MojaloopBank: HTTP 202 (Accepted)
+    deactivate SendersBank
+    MojaloopBank ->> MLMMSystem: Transfer request\n**POST /transfers**
+    activate MLMMSystem
+        note right of MojaloopBank #yellow
+            Headers - transferHeaders: {
+                Content-Length: <Content-Length>,
+                Content-Type: <Content-Type>,
+                Date: <Date>,
+                X-Forwarded-For: <X-Forwarded-For>,
+                ...
+            }
+            Payload:
+            { 
+                "transferId": "b51ec534-ee48-4575-b6a9-ead2955b8069", 
+                "payeeFsp": "5678", 
+                "payerFsp": "1234",
+                "amount": 
+                { 
+                    "currency": "RWF", 
+                    "amount": "**20200**" 
+                }, 
+                "ilpPacket": "AYIBgQAAAAAAAASwNGxldmVsb25lLmRmc3AxLm1lci4
+                                5T2RTOF81MDdqUUZERmZlakgyOVc4bXFmNEpLMHlG
+                                TFGCAUBQU0svMS4wCk5vbmNlOiB1SXlweUYzY3pYS
+                                XBFdzVVc05TYWh3CkVuY3J5cHRpb246IG5vbmUKUG
+                                F5bWVudC1JZDogMTMyMzZhM2ItOGZhOC00MTYzLTg
+                                0NDctNGMzZWQzZGE5OGE3CgpDb250ZW50LUxlbmd0
+                                aDogMTM1CkNvbnRlbnQtVHlwZTogYXBwbGljYXRpb
+                                24vanNvbgpTZW5kZXItSWRlbnRpZmllcjogOTI4MD
+                                YzOTEKCiJ7XCJmZWVcIjowLFwidHJhbnNmZXJDb2R
+                                lXCI6XCJpbnZvaWNlXCIsXCJkZWJpdE5hbWVcIjpc
+                                ImFsaWNlIGNvb3BlclwiLFwiY3JlZGl0TmFtZVwiO
+                                lwibWVyIGNoYW50XCIsXCJkZWJpdElkZW50aWZpZX
+                                JcIjpcIjkyODA2MzkxXCJ9IgA",
+                "condition": "f5sqb7tBTWPd5Y8BDFdMm9BJR_MNI4isf8p8n4D5pHA",
+                "expiration": "2021-03-19T08:38:08.699-04:00"
+          }
+        end note
+    MojaloopBank <<-- MLMMSystem: HTTP 202 (Accepted)
+    MojaloopBank <<- MLMMSystem: Transfer Fulfilment [callback]\n**PUT /transfers/{ID}**
+        note left of MLMMSystem #yellow
+            Headers - transferHeaders: {
+                Content-Length: <Content-Length>,
+                Content-Type: <Content-Type>,
+                Date: <Date>,
+                X-Forwarded-For: <X-Forwarded-For>,
+                ...
+            }
+            Payload:
+            { 
+                "fulfilment": "WLctttbu2HvTsa1XWvUoGRcQozHsqeu9Ahl2JW9Bsu8",
+                "completedTimestamp": "2016-05-24T08:38:08.699-04:00",
+                "transferState": "**COMMITTED**"
+            }
+        end note
+    MojaloopBank -->> MLMMSystem: HTTP 200 (OK)
+    MLMMSystem ->> Receiver: Payment notification:\nYou received **RWF:20000**
+    deactivate MLMMSystem
+    SendersBank <<- MojaloopBank: Transfer response [callback]\n<**pain.002**>\nsimilar to PUT /transfers/{ID} in ML
+    activate SendersBank
+        note left of MojaloopBank #yellow
+            Payload - pain.002:
+                <CstmrPmtStsRpt>
+                    <GrpHdr>
+                        <MsgId>7e2599df-80a1-4f6e-b381-99536c4d2691</MsgId>
+                        <CreDtTm>2021-02-10T15:07:38.6875000+03:00</CreDtTm>
+                        <IlpData>
+                            <Fulfilment>mhPUT9ZAwd-BXLfeSd7-YPh46rBWRNBiTCSWjpku90s
+                            </Fulfilment>
+                        </IlpData>
+                        <DbtrAgt>                                                  
+                            <FinInstnId>
+                                <BICFI>LAKCUS33</BICFI>
+                                <Nm>LAKE CITY BANK</Nm>
+                            </FinInstnId>
+                        </DbtrAgt>
+                        <CdtrAgt>                                              
+                            <FinInstnId>
+                                <BICFI>EQBLRWRWXXX</BICFI>
+                                <Nm>EQUITY BANK RWANDA LIMITED</Nm>
+                            </FinInstnId>
+                        </CdtrAgt>
+                    </GrpHdr>
+                    <OrgnlGrpInfAndSts>
+                        <OrgnlMsgId>7e2599df-80a1-4f6e-b381-99536c4d2691
+                        </OrgnlMsgId>
+                        <OrgnlMsgNmId>pacs.008.001.09</OrgnlMsgNmId>
+                        <GrpSts>ACCC</GrpSts>
+                    </OrgnlGrpInfAndSts>
+                </CstmrPmtStsRpt>
+        end note
+    SendersBank -->> MojaloopBank: HTTP 200 (OK)
+    deactivate MojaloopBank
+
+    Sender <<- SendersBank: Payment notification:\nSent **RWF:20200**
+    activate Sender
+    Sender -->> SendersBank: HTTP 200 (OK)
+    deactivate Sender
+    deactivate SendersBank
+    deactivate Sender
+end
+
+@enduml

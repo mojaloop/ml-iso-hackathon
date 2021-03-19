@@ -28,12 +28,10 @@ const { Text } = Typography
 
 class PayerMobile extends React.Component {
   state = {
-    gettingPartyInfo: false,
     stage: null,
     amount: 100,
     idType: 'MSISDN',
     idValue: '',
-    partyInfo: {},
     quotesRequest: {},
     quotesResponse: {},
     transfersResponse: {}
@@ -96,27 +94,16 @@ class PayerMobile extends React.Component {
         return (
           <Card className='mr-3'>
             <Row>
-              <Col span={12}>
-                <Text>Transfer Amount:</Text>
-              </Col>
-              <Col span={12}>
-                <Text strong>${this.state.quotesResponse && this.state.quotesResponse.transferAmount && this.state.quotesResponse.transferAmount.amount}</Text>
+              <Col span={24}>
+                <Text>Do you want to continue to send <b>RWF {this.state.quotesResponse && this.state.quotesResponse.sendAmount}</b> {this.state.quotesResponse && this.state.quotesResponse.payeeName && ('to ' + this.state.quotesResponse.payeeName)}?</Text>
               </Col>
             </Row>
             <Row>
               <Col span={12}>
-                <Text>Payee Fsp Fee:</Text>
+                <Text>Fee:</Text>
               </Col>
               <Col span={12}>
-                <Text strong>${this.state.quotesResponse && this.state.quotesResponse.payeeFspFee && this.state.quotesResponse.payeeFspFee.amount}</Text>
-              </Col>
-            </Row>
-            <Row>
-              <Col span={12}>
-                <Text>payeeFspCommission:</Text>
-              </Col>
-              <Col span={12}>
-                <Text strong>${this.state.quotesResponse && this.state.quotesResponse.payeeFspCommission && this.state.quotesResponse.payeeFspCommission.amount}</Text>
+                <Text strong>${this.state.quotesResponse && this.state.quotesResponse.transferFee}</Text>
               </Col>
             </Row>
             <Row className='mt-4'>
@@ -140,7 +127,6 @@ class PayerMobile extends React.Component {
                   <Result
                     status="success"
                     title={'Sent $' + this.state.amount}
-                    subTitle={this.state.partyInfo && this.state.partyInfo.personalInfo && this.state.partyInfo.personalInfo.complexName && 'to ' + this.state.partyInfo.personalInfo.complexName.lastName}
                   />
                 )
                 : (
@@ -196,17 +182,19 @@ class PayerMobile extends React.Component {
 
   handleGetQuote = async (e) => {
     this.setState({stage: 'postQuotes'})
-    // const resp = await this.props.outboundService.postQuotes(this.state.idValue, this.state.amount, 'RWF')
-    this.setState({stage: 'putQuotes'})
+    let resp = null
+    // resp = await this.props.outboundService.postQuotes(this.state.idValue, this.state.amount, 'RWF')
+    this.setState({stage: 'putQuotes', quotesResponse: resp && resp.body})
 
   }
 
   handleSend = async (e) => {
     this.setState({stage: 'postTransfers'})
-    // if (this.state.quotesRequest && this.state.quotesResponse) {
-      //   const resp = await this.props.outboundService.postTransfers(this.state.amount, this.state.quotesRequest.transactionId, this.state.quotesResponse.expiration, this.state.quotesResponse.ilpPacket, this.state.quotesResponse.condition)
-      // } 
-    this.setState({stage: 'putTransfers'})
+    let resp = null
+    // if (this.state.quotesResponse) {
+    //   resp = await this.props.outboundService.postTransfers(this.state.quotesResponse.transactionId)
+    // } 
+    this.setState({stage: 'putTransfers', transfersResponse: resp && resp.body})
   }
   
   handleCancel = (e) => {

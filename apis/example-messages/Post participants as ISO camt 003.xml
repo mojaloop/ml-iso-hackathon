@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- POST /parcitipants-->
+<Document xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:iso:std:iso:20022:tech:xsd:camt.003.001.07">
+   <GetAcct>
+       <MsgHdr>
+           <MsgId>575b3623-5adf-4752-8da9-a159a179ec9f</MsgId> <!-- Required by ISO, not used by Moja -->
+           <CreDtTm>2020-05-14T15:07:38.6875000+03:00</CreDtTm>    <!-- Required by ISO, not used by Moja -->
+       </MsgHdr>
+       <AcctQryDef>
+           <AcctCrit>
+               <NewCrit>
+                   <SchCrit>
+                       <AcctOwnr>
+                           <CtctDtls>
+                               <MobNb>+250-788301607</MobNb>       <!--    We want to know about this mobile number    -->
+                           </CtctDtls>
+                       </AcctOwnr>
+                   </SchCrit>
+               </NewCrit>
+           </AcctCrit>
+       </AcctQryDef>
+   </GetAcct>
+</Document>
