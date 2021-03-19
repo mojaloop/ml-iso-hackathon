@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- PUT /quotes/7d04b391-0c90-4ad4-9ba8-46232b04e18a -->
-<Document xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:iso:std:iso:20022:tech:xsd:pain.013.001.06">
+<Document xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:iso:std:iso:20022:tech:xsd:pain.013.001.08">
     <CdtrPmtActvtnReq>
         <GrpHdr>
             <MsgId>ca7797b6-c3be-4bfd-a101-904da8b75207</MsgId>     <!-- This is an identifier for the message, not used by Moja -->
