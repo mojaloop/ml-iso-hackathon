@@ -56,8 +56,7 @@ const Program = new Command()
 Program
   .version('0.1')
   .description('Sending Bank Simulator')
-Program.command('start')
-  .alias('s')
+Program.command('api')
   .description('Start the simulator and listen fro commands from the UI') // command description
   .option('-c, --config [configFilePath]', '.env config file')
   .action(async (args: any): Promise<void> => {

@@ -99,13 +99,17 @@ export class Transaction {
     //Construct XML
     const requestMessage = pain001({ messageId: uuid(), creationDateTime: new Date(), initiatingParty}, quote)
     console.log('sending pain001 to MojaBank', requestMessage)
+
     // call Mojabank
-    await got.post(`${this._config.peerEndpoints.mojabank}/quotes`, {
+    const response = await got.post(`${this._config.peerEndpoints.mojabank}/quotes`, {
       headers: {
         'content-type': 'application/xml'
       },
       body: requestMessage
     })
+    if(response.statusCode !== 200) {
+      throw new Error(`Invalid response to quote request: ${response.statusCode} ${response.statusMessage}`)
+    }
 
     return new Promise((success: (response: ApiQuoteResponse) => void, fail: (response: Error) => void ) => {
       this._quoteResultHandler = {
@@ -150,13 +154,18 @@ export class Transaction {
     //Construct XML
     const requestMessage = pacs008({ messageId: uuid(), creationDateTime: new Date()}, transfer)
     console.log('sending pacs008 to MojaBank ', requestMessage)
+
     // call Mojabank
-    await got.post(`${this._config.peerEndpoints.mojabank}/transfers`, {
+    const response = await got.post(`${this._config.peerEndpoints.mojabank}/transfers`, {
       headers: {
         'content-type': 'application/xml'
       },
       body: requestMessage
     })
+    
+    if(response.statusCode !== 200) {
+      throw new Error(`Invalid response to transfer request: ${response.statusCode} ${response.statusMessage}`)
+    }
 
     return new Promise((success: (response: ApiTransferResponse) => void, fail: (response: Error) => void ) => {
       this._transferResultHandler = {

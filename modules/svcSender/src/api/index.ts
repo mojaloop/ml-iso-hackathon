@@ -170,7 +170,7 @@ export class SenderServer {
 
   private async _handleQuoteResponseCallback (request: TApiXmlRequest, reply: TApiXmlReply): Promise<any> {
     console.log('Handling quote response from MojaBank (pain013). raw body', request.body?.raw)
-    // TODO - Skipping validation for now
+
     const validationResults = XSD.validate(this._config.xsd.pain013, request.body!.raw as string)
     if (validationResults != null) {
       throw new Error(JSON.stringify(validationResults))
