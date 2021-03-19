@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "c7eff5b0-af5b-449a-8716-c54574bb2389",
+		"_postman_id": "01173164-bcd7-4411-9870-5c61bf27e766",
 		"name": "ISO Hackathon",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -286,7 +286,66 @@
 		},
 		{
 			"name": "Sender Bank",
-			"item": []
+			"item": [
+				{
+					"name": "POST /quotes",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"msisdn\": \"+250-788301607\",\n    \"amount\": \"2000\",\n    \"currency\": \"RWF\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3103/api/quotes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3103",
+							"path": [
+								"api",
+								"quotes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST /transfers",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"transactionId\": \"2e32dc6b-d82b-4a9c-9d74-cf305dc367fa\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3103/api/transfers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3103",
+							"path": [
+								"api",
+								"transfers"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
