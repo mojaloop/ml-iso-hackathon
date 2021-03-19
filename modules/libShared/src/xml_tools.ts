@@ -92,10 +92,15 @@ const fromJson = (payload: TPayload, format: boolean = false): any => {
   return pasredXml
 }
 
+const format = (payload: string): any => {
+  return XmlFormat(payload)
+}
+
 export const XML = {
   validate,
   jsonify,
-  fromJson
+  fromJson,
+  format
 }
 
 export const XSD = {
