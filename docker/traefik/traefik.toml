@@ -31,3 +31,7 @@ entryPoint = "https"
 onHostRule = true
 [acme.httpChallenge]
 entryPoint = "http"
+
+[certificatesResolvers.myresolver.acme]
+  # ...
+  caServer = "https://acme-staging-v02.api.letsencrypt.org/directory"
