@@ -37,6 +37,8 @@ import { Server, IncomingMessage, ServerResponse } from 'http'
 import { ILogger } from './ilogger'
 // const XmlParser = require('fast-xml-parser')
 import { XML } from './xml_tools'
+/* eslint-disable-next-line @typescript-eslint/no-var-requires */
+const FastifyCors = require('fastify-cors')
 
 export class ApiServerError extends Error {
   statusCode: number = 500
@@ -97,6 +99,10 @@ export class ApiServer {
 
     this._server.addHook('preHandler', this._onPreHandler.bind(this))
     this._server.addHook('onSend', this._onSend.bind(this))
+
+    await this._server.register(FastifyCors, {
+      // put your options here
+    })
 
     await this._server.listen(this._serverOptions.port, this._serverOptions.host)
 

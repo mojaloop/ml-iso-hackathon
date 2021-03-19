@@ -71,14 +71,14 @@ class OutboundService {
       amount: amount,
       currency: currency
     }
-    const resp = await axiosInstance.post(this.senderApiUrl + "/api/quotes", httpBody , { headers: { 'Content-Type': 'application/json' } })
+    const resp = await axiosInstance.post(this.senderApiUrl + "/api/quotes", httpBody , { headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' } })
     return resp
   }
   async postTransfers (transactionId) {
     const httpBody = {
       transactionId: transactionId
     }
-    const resp = await axiosInstance.post(this.senderApiUrl + "/api/transfers", httpBody , { headers: { 'Content-Type': 'application/json' } })
+    const resp = await axiosInstance.post(this.senderApiUrl + "/api/transfers", httpBody , { headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' } })
     return resp
   }
 

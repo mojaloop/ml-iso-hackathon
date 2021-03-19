@@ -31,7 +31,7 @@ class PayerMobile extends React.Component {
     stage: null,
     amount: 100,
     idType: 'MSISDN',
-    idValue: '',
+    idValue: '+250-788301607',
     quotesRequest: {},
     quotesResponse: {},
     transfersResponse: {}
@@ -95,17 +95,17 @@ class PayerMobile extends React.Component {
           <Card className='mr-3'>
             <Row>
               <Col span={24}>
-                <Text>Do you want to continue to send <b>RWF {this.state.quotesResponse && this.state.quotesResponse.sendAmount}</b> {this.state.quotesResponse && this.state.quotesResponse.payeeName && ('to ' + this.state.quotesResponse.payeeName)}?</Text>
+                <Text>Do you want to continue to send <b>RWF {this.state.quotesResponse && this.state.quotesResponse.sendAmount}</b> to <b>{this.state.quotesResponse && this.state.quotesResponse.receivingParticipantName && (this.state.quotesResponse.receivingPartyMsisdn + ' @ ' + this.state.quotesResponse.receivingParticipantName)}?</b></Text>
               </Col>
             </Row>
-            <Row>
+            {/* <Row>
               <Col span={12}>
                 <Text>Fee:</Text>
               </Col>
               <Col span={12}>
                 <Text strong>${this.state.quotesResponse && this.state.quotesResponse.transferFee}</Text>
               </Col>
-            </Row>
+            </Row> */}
             <Row className='mt-4'>
               <Col span={12} className='text-center'>
                 <Button type='primary' shape="round" danger onClick={this.handleCancel}>Cancel</Button>
@@ -122,7 +122,7 @@ class PayerMobile extends React.Component {
           <Row>
             <Col span={24} className='text-center'>
               {
-                this.state.transfersResponse && this.state.transfersResponse.transferState === 'COMMITTED'
+                this.state.transfersResponse && this.state.transfersResponse.transactionId && this.state.transfersResponse.transactionId.length > 0
                 ? (
                   <Result
                     status="success"
@@ -148,9 +148,11 @@ class PayerMobile extends React.Component {
                 <Input
                   className='ml-2'
                   placeholder='User ID'
-                  defaultValue={'987654320'}
+                  defaultValue={'+250-788301607'}
                   onChange={(newID) => {
-                    this.setState({idValue: newID})
+                    // console.log('newID:')
+                    // console.log(newID.target.value)
+                    this.setState({idValue: newID.target.value})
                   }}
                 />
               </Col>
@@ -183,18 +185,22 @@ class PayerMobile extends React.Component {
   handleGetQuote = async (e) => {
     this.setState({stage: 'postQuotes'})
     let resp = null
-    // resp = await this.props.outboundService.postQuotes(this.state.idValue, this.state.amount, 'RWF')
-    this.setState({stage: 'putQuotes', quotesResponse: resp && resp.body})
+    console.log(`${this.state}`)
+    resp = await this.props.outboundService.postQuotes(this.state.idValue, this.state.amount.toString(), 'RWF')
+    const response = {stage: 'putQuotes', quotesResponse: resp && resp.data}
+    // console.log(resp.data)
+    // console.log(response)
+    this.setState(response)
 
   }
 
   handleSend = async (e) => {
     this.setState({stage: 'postTransfers'})
     let resp = null
-    // if (this.state.quotesResponse) {
-    //   resp = await this.props.outboundService.postTransfers(this.state.quotesResponse.transactionId)
-    // } 
-    this.setState({stage: 'putTransfers', transfersResponse: resp && resp.body})
+    if (this.state.quotesResponse) {
+      resp = await this.props.outboundService.postTransfers(this.state.quotesResponse.transactionId)
+    } 
+    this.setState({stage: 'putTransfers', transfersResponse: resp && resp.data})
   }
   
   handleCancel = (e) => {
