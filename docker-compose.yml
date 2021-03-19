@@ -100,27 +100,29 @@ services:
     volumes:
       - ./docker-compose.env:/opt/app/default.env
 
-  # svc-sender-bank:
-  #   build:
-  #     context: ./
-  #     dockerfile: modules/svcMojaBank/Dockerfile
-  #   image: mojaloop/ml-iso-hackathon:snapshot
-  #   command: npm run start:sender:noconfig
-  #   restart: always
-  #   container_name: hack_svc_sender_bank
-  #   networks:
-  #     - web
-  #   env_file:
-  #     - default.env
-  #     - docker-compose.env
-  #   labels:
-  #     - "traefik.docker.network=web"
-  #     - "traefik.enable=true"
-  #     - "traefik.basic.port:3002"
-  #     - "traefik.basic.frontend.rule=Host:senderbank.hackathon2.moja-lab.live"
-  #     - "traefik.basic.protocol=http"
-  #   volumes:
-  #      - ./docker-compose.env:/opt/app/default.env
+  svc-sender-bank:
+    build:
+      context: ./
+      dockerfile: modules/svcMojaBank/Dockerfile
+    image: mojaloop/ml-iso-hackathon:snapshot
+    command: npm run start:sender:noconfig
+    restart: always
+    container_name: hack_svc_sender_bank
+    networks:
+      - web
+    ports:
+      - "3103:3103"
+    env_file:
+      - default.env
+      - docker-compose.env
+    labels:
+      - "traefik.docker.network=web"
+      - "traefik.enable=true"
+      - "traefik.basic.port:3103"
+      - "traefik.basic.frontend.rule=Host:senderbank.hackathon2.moja-lab.live"
+      - "traefik.basic.protocol=http"
+    volumes:
+       - ./docker-compose.env:/opt/app/default.env
 
   svc-activitylog-collector:
     image: mojaloop/ml-iso-hackathon:snapshot

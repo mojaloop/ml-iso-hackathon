@@ -76,12 +76,12 @@ Program.command('api')
         prefix: getEnvValueOrDefault('METRIC_PREFIX', 'hackiso_') as string
       },
       api: {
-        host: getEnvValueOrDefault(process.env.SENDER_API_HOST as string, '0.0.0.0') as string,
-        port: getEnvIntegerOrDefault(process.env.SENDER_API_PORT as string, 3103) as number
+        host: getEnvValueOrDefault('SENDER_API_HOST', '0.0.0.0') as string,
+        port: getEnvIntegerOrDefault('SENDER_API_PORT', 3103) as number
       },
       peerEndpoints: {
-        gls: getEnvValueOrDefault(process.env.SENDER_GLS_ENDPOINT as string, 'http://localhost:3003') as string,
-        mojabank: getEnvValueOrDefault(process.env.SENDER_MOJABANK_ENDPOINT as string, 'http://localhost:3002') as string,
+        gls: getEnvValueOrDefault('SENDER_GLS_ENDPOINT', 'http://localhost:3003') as string,
+        mojabank: getEnvValueOrDefault('SENDER_MOJABANK_ENDPOINT', 'http://localhost:3002') as string,
       },
       xsd: {
         camt004: getEnvValueOrDefault('SENDER_XSD_CAMT004', null),
