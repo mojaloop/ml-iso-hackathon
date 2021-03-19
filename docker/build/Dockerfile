@@ -22,7 +22,7 @@ COPY modules /opt/app/modules
 COPY docker-compose.env /opt/app/default.env
 
 ## run build
-RUN npm run build:ignoreSim
+RUN npm run build
 
 # EXPOSE 3003
 CMD ["npm", "run", "start:noconfig"]

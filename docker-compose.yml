@@ -25,9 +25,9 @@ services:
     labels:
       - "traefik.docker.network=web"
       - "traefik.enable=true"
-      - "traefik.basic.frontend.rule=Host:ttk-backend.hackathon2.moja-lab.live"
-      - "traefik.basic.port=5000"
-      - "traefik.basic.protocol=http"
+      - "traefik.frontend.rule=Host:ttk-backend.hackathon2.moja-lab.live"
+      - "traefik.port=5000"
+      - "traefik.protocol=http"
 
   ## Hmm this isn't reachable at ttk.hackathon2.moja-lab.live
   ## I suspect is has something to do with how the ttk is running nginx...
