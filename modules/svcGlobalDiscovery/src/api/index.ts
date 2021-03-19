@@ -73,7 +73,7 @@ export class Server {
     // Init Account Aggregator
     this._accountsAgg = new Accounts(this._config.account.mapStringList, this._logger, this._metrics)
 
-    // Init Activity Serverice
+    // Init Activity Service
 
     const activityServiceOptions: TRedisPubSubOptions = {
       host: this._config.activityService.host,

@@ -185,7 +185,7 @@ class PayerMobile extends React.Component {
   handleGetQuote = async (e) => {
     this.setState({stage: 'postQuotes'})
     let resp = null
-    console.log(`${this.state}`)
+    // console.log(`${this.state}`)
     resp = await this.props.outboundService.postQuotes(this.state.idValue, this.state.amount.toString(), 'RWF')
     const response = {stage: 'putQuotes', quotesResponse: resp && resp.data}
     // console.log(resp.data)

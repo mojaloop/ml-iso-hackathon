@@ -44,7 +44,10 @@ import {
   TApiXmlRequest,
   TApiXmlReply,
   XSD,
-  RouteXmlInterface
+  RouteXmlInterface,
+  RedisPubSub,
+  TRedisPubSubOptions,
+  TPublishEvent
 } from '@mojaloop-iso-hackathon/lib-shared'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { Server, IncomingMessage, ServerResponse } from 'node:http'
@@ -68,6 +71,7 @@ export class SenderServer {
   protected _logger: ILogger
   protected _metrics: IMetricsFactory
   protected _apiServer: ApiServer | undefined
+  protected _activityService: RedisPubSub
   protected _transactions: Map<string, Transaction> = new Map<string, Transaction>()
 
   constructor (appConfig: any, logger: ILogger, metrics: IMetricsFactory) {
@@ -77,6 +81,15 @@ export class SenderServer {
   }
 
   async init (): Promise<void> {
+    // Init Activity Service
+    const activityServiceOptions: TRedisPubSubOptions = {
+      host: this._config.activityService.host,
+      port: this._config.activityService.port
+    }
+    this._activityService = new RedisPubSub(activityServiceOptions, this._logger)
+
+    await this._activityService.init()
+    
     const apiServerOptions: TApiServerOptions = {
       host: this._config.api.host,
       port: this._config.api.port
@@ -133,7 +146,7 @@ export class SenderServer {
 
     //Create a new Transaction
     const {msisdn, currency, amount} = request.body
-    const tx = new Transaction(this._config, this._logger)
+    const tx = new Transaction(this._config, this._logger, this._activityService)
     this._transactions.set(tx.id, tx)
 
     const lookupResult = await tx.lookup(msisdn)

@@ -145,7 +145,7 @@ class MobileSimulator extends React.Component {
       case 'payeeGetParties':
       {
         if (this.testDiagramRef.current) {
-          this.testDiagramRef.current.addCustomSequence(`rect rgb(255, 245, 173)\n${this.state.hubName}-->>${this.state.hubName}: Oracle Lookup\nend\n`)
+          // this.testDiagramRef.current.addCustomSequence(`rect rgb(255, 245, 173)\n${this.state.hubName}-->>${this.state.hubName}: Oracle Lookup\nend\n`)
           // this.testDiagramRef.current.addSequence(this.state.hubName, this.state.hubName, 'Oracle Lookup')
           this.testDiagramRef.current.addSequence(event.data.fromComponent, event.data.toComponent, '[HTTP REQ] GET ' + event.data.resource.path, {activation: { mode: 'activate', peer: 'destination'}})
         }

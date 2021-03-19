@@ -255,7 +255,15 @@ export class Server {
       await this._redis.setQuote(quote)
       await this._redis.associatePayeeMsisdnToQuote(quote.payeeMsisdn, quote.quoteId)
       await this._mojaClient.getParties('MSISDN', payeeMsisdn)
-  
+      
+      // const egressActivityEvent: TPublishEvent = {
+      //   fromComponent: this._config.activityEvents.MBComponentName,
+      //   toComponent: 'Mojaloop Switch',
+      //   xmlData: '<?xml version="1.0" encoding="utf-8"?><Document></Document>'
+      // }
+
+      // this._activityService.publish(this._config.activityEvents.MBEgress, egressActivityEvent)
+
       return reply.code(202).send(JSON.stringify({}))
     } catch (error) {
       this._logger.error(error.stack)

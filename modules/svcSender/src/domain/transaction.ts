@@ -31,7 +31,7 @@ export class Transaction {
   private _activityService: RedisPubSub
   private _logger: ILogger
 
-  constructor (config: any, logger: ILogger) {
+  constructor (config: any, logger: ILogger, activityService: RedisPubSub) {
     this.id = uuid()
     this._config = config
     this._logger = logger
@@ -40,7 +40,7 @@ export class Transaction {
       host: this._config.activityService.host,
       port: this._config.activityService.port
     }
-    this._activityService = new RedisPubSub(activityServiceOptions, this._logger)
+    this._activityService = activityService
   }
 
   private _receivingPartyMsisdn: string
