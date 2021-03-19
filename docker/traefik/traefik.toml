@@ -26,12 +26,9 @@ exposedByDefault = false
 
 [acme]
 email = "don+isohack@coil.com"
+caServer = "https://acme-staging-v02.api.letsencrypt.org/directory"
 storage = "acme.json"
 entryPoint = "https"
 onHostRule = true
 [acme.httpChallenge]
 entryPoint = "http"
-
-[certificatesResolvers.myresolver.acme]
-  # ...
-  caServer = "https://acme-staging-v02.api.letsencrypt.org/directory"
