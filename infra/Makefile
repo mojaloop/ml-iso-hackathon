@@ -34,7 +34,7 @@ install-app:
 ## 
 
 ssh:
-	ssh -i ${SSH_KEY_PATH} ubuntu@${EC2_IP}
+	ssh -i ${SSH_KEY_PATH} ubuntu@hackathon2.moja-lab.live
 
 ansible-test:
 	ANSIBLE_INVENTORY=./inventory.ini ansible -m ping main
