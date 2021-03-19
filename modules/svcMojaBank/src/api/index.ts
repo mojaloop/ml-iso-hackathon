@@ -217,6 +217,7 @@ export class Server {
 
   private async _swiftQuoteHandler (request: any, reply: any): Promise<void> {
     try {
+      
       this._logger.debug(`request.body=${JSON.stringify(request.body)}`)
 
       const pmtIdEndToEndId = JSONPath({ path: '$..CdtTrfTxInf.PmtId.EndToEndId', json: request.body })
@@ -254,15 +255,18 @@ export class Server {
       this._logger.debug(`storing quote info=${JSON.stringify(quote)}`)
       await this._redis.setQuote(quote)
       await this._redis.associatePayeeMsisdnToQuote(quote.payeeMsisdn, quote.quoteId)
-      await this._mojaClient.getParties('MSISDN', payeeMsisdn)
       
-      // const egressActivityEvent: TPublishEvent = {
-      //   fromComponent: this._config.activityEvents.MBComponentName,
-      //   toComponent: 'Mojaloop Switch',
-      //   xmlData: '<?xml version="1.0" encoding="utf-8"?><Document></Document>'
-      // }
+      const egressActivityEvent: TPublishEvent = {
+        fromComponent: this._config.activityEvents.MBComponentName,
+        toComponent: this._config.activityEvents.ISOSenderComponentName,
+        // xmlData: '<?xml version="1.0" encoding="utf-8"?><Document xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:iso:std:iso:20022:tech:xsd:pain.013.001.06"></Document>'
+        description: '200',
+        isResponse: true
+      }
 
-      // this._activityService.publish(this._config.activityEvents.MBEgress, egressActivityEvent)
+      this._activityService.publish(this._config.activityEvents.MBEgress, egressActivityEvent)
+
+      await this._mojaClient.getParties('MSISDN', payeeMsisdn)
 
       return reply.code(202).send(JSON.stringify({}))
     } catch (error) {
@@ -285,7 +289,7 @@ export class Server {
           xmlData: parsedXmlError
         }
 
-        await this._activityService.publish(this._config.activityEvents.MBIngress, egressActivityEvent)
+        await this._activityService.publish(this._config.activityEvents.MBEgress, egressActivityEvent)
       }
       throw error
     }
@@ -293,6 +297,7 @@ export class Server {
 
   private async _partiesResponseHandler (request: any, reply: any): Promise<void> {
     try {
+      reply.code(200).send("")
       const payload = request.body as PutPartiesBody
       this._logger.debug(`parties response=${JSON.stringify(payload)}`)
   
@@ -305,7 +310,7 @@ export class Server {
         err.statusCode = 400
         throw err
       }
-  
+      
       // send post quotes to ttk
       quote.payeeFspId = payload.party.partyIdInfo.fspId
       await this._redis.setQuote(quote)
@@ -347,7 +352,8 @@ export class Server {
         // }
       }, payload.party.partyIdInfo.fspId)
   
-      return reply.code(200).send("")
+      // return reply.code(200).send("")
+      // return
     } catch (error) {
       this._logger.error(error.stack)
 
@@ -368,7 +374,7 @@ export class Server {
           xmlData: parsedXmlError
         }
 
-        await this._activityService.publish(this._config.activityEvents.MBIngress, egressActivityEvent)
+        await this._activityService.publish(this._config.activityEvents.MBEgress, egressActivityEvent)
       }
       throw error
     }
@@ -376,6 +382,7 @@ export class Server {
 
   private async _quoteResponseHandler (request: any, reply: any): Promise<void> {
     try {
+      reply.code(200).send("")
       // find quote
       const payload = request.body as PutQuotesBody
       const quoteId = request.params.id
@@ -480,7 +487,7 @@ export class Server {
           xmlData: parsedXmlResponse
         }
 
-        await this._activityService.publish(this._config.activityEvents.MBIngress, egressActivityEvent)
+        await this._activityService.publish(this._config.activityEvents.MBEgress, egressActivityEvent)
       }
       
       // send to swift peer
@@ -491,7 +498,7 @@ export class Server {
         }
       })
       
-      return reply.code(200).send("")
+      // return reply.code(200).send("")
     } catch (error) {
       this._logger.error(error.stack)
 
@@ -512,7 +519,7 @@ export class Server {
           xmlData: parsedXmlError
         }
 
-        await this._activityService.publish(this._config.activityEvents.MBIngress, egressActivityEvent)
+        await this._activityService.publish(this._config.activityEvents.MBEgress, egressActivityEvent)
       }
       throw error
     }
@@ -520,6 +527,8 @@ export class Server {
 
   private async _swiftTransferHandler (request: any, reply: any): Promise<void> {
     try {
+      reply.code(202).send(JSON.stringify({}))
+
       const endToEndId = JSONPath({ path: '$..CdtTrfTxInf.PmtId.EndToEndId', json: request.body })
       const transferId = endToEndId?.[0]
   
@@ -545,6 +554,17 @@ export class Server {
         throw err
       }
       await this._redis.mapTransferToQuote(transferId, quote.quoteId)
+
+      const egressActivityEvent: TPublishEvent = {
+        fromComponent: this._config.activityEvents.MBComponentName,
+        toComponent: this._config.activityEvents.ISOSenderComponentName,
+        // xmlData: '<?xml version="1.0" encoding="utf-8"?><Document xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:iso:std:iso:20022:tech:xsd:pain.013.001.06"></Document>'
+        description: '200',
+        isResponse: true
+      }
+
+      this._activityService.publish(this._config.activityEvents.MBEgress, egressActivityEvent)
+      
       await (this._mojaClient as any).postTransfers({
         transferId,
         payeeFsp,
@@ -566,7 +586,7 @@ export class Server {
         // }
       }, quote.payeeFspId)
   
-      return reply.code(202).send(JSON.stringify({}))
+      // return reply.code(202).send(JSON.stringify({}))
     } catch (error) {
       this._logger.error(error.stack)
 
@@ -587,7 +607,7 @@ export class Server {
           xmlData: parsedXmlError
         }
 
-        await this._activityService.publish(this._config.activityEvents.MBIngress, egressActivityEvent)
+        await this._activityService.publish(this._config.activityEvents.MBEgress, egressActivityEvent)
       }
       throw error
     }
@@ -595,6 +615,7 @@ export class Server {
 
   private async _transferResponseHandler (request: any, reply: any): Promise<void> {
     try {
+      reply.code(200).send("")
       const payload = request.body as PutTransfersBody
 
       const quote = await this._redis.getQuoteForTransfer(request.params.id)
@@ -652,7 +673,7 @@ export class Server {
           xmlData: parsedXmlResponse
         }
   
-        await this._activityService.publish(this._config.activityEvents.MBIngress, egressActivityEvent)
+        await this._activityService.publish(this._config.activityEvents.MBEgress, egressActivityEvent)
       }
       // send to swift bank
       await got.put(`${this._config.peerEndpoints.swift}/callbacks/transfers`, {
@@ -662,7 +683,7 @@ export class Server {
         }
       })
   
-      return reply.code(200).send("")
+      // return reply.code(200).send("")
     } catch (error) {
       this._logger.error(error.stack)
 
@@ -683,7 +704,7 @@ export class Server {
           xmlData: parsedXmlError
         }
 
-        await this._activityService.publish(this._config.activityEvents.MBIngress, egressActivityEvent)
+        await this._activityService.publish(this._config.activityEvents.MBEgress, egressActivityEvent)
       }
       throw error
     }

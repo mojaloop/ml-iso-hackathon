@@ -18,25 +18,38 @@ class RedisMessageCollector {
     this.nrp = new NRP(redisConfig)
 
     this.nrp.on('iso:*', (data, channel) => {
-      try {
-        console.log(data)
-        const convertedXml = convert.xml2json(data.xmlData, {compact: true, spaces: 4, ignoreComment: true})
-        const jsonXml = JSON.parse(convertedXml)
-        const nameSpace = jsonXml.Document['_attributes'].xmlns
-        const description = this.processISONamespace(nameSpace)
-        // console.log(JSON.parse(testXml))
+
+      if (data.xmlData) {
+        try {
+          console.log(data)
+          const convertedXml = convert.xml2json(data.xmlData, {compact: true, spaces: 4, ignoreComment: true})
+          const jsonXml = JSON.parse(convertedXml)
+          const nameSpace = jsonXml.Document['_attributes'].xmlns
+          const description = this.processISONamespace(nameSpace)
+          // console.log(JSON.parse(testXml))
+          this.notificationEventFunction({
+            category: 'payer',
+            type: 'isoMessage',
+            data: {
+              ...data,
+              description,
+              convertedXml
+            }
+          })
+        } catch(err) {
+          console.log('ERROR: Can not convert XML to JSON.', err.message)
+          console.error('ERROR: Can not convert XML to JSON. Stack', err.stack)
+        }
+      } else {
         this.notificationEventFunction({
           category: 'payer',
-          type: 'isoMessage',
+          type: 'genericMessage',
           data: {
-            ...data,
-            description,
-            convertedXml
+            ...data
           }
         })
-      } catch(err) {
-        console.log('ERROR: Can not convert XML to JSON.', err.message)
       }
+      
     })
 
     this.nrp.on("error", function(){

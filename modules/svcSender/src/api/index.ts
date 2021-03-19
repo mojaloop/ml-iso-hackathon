@@ -184,6 +184,8 @@ export class SenderServer {
   private async _handleQuoteResponseCallback (request: TApiXmlRequest, reply: TApiXmlReply): Promise<any> {
     console.log('Handling quote response from MojaBank (pain013). raw body', request.body?.raw)
 
+    reply.code(200).send(JSON.stringify({}))
+
     const validationResults = XSD.validate(this._config.xsd.pain013, request.body!.raw as string)
     if (validationResults != null) {
       throw new Error(JSON.stringify(validationResults))
@@ -223,12 +225,26 @@ export class SenderServer {
 
     await tx.handleQuoteResponse(quoteResponse)
 
-    reply.code(200).send(JSON.stringify({}))
+    if (this._config.activityEvents.isEnabled === true) {
+      // Publish Activity Egress Event
+
+      const egressActivityEvent: TPublishEvent = {
+        fromComponent: 'LAKE CITY BANK',
+        toComponent: this._config.activityEvents.MBComponentName,
+        // xmlData: '<?xml version="1.0" encoding="utf-8"?><Document xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:iso:std:iso:20022:tech:xsd:pain.013.001.06"></Document>'
+        description: '200',
+        isResponse: true
+      }
+
+      await this._activityService.publish(this._config.activityEvents.SenderEgress, egressActivityEvent)
+    }
   }
 
   private async _handlerTransferResponseCallback (request: TApiXmlRequest, reply: TApiXmlReply): Promise<any> {
     console.log('Handling transfer response from MojaBank (pain002). raw body', request.body?.raw)
 
+    reply.code(200).send(JSON.stringify({}))
+    
     const validationResults = XSD.validate(this._config.xsd.pain002, request.body!.raw as string)
     if (validationResults != null) {
       throw new Error(JSON.stringify(validationResults))
@@ -256,6 +272,18 @@ export class SenderServer {
 
     await tx.handleTransferResponse(transferResponse)
 
-    reply.code(200).send(JSON.stringify({}))
+    if (this._config.activityEvents.isEnabled === true) {
+      // Publish Activity Egress Event
+
+      const egressActivityEvent: TPublishEvent = {
+        fromComponent: 'LAKE CITY BANK',
+        toComponent: this._config.activityEvents.MBComponentName,
+        // xmlData: '<?xml version="1.0" encoding="utf-8"?><Document xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:iso:std:iso:20022:tech:xsd:pain.013.001.06"></Document>'
+        description: '200',
+        isResponse: true
+      }
+
+      await this._activityService.publish(this._config.activityEvents.SenderEgress, egressActivityEvent)
+    }
   }
 }

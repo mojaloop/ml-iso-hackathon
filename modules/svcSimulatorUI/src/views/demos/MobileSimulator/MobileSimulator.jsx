@@ -135,8 +135,26 @@ class MobileSimulator extends React.Component {
       // ISO20022 Message
       case 'isoMessage':
       {
+        const isDashed = event.data.isResponse
+        let httpReqRes = 'REQ'
+        if (event.data.isResponse) {
+          httpReqRes = 'RES'
+        }
         if (this.testDiagramRef.current) {
-          this.testDiagramRef.current.addSequence(event.data.fromComponent, event.data.toComponent, '[HTTP REQ] ' + event.data.description)
+          this.testDiagramRef.current.addSequence(event.data.fromComponent, event.data.toComponent, `[HTTP ${httpReqRes}] ` + event.data.description, {dashed: isDashed})
+        }
+        break
+      }
+
+      case 'genericMessage':
+      {
+        const isDashed = event.data.isResponse
+        let httpReqRes = 'REQ'
+        if (event.data.isResponse) {
+          httpReqRes = 'RES'
+        }
+        if (this.testDiagramRef.current) {
+          this.testDiagramRef.current.addSequence(event.data.fromComponent, event.data.toComponent, `[HTTP ${httpReqRes}] ` + event.data.description, {dashed: isDashed})
         }
         break
       }

@@ -195,7 +195,8 @@ export class Server {
         const egressActivityEvent: TPublishEvent = {
           fromComponent: this._config.activityEvents.GALSComponentName,
           toComponent: this._config.activityEvents.ISOSenderComponentName,
-          xmlData: parsedXmlResponse
+          xmlData: parsedXmlResponse,
+          isResponse: true
         }
 
         await this._activityService.publish(this._config.activityEvents.GALSEgress, egressActivityEvent)

@@ -212,6 +212,7 @@ class TTKSocketMessageCollector {
 
   handleNotificationLog = (log) => {
     const hubName = 'Mojaloop Switch'
+    const payerBankName = 'Mojaloop Bank'
     const payeeBankName = 'EQUITY BANK RWANDA LIMITED'
 
     // *********** Payee Side Logs ********* //
@@ -223,6 +224,16 @@ class TTKSocketMessageCollector {
           && log.resource.path.startsWith('/parties/')
     ) {
       this.notifyPayeeMonitorLog(log)
+      this.notificationEventFunction({
+        category: 'payee',
+        type: 'payeeGetParties',
+        data: {
+          resource: log.resource,
+          fromComponent: payerBankName,
+          toComponent: hubName,
+          description: log.resource.method + ' ' + log.resource.path,
+        }
+      })
       this.notificationEventFunction({
         category: 'payee',
         type: 'payeeGetParties',
@@ -294,6 +305,27 @@ class TTKSocketMessageCollector {
           description: log.additionalData.response.status + ' ' + log.additionalData.response.statusText
         }
       })
+      this.notificationEventFunction({
+        category: 'payee',
+        type: 'payeePutParties',
+        data: {
+          resource: log.resource,
+          fromComponent: hubName,
+          toComponent: payerBankName,
+          description: log.resource.method + ' ' + log.resource.path
+        }
+      })
+      this.notificationEventFunction({
+        category: 'payee',
+        type: 'payeePutPartiesResponse',
+        data: {
+          resource: log.resource,
+          responseStatus: log.additionalData.response.status + ' ' + log.additionalData.response.statusText,
+          fromComponent: payerBankName,
+          toComponent: hubName,
+          description: log.additionalData.response.status + ' ' + log.additionalData.response.statusText
+        }
+      })
     }
     // Catch post Quotes request
     if ( log.notificationType === 'newLog'
@@ -303,6 +335,28 @@ class TTKSocketMessageCollector {
           && log.resource.path.startsWith('/quotes')
     ) {
       this.notifyPayeeMonitorLog(log)
+      this.notificationEventFunction({
+        category: 'payee',
+        type: 'payeePostQuotes',
+        data: {
+          resource: log.resource,
+          requestBody: log.additionalData.request.body,
+          fromComponent: payerBankName,
+          toComponent: hubName,
+          description: log.resource.method + ' ' + log.resource.path
+        }
+      })
+      this.notificationEventFunction({
+        category: 'payee',
+        type: 'payeePostQuotesResponse',
+        data: {
+          resource: log.resource,
+          responseStatus: '202',
+          fromComponent: hubName,
+          toComponent: payerBankName,
+          description: '202 ACCEPTED'
+        }
+      })
       this.notificationEventFunction({
         category: 'payee',
         type: 'payeePostQuotes',
@@ -375,6 +429,27 @@ class TTKSocketMessageCollector {
           description: log.additionalData.response.status + ' ' + log.additionalData.response.statusText
         }
       })
+      this.notificationEventFunction({
+        category: 'payee',
+        type: 'payeePutQuotes',
+        data: {
+          resource: log.resource,
+          fromComponent: hubName,
+          toComponent: payerBankName,
+          description: log.resource.method + ' ' + log.resource.path
+        }
+      })
+      this.notificationEventFunction({
+        category: 'payee',
+        type: 'payeePutQuotesResponse',
+        data: {
+          resource: log.resource,
+          responseStatus: log.additionalData.response.status + ' ' + log.additionalData.response.statusText,
+          fromComponent: payerBankName,
+          toComponent: hubName,
+          description: log.additionalData.response.status + ' ' + log.additionalData.response.statusText
+        }
+      })
     }
     // Catch post Transfers request
     if ( log.notificationType === 'newLog'
@@ -384,6 +459,28 @@ class TTKSocketMessageCollector {
           && log.resource.path.startsWith('/transfers')
     ) {
       this.notifyPayeeMonitorLog(log)
+      this.notificationEventFunction({
+        category: 'payee',
+        type: 'payeePostTransfers',
+        data: {
+          resource: log.resource,
+          requestBody: log.additionalData.request.body,
+          fromComponent: payerBankName,
+          toComponent: hubName,
+          description: log.resource.method + ' ' + log.resource.path
+        }
+      })
+      this.notificationEventFunction({
+        category: 'payee',
+        type: 'payeePostTransfersResponse',
+        data: {
+          resource: log.resource,
+          responseStatus: '202',
+          fromComponent: hubName,
+          toComponent: payerBankName,
+          description: '202'
+        }
+      })
       this.notificationEventFunction({
         category: 'payee',
         type: 'payeePostTransfers',
@@ -436,6 +533,17 @@ class TTKSocketMessageCollector {
           description: log.resource.method + ' ' + log.resource.path
         }
       })
+      // this.notificationEventFunction({
+      //   category: 'payee',
+      //   type: 'payeePutTransfers',
+      //   data: {
+      //     resource: log.resource,
+      //     requestBody: log.additionalData.request.body,
+      //     fromComponent: hubName,
+      //     toComponent: payerBankName,
+      //     description: log.resource.method + ' ' + log.resource.path
+      //   }
+      // })
     }
 
     // Catch put Transfers response
@@ -446,6 +554,7 @@ class TTKSocketMessageCollector {
           && log.resource.path.startsWith('/transfers/')
     ) {
       this.notifyPayeeMonitorLog(log)
+
       this.notificationEventFunction({
         category: 'payee',
         type: 'payeePutTransfersResponse',
@@ -457,8 +566,29 @@ class TTKSocketMessageCollector {
           description: log.additionalData.response.status + ' ' + log.additionalData.response.statusText
         }
       })
+      this.notificationEventFunction({
+        category: 'payee',
+        type: 'payeePutTransfers',
+        data: {
+          resource: log.resource,
+          // requestBody: log.additionalData.request.body,
+          fromComponent: hubName,
+          toComponent: payerBankName,
+          description: log.resource.method + ' ' + log.resource.path
+        }
+      })
+      this.notificationEventFunction({
+        category: 'payee',
+        type: 'payeePutTransfersResponse',
+        data: {
+          resource: log.resource,
+          responseStatus: log.additionalData.response.status + ' ' + log.additionalData.response.statusText,
+          fromComponent: payerBankName,
+          toComponent: hubName,
+          description: log.additionalData.response.status + ' ' + log.additionalData.response.statusText
+        }
+      })
     }
-
   }
 
 }

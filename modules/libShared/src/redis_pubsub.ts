@@ -42,7 +42,10 @@ export type TRedisPubSubOptions = {
 export type TPublishEvent = {
   fromComponent: string
   toComponent: string
-  xmlData: string
+  xmlData?: string
+  description?: string
+  status?: string
+  isResponse?: boolean
 }
 
 export class RedisPubSub {
