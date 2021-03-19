@@ -44,7 +44,8 @@ import {
   TApiXmlRequest,
   TApiXmlReply,
   XSD,
-  RouteXmlInterface
+  RouteXmlInterface,
+  XML
 } from '@mojaloop-iso-hackathon/lib-shared'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { Server, IncomingMessage, ServerResponse } from 'node:http'

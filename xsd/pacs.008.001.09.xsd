@@ -89,7 +89,7 @@
     </xs:simpleType>
 	<xs:simpleType name="BinaryString32">
 		<xs:restriction base="xs:string">
-			<xs:pattern value="^[A-Za-z0-9-_]{43}"/>
+			<xs:pattern value="([A-Z]|[a-z]|[0-9]|-|_){43}"/>
 		</xs:restriction>
 	</xs:simpleType>
     <xs:complexType name="BranchAndFinancialInstitutionIdentification6">

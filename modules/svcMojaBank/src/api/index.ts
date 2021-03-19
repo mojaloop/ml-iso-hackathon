@@ -236,7 +236,7 @@ export class Server {
       const crdtrMobNb = JSONPath({ path: '$..Cdtr.CtctDtls.MobNb', json: request.body })
       const payeeMsisdn = crdtrMobNb?.[0]
 
-      const dbtrBicfi = JSONPath({ path: '$..Dbtr.DbtrAgt.FinInstnId.BICFI', json: request.body })
+      const dbtrBicfi = JSONPath({ path: '$..DbtrAgt.FinInstnId.BICFI', json: request.body })
       const payerFspId = dbtrBicfi?.[0]
   
       const quote: Quote = {
@@ -315,8 +315,8 @@ export class Server {
         payer: {
           partyIdInfo: {
             partyIdType: 'MSISDN',
-            partyIdentifier: quote.payerMsisdn
-            // fspId: payload.party.partyIdInfo.fspId
+            partyIdentifier: quote.payerMsisdn,
+            fspId: quote.payerFspId
           }
         },
         amountType: 'SEND',
@@ -412,7 +412,7 @@ export class Server {
               PmtInfId: quote.quoteId,
               PmtMtd: 'TRF',
               ReqdExctnDt: {
-                Dt: (new Date()).toISOString()
+                DtTm: (new Date()).toISOString()
               },
               Dbtr: {
                 CtctDtls: {
@@ -444,8 +444,8 @@ export class Server {
                 ChrgBr: 'SLEV',
                 CdtrAgt: {
                   FinInstnId: {
-                    Nm: 'EQUITY BANK RWANDA LIMITED',
                     BICFI: 'EQBLRWRWXXX',
+                    Nm: 'EQUITY BANK RWANDA LIMITED'
                   }
                 },
                 Cdtr: {
@@ -536,7 +536,7 @@ export class Server {
         err.statusCode = 400
         throw err
       }
-
+      await this._redis.mapTransferToQuote(transferId, quote.quoteId)
       await (this._mojaClient as any).postTransfers({
         transferId,
         payeeFsp,
@@ -603,7 +603,7 @@ export class Server {
             'xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
             xmlns: 'urn:iso:std:iso:20022:tech:xsd:pain.002.001.11'
           },
-          CustomerPaymentStatusReportV11: {
+          CstmrPmtStsRpt: {
             GrpHdr: {
               MsgId: uuidv4(),
               CreDtTm: (new Date()).toISOString(),
@@ -612,12 +612,14 @@ export class Server {
               },
               DbtrAgt: {
                 FinInstnId: {
-                  BICFI: quote.payerFspId
+                  BICFI: 'LAKCUS33',
+                  Nm: 'LAKE CITY BANK'
                 }
               },
               CdtrAgt: {
                 FinInstnId: {
-                  BICFI: quote.payeeFspId
+                  BICFI: "EQBLRWRWXXX",
+                  Nm: 'EQUITY BANK RWANDA LIMITED'
                 }
               }
             },
@@ -629,7 +631,7 @@ export class Server {
           }
         }
       }
-  
+
       // TODO: This is already handled by the onSend hook on the ApiServer. Need to re-work this later!
       const parsedXmlResponse: string = XML.fromJson(pain002)
       this._logger.debug(`Server::_transferResponseHandler - parsedXmlResponse - ${parsedXmlResponse}`)
@@ -644,7 +646,6 @@ export class Server {
   
         await this._activityService.publish(this._config.activityEvents.MBIngress, egressActivityEvent)
       }
-  
       // send to swift bank
       await got.put(`${this._config.peerEndpoints.swift}/callbacks/transfers`, {
         body: XML.fromJson(pain002),

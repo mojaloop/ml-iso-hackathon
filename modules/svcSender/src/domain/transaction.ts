@@ -59,13 +59,15 @@ export class Transaction {
 
     console.log(`TrxId=${this.id}. Got lookup response from GLS ${responseMessage}`)
 
-    const validationResults = XSD.validate(this._config.xsd.camt004, responseMessage)
-    if (validationResults != null) {
-      throw new Error("Invalid XML response" + validationResults.join("\n"))
-    }
+    // const validationResults = XSD.validate(this._config.xsd.camt004, responseMessage)
+    // if (validationResults != null) {
+    //   throw new Error("Invalid XML response" + validationResults.join("\n"))
+    // }
 
-    // Find data from request message
-    const json = XML.jsonify(responseMessage, true)
+    // // Find data from request message
+    // const json = XML.jsonify(responseMessage, true)
+
+    const json = JSON.parse(responseMessage)
 
     Object.keys(LOOKUP_RESPONSE_JPATHS).map((key: string) => {
       const path = LOOKUP_RESPONSE_JPATHS[key as keyof GlsLookupResponse]
@@ -163,7 +165,7 @@ export class Transaction {
       body: requestMessage
     })
     
-    if(response.statusCode !== 200) {
+    if(response.statusCode !== 202) {
       throw new Error(`Invalid response to transfer request: ${response.statusCode} ${response.statusMessage}`)
     }
 

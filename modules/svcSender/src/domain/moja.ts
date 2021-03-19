@@ -22,12 +22,12 @@ export const MOJA_QUOTE_RESPONSE_JPATHS : MojaQuoteResponse = {
   sendingParticipantBic: 'Document.CdtrPmtActvtnReq.PmtInf.DbtrAgt.FinInstnId.BICFI',
   sendingParticipantName: 'Document.CdtrPmtActvtnReq.PmtInf.DbtrAgt.FinInstnId.Nm',
   transferCondition: 'Document.CdtrPmtActvtnReq.PmtInf.Cndtn.Condition',
-  transactionId: 'Document.CdtrPmtActvtnReq.PmtInf.CdtTrfTxInf.PmtId.EndToEndId',
-  sendAmount: 'Document.CdtrPmtActvtnReq.PmtInf.CdtTrfTxInf.Amt.InstdAmt.#text',
-  sendCurrency: 'Document.CdtrPmtActvtnReq.PmtInf.CdtTrfTxInf.Amt.InstdAmt.attr.Ccy',
-  receivingParticipantName: 'Document.CdtrPmtActvtnReq.PmtInf.CdtTrfTxInf.CdtrAgt.FinInstnId.Nm',
-  receivingParticipantBic: 'Document.CdtrPmtActvtnReq.PmtInf.CdtTrfTxInf.CdtrAgt.FinInstnId.BICFI',
-  receivingPartyMsisdn: 'Document.CdtrPmtActvtnReq.PmtInf.CdtTrfTxInf.Cdtr.CtctDtls.MobNb',
+  transactionId: 'Document.CdtrPmtActvtnReq.PmtInf.CdtTrfTx.PmtId.EndToEndId',
+  sendAmount: 'Document.CdtrPmtActvtnReq.PmtInf.CdtTrfTx.Amt.InstdAmt.#text',
+  sendCurrency: 'Document.CdtrPmtActvtnReq.PmtInf.CdtTrfTx.Amt.InstdAmt.attr.Ccy',
+  receivingParticipantName: 'Document.CdtrPmtActvtnReq.PmtInf.CdtTrfTx.CdtrAgt.FinInstnId.Nm',
+  receivingParticipantBic: 'Document.CdtrPmtActvtnReq.PmtInf.CdtTrfTx.CdtrAgt.FinInstnId.BICFI',
+  receivingPartyMsisdn: 'Document.CdtrPmtActvtnReq.PmtInf.CdtTrfTx.Cdtr.CtctDtls.MobNb',
 }
 
 export interface MojaTransferResponse {
@@ -35,5 +35,5 @@ export interface MojaTransferResponse {
 }
 
 export const MOJA_TRANSFER_RESPONSE_JPATHS : MojaTransferResponse = {
-  transactionId: ''
+  transactionId: 'Document.CstmrPmtStsRpt.OrgnlGrpInfAndSts.OrgnlMsgId'
 }

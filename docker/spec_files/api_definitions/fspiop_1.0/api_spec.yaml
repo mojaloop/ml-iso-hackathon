@@ -2931,7 +2931,7 @@ components:
         allowed number of characters.
     BinaryString32:
       type: string
-      pattern: '^[A-Za-z0-9-_]{43}$'
+      pattern: '([A-Z]|[a-z]|[0-9]|-|_){43}'
       description: >-
         The API data type BinaryString32 is a fixed size version of the API data
         type BinaryString, where the raw underlying data is always of 32 bytes.
