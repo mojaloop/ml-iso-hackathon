@@ -44,8 +44,7 @@ import {
   TApiXmlRequest,
   TApiXmlReply,
   XSD,
-  RouteXmlInterface,
-  XML
+  RouteXmlInterface
 } from '@mojaloop-iso-hackathon/lib-shared'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { Server, IncomingMessage, ServerResponse } from 'node:http'
@@ -134,7 +133,7 @@ export class SenderServer {
 
     //Create a new Transaction
     const {msisdn, currency, amount} = request.body
-    const tx = new Transaction(this._config)
+    const tx = new Transaction(this._config, this._logger)
     this._transactions.set(tx.id, tx)
 
     const lookupResult = await tx.lookup(msisdn)

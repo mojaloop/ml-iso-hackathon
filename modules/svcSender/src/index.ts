@@ -42,7 +42,8 @@ import {
   Metrics,
   TMetricOptionsType,
   getEnvValueOrDefault,
-  getEnvIntegerOrDefault
+  getEnvIntegerOrDefault,
+  getEnvBoolOrDefault
 } from '@mojaloop-iso-hackathon/lib-shared'
 import * as dotenv from 'dotenv'
 import { Command } from 'commander'
@@ -87,6 +88,17 @@ Program.command('api')
         camt004: getEnvValueOrDefault('SENDER_XSD_CAMT004', null),
         pain013: getEnvValueOrDefault('SENDER_XSD_PAIN013', null),
         pain002: getEnvValueOrDefault('SENDER_XSD_PAIN002', null)
+      },
+      activityService: {
+        host: getEnvValueOrDefault('ACTIVITY_SERVER_HOST', null),
+        port: getEnvValueOrDefault('ACTIVITY_SERVER_PORT', null)
+      },
+      activityEvents: {
+        isEnabled: getEnvBoolOrDefault('ACTIVITY_SENDER_COMPONENT_EVENTS_ENABLED'),
+        ISOSenderComponentName: getEnvValueOrDefault('ACTIVITY_SENDER_COMPONENT_NAME', null),
+        MBComponentName: getEnvValueOrDefault('ACTIVITY_MOJABANK_COMPONENT_NAME', null),
+        GalsComponentName: getEnvValueOrDefault('ACTIVITY_GALS_COMPONENT_NAME', null),
+        SenderEgress: getEnvValueOrDefault('ACTIVITY_SENDER_EVENT_EGRESS', null)
       }
     }
 

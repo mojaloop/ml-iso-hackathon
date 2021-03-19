@@ -1,6 +1,10 @@
 import got from 'got'
 import {
   ApiServerError,
+  ILogger,
+  RedisPubSub,
+  TPublishEvent,
+  TRedisPubSubOptions,
   XML,
   XSD
 } from '@mojaloop-iso-hackathon/lib-shared'
@@ -24,10 +28,19 @@ export class Transaction {
   public readonly id: string
 
   private _config: any
+  private _activityService: RedisPubSub
+  private _logger: ILogger
 
-  constructor (config: any) {
+  constructor (config: any, logger: ILogger) {
     this.id = uuid()
     this._config = config
+    this._logger = logger
+
+    const activityServiceOptions: TRedisPubSubOptions = {
+      host: this._config.activityService.host,
+      port: this._config.activityService.port
+    }
+    this._activityService = new RedisPubSub(activityServiceOptions, this._logger)
   }
 
   private _receivingPartyMsisdn: string
@@ -48,6 +61,22 @@ export class Transaction {
 
     //Construct XML
     const requestMessage = camt003({ messageId: uuid(), creationDateTime: new Date()}, msisdn )
+
+    // TODO: This is already handled by the onSend hook on the ApiServer. Need to re-work this later!
+    const parsedXmlResponse: string = requestMessage
+    this._logger.debug(`Server::txLookup - parsedXmlResponse - ${parsedXmlResponse}`)
+    if (this._config.activityEvents.isEnabled === true) {
+      // Publish Activity Egress Event
+
+      const egressActivityEvent: TPublishEvent = {
+        fromComponent: this._config.activityEvents.ISOSenderComponentName,
+        toComponent: this._config.activityEvents.GalsComponentName,
+        xmlData: parsedXmlResponse
+      }
+
+      await this._activityService.publish(this._config.activityEvents.SenderEgress, egressActivityEvent)
+    }
+
     const response = await got.post(`${this._config.peerEndpoints.gls}/v1/participants`, {
       headers: {
         'content-type': 'application/xml'
@@ -100,7 +129,20 @@ export class Transaction {
 
     //Construct XML
     const requestMessage = pain001({ messageId: uuid(), creationDateTime: new Date(), initiatingParty}, quote)
-    console.log('sending pain001 to MojaBank', requestMessage)
+    // TODO: This is already handled by the onSend hook on the ApiServer. Need to re-work this later!
+    const parsedXmlResponse: string = requestMessage
+    this._logger.debug(`Server::txQuote - parsedXmlResponse - ${parsedXmlResponse}`)
+    if (this._config.activityEvents.isEnabled === true) {
+      // Publish Activity Egress Event
+
+      const egressActivityEvent: TPublishEvent = {
+        fromComponent: this._config.activityEvents.ISOSenderComponentName,
+        toComponent: this._config.activityEvents.MBComponentName,
+        xmlData: parsedXmlResponse
+      }
+
+      await this._activityService.publish(this._config.activityEvents.SenderEgress, egressActivityEvent)
+    }
 
     // call Mojabank
     const response = await got.post(`${this._config.peerEndpoints.mojabank}/quotes`, {
@@ -155,7 +197,20 @@ export class Transaction {
 
     //Construct XML
     const requestMessage = pacs008({ messageId: uuid(), creationDateTime: new Date()}, transfer)
-    console.log('sending pacs008 to MojaBank ', requestMessage)
+    // TODO: This is already handled by the onSend hook on the ApiServer. Need to re-work this later!
+    const parsedXmlResponse: string = requestMessage
+    this._logger.debug(`Server::txTransfer - parsedXmlResponse - ${parsedXmlResponse}`)
+    if (this._config.activityEvents.isEnabled === true) {
+      // Publish Activity Egress Event
+
+      const egressActivityEvent: TPublishEvent = {
+        fromComponent: this._config.activityEvents.ISOSenderComponentName,
+        toComponent: this._config.activityEvents.MBComponentName,
+        xmlData: parsedXmlResponse
+      }
+
+      await this._activityService.publish(this._config.activityEvents.SenderEgress, egressActivityEvent)
+    }
 
     // call Mojabank
     const response = await got.post(`${this._config.peerEndpoints.mojabank}/transfers`, {
