@@ -9,17 +9,18 @@
             <InitgPty>                                              <!-- ISO: This can either be the creditor or the party that initiates the credit transfer on behalf of the debtor -->
                 <Nm>EQUITY BANK RWANDA LIMITED</Nm>                 <!-- So we assume the DFSP -->
                 <Id>
-                    <AnyBIC>EQBLRWRWXXX</AnyBIC>
+                    <OrgId>
+                        <AnyBIC>EQBLRWRWXXX</AnyBIC>
+                    </OrgId>
                 </Id>
             </InitgPty>
         </GrpHdr>
         <PmtInf>
             <PmtInfId>7e2599df-80a1-4f6e-b381-99536c4d2691</PmtInfId>   <!-- This is the quote ID  -->
             <PmtMtd>TRF</PmtMtd>                                        <!-- Don't care about this -->
-            <ReqdExctnDt>2021-02-10</ReqdExctnDt>                       <!-- Or this -->
-            <SvcLvl>
-                <Cd>SDVA</Cd>                                           <!-- This says, same day value. Moja doesn't need it -->
-            </SvcLvl>
+            <ReqdExctnDt>
+                <Dt>2021-02-10</Dt>
+            </ReqdExctnDt>                       <!-- Or this -->
             <Dbtr>
                 <CtctDtls>
                     <MobNb>+1-574-265-1752</MobNb>	                    <!-- Debtor is identified by a mobile number -->
@@ -32,14 +33,17 @@
 				</FinInstnId>
             </DbtrAgt>
             <ChrgBr>DEBT</ChrgBr>                                       <!-- Amount is the amount the creditor will receive... -->
-            <Cndtn>fH9pAYDQbmoZLPbvv3CSW2RfjU4jvM4ApG_fqGnR7Xs</Cndtn>  <!--    The condition for the quote response           -->
-            <CdtTrfTxInf>
+            <Cndtn>
+                <Condition>fH9pAYDQbmoZLPbvv3CSW2RfjU4jvM4ApG_fqGnR7Xs</Condition>
+            </Cndtn>  <!--    The condition for the quote response           -->
+            <CdtTrfTx>
                 <PmtId>                                                 <!-- This is the transaction ID -->
                     <EndToEndId>7e2599df-80a1-4f6e-b381-99536c4d2691</EndToEndId>
                 </PmtId>
                 <Amt>
                     <InstdAmt Ccy="RWF">20200</InstdAmt>                <!-- Amount to send -->
                 </Amt>
+                <ChrgBr>SLEV</ChrgBr>
                 <CdtrAgt>
                     <FinInstnId>
                         <BICFI>EQBLRWRWXXX</BICFI>
@@ -52,7 +56,7 @@
                         <MobNb>+250-70610388</MobNb>	                <!-- Creditor is identified by a mobile number -->
                     </CtctDtls>
                </Cdtr>
-            </CdtTrfTxInf>
+            </CdtTrfTx>
         </PmtInf>
     </CdtrPmtActvtnReq>
 </Document>
