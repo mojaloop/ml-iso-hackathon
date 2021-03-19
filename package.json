@@ -51,6 +51,7 @@
     "dep:update": "npx lerna run --no-progress --stream dep:update",
     "docker:up": "docker-compose up",
     "docker:up:detach": "docker-compose up -d",
+    "docker:up:dev": "docker-compose up -d ml-testing-toolkit activity-report-redis svc-simulator-ui traefik",
     "docker:start": "docker-compose start",
     "docker:stop": "docker-compose stop",
     "docker:logs": "docker-compose logs -f svc-global-discovery svc-moja-bank svc-activitylog-collector svc-simulator-ui",

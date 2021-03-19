@@ -789,6 +789,12 @@
             <xs:maxLength value="35"/>
         </xs:restriction>
     </xs:simpleType>
+    <xs:simpleType name="Max36Text">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+            <xs:maxLength value="36"/>
+        </xs:restriction>
+    </xs:simpleType>
     <xs:simpleType name="Max4Text">
         <xs:restriction base="xs:string">
             <xs:minLength value="1"/>
@@ -859,7 +865,7 @@
     <xs:complexType name="PaymentIdentification6">
         <xs:sequence>
             <xs:element maxOccurs="1" minOccurs="0" name="InstrId" type="Max35Text"/>
-            <xs:element name="EndToEndId" type="Max35Text"/>
+            <xs:element name="EndToEndId" type="Max36Text"/>
             <xs:element maxOccurs="1" minOccurs="0" name="UETR" type="UUIDv4Identifier"/>
         </xs:sequence>
     </xs:complexType>
