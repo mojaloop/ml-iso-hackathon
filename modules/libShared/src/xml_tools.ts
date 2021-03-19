@@ -92,7 +92,7 @@ const fromJson = (payload: TPayload, format: boolean = false): any => {
   return pasredXml
 }
 
-const format = (payload: string): any => {
+const format = (payload: string): string => {
   return XmlFormat(payload)
 }
 
