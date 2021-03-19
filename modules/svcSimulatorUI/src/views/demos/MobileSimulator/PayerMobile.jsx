@@ -126,7 +126,7 @@ class PayerMobile extends React.Component {
                 ? (
                   <Result
                     status="success"
-                    title={'Sent $' + this.state.amount}
+                    title={'Sent RWF ' + this.state.amount}
                   />
                 )
                 : (

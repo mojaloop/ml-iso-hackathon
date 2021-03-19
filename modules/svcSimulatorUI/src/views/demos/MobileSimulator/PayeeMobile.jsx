@@ -106,7 +106,7 @@ class PayeeMobile extends React.Component {
             <Col span={24} className='text-center'>
               <Result
                 status="success"
-                title={'Received ' + this.state.receivedAmount}
+                title={'Received RWF ' + this.state.receivedAmount}
                 // subTitle={'from ' + this.state.payerComplexName.lastName}
               />
             </Col>
