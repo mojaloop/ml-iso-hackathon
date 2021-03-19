@@ -375,7 +375,9 @@ group Sender sends a P2P Transfer request to Receiver
                         <InitgPty>
                             <Nm>**EQUITY BANK RWANDA LIMITED**</Nm>
                             <Id>
-                                <AnyBIC>EQBLRWRWXXX</AnyBIC>
+                                <OrgId>
+                                    <AnyBIC>EQBLRWRWXXX</AnyBIC>
+                                </OrgId>
                             </Id>
                         </InitgPty>
                     </GrpHdr>
@@ -383,9 +385,6 @@ group Sender sends a P2P Transfer request to Receiver
                         <PmtInfId>7e2599df-80a1-4f6e-b381-99536c4d2691</PmtInfId>
                         <PmtMtd>TRF</PmtMtd>
                         <ReqdExctnDt>2021-02-10</ReqdExctnDt>
-                        <SvcLvl>
-                            <Cd>SDVA</Cd>
-                        </SvcLvl>
                         <Dbtr>
                             <CtctDtls>
                                 <MobNb>**+1-574-265-1752**</MobNb>
@@ -398,14 +397,18 @@ group Sender sends a P2P Transfer request to Receiver
                             </FinInstnId>
                         </DbtrAgt>
                         <ChrgBr>DEBT</ChrgBr>
-                        <Cndtn>fH9pAYDQbmoZLPbvv3CSW2RfjU4jvM4ApG_fqGnR7Xs</Cndtn>
-                        <CdtTrfTxInf>
+                        <Cndtn>
+                            <Condition>fH9pAYDQbmoZLPbvv3CSW2RfjU4jvM4ApG_fqGnR7Xs
+                            </Condition>
+                        </Cndtn>
+                        <CdtTrfTx>
                             <PmtId>
                                 <EndToEndId>7e2599df-80a1-4f6e-b381-99536c4d2691</EndToEndId>
                             </PmtId>
                             <Amt>
                                 <InstdAmt Ccy="RWF">**20200**</InstdAmt>
                             </Amt>
+                            <ChrgBr>SLEV</ChrgBr>
                             <CdtrAgt>
                                 <FinInstnId>
                                     <BICFI>EQBLRWRWXXX</BICFI>
@@ -418,7 +421,7 @@ group Sender sends a P2P Transfer request to Receiver
                                     <MobNb>**+250-70610388**</MobNb>
                                 </CtctDtls>
                         </Cdtr>
-                        </CdtTrfTxInf>
+                        </CdtTrfTx>
                     </PmtInf>
                 </CdtrPmtActvtnReq>
         end note

@@ -197,6 +197,10 @@ export class Server {
     await this._apiServer.put('/parties/MSISDN/:msisdn', this._partiesResponseHandler.bind(this))
     await this._apiServer.put('/quotes/:id', this._quoteResponseHandler.bind(this))
     await this._apiServer.put('/transfers/:id', this._transferResponseHandler.bind(this))
+    await this._apiServer.put('/transfers/:id/error', (request: any, reply: any) => {
+      console.log(request.body)
+      return reply.code(200).send("")
+    })
   }
 
   private async _getHealth (request: any, reply: any): Promise<any> {
@@ -388,46 +392,65 @@ export class Server {
         Document: {
           attr: {
             'xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
-            xmlns: 'urn:iso:std:iso:20022:tech:xsd:pain.013.001.06'
+            xmlns: 'urn:iso:std:iso:20022:tech:xsd:pain.013.001.08'
           },
           CdtrPmtActvtnReq: {
             GrpHdr: {
               MsgId: uuidv4(),
               CreDtTm: (new Date()).toISOString(),
-              NbOfTxs: 1
+              NbOfTxs: 1,
+              InitgPty: {
+                Nm: 'EQUITY BANK RWANDA LIMITED',
+                Id: {
+                  OrgId: {
+                    AnyBIC: 'EQBLRWRWXXX'
+                  }
+                }
+              },
             },
             PmtInf: {
               PmtInfId: quote.quoteId,
               PmtMtd: 'TRF',
-              ReqdExctnDt: (new Date()).toISOString(),
-              SvcLvl: {
-                Cd: "SDVA"
+              ReqdExctnDt: {
+                Dt: (new Date()).toISOString()
               },
               Dbtr: {
                 CtctDtls: {
                   MobNb: quote.payerMsisdn
-                },
-                DbtrAgt: {
-                  FinInstnId: {
-                    BICFI: quote.payerFspId
-                  }
+                }
+              },
+              DbtrAgt: {
+                FinInstnId: {
+                  BICFI: 'LAKCUS33',
+                  Nm: 'LAKE CITY BANK'
                 }
               },
               ChrgBr: 'DEBT',
-              Condtn: quote.condition,
-              CdtTrfTxInf: {
-                PmtId: "", // is this the transaction id?
-                amt: {
-                  '#text': payload.transferAmount.amount,
-                  'Ccy': payload.transferAmount.currency
-                },
-                CrdtrAgt: {
-                  FinInstnId: {
-                    BICFI: quote.payeeFspId
+              Cndtn: {
+                Condition: quote.condition
+              },
+              CdtTrfTx: {
+                PmtId: {
+                  EndToEndId: quote.transactionId
+                }, // is this the transaction id?
+                Amt: {
+                  InstdAmt: {
+                    '#text': payload.transferAmount.amount,
+                    "attr": {
+                      'Ccy': payload.transferAmount.currency
+                    }
                   }
                 },
-                Crdtr: {
+                ChrgBr: 'SLEV',
+                CdtrAgt: {
+                  FinInstnId: {
+                    Nm: 'EQUITY BANK RWANDA LIMITED',
+                    BICFI: 'EQBLRWRWXXX',
+                  }
+                },
+                Cdtr: {
                   CtctDtls: {
+                    Nm: 'Aunt Honorine',
                     MobNb: quote.payeeMsisdn
                   }
                 }
@@ -453,7 +476,7 @@ export class Server {
       }
       
       // send to swift peer
-      await got.put(`${this._config.peerEndpoints.swift}/quotes/${quote.quoteId}`, {
+      await got.put(`${this._config.peerEndpoints.swift}/callbacks/quotes`, {
         body: XML.fromJson(pain013),
         headers: {
           'content-type': 'application/xml'
@@ -489,7 +512,7 @@ export class Server {
 
   private async _swiftTransferHandler (request: any, reply: any): Promise<void> {
     try {
-      const endToEndId = JSONPath({ path: '$..CdtTrfTxInf.PmtInfId.EndToEndId', json: request.body })
+      const endToEndId = JSONPath({ path: '$..CdtTrfTxInf.PmtId.EndToEndId', json: request.body })
       const transferId = endToEndId?.[0]
   
       const crdtrBicfi = JSONPath({ path: '$..CdtrAgt.FinInstnId.BICFI', json: request.body })
@@ -503,9 +526,9 @@ export class Server {
       const amount = amtObject['#text']
       const currency = amtObject?.attr?.Ccy
   
-      const ilpData = JSONPath({ path: '$..IlpData.Condition', json: request.body })
+      const ilpData = JSONPath({ path: '$..Cndtn.Condition', json: request.body })
       const ilpCondition = ilpData?.[0]
-  
+
       const quote = await this._redis.getQuoteFromCondition(ilpCondition ?? '')
 
       if (!quote) {
@@ -519,20 +542,20 @@ export class Server {
         payeeFsp,
         payerFsp,
         amount: {
-          amount,
+          amount: amount.toString(),
           currency
         },
         condition: quote.condition,
         ilpPacket: quote.ilpPacket,
         expiration: (new Date()).toISOString(),
-        extensionList: {
-          extension: [
-            {
-              key: 'pacs.008',
-              value: JSON.stringify(request.body)
-            }
-          ]
-        }
+        // extensionList: {
+        //   extension: [
+        //     {
+        //       key: 'pacs.008',
+        //       value: JSON.stringify(request.body)
+        //     }
+        //   ]
+        // }
       }, quote.payeeFspId)
   
       return reply.code(202).send(JSON.stringify({}))
@@ -623,7 +646,7 @@ export class Server {
       }
   
       // send to swift bank
-      await got.put(`${this._config.peerEndpoints.swift}/transfers/${request.params.id}`, {
+      await got.put(`${this._config.peerEndpoints.swift}/callbacks/transfers`, {
         body: XML.fromJson(pain002),
         headers: {
           'content-type': 'application/xml'

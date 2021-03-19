@@ -64,6 +64,20 @@ resource "aws_security_group" "ml-iso-hackathon-security-group" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  ingress {
+    description = "TTK"
+    from_port   = 5000
+    to_port     = 5000
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  ingress {
+    description = "TTK"
+    from_port   = 5050
+    to_port     = 5050
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
   egress {
     from_port   = 0
     to_port     = 0

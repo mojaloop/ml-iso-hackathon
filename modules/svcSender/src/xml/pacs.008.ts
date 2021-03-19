@@ -33,7 +33,7 @@ export function pacs008(header: MessageHeader, transfer: Transfer): string {
             <Cndtn>
                 <Condition>${transfer.condition}</Condition>
             </Cndtn>
-            <IntrBkSttlmAmt Ccy="${transfer.receiveCurrency}">${transfer.receiveCurrency}</IntrBkSttlmAmt>
+            <IntrBkSttlmAmt Ccy="${transfer.receiveCurrency}">${transfer.receiveAmount}</IntrBkSttlmAmt>
             <ChrgBr>DEBT</ChrgBr>
            <Dbtr>
                 <CtctDtls>
