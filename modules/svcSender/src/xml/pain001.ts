@@ -33,7 +33,7 @@ export function pain001(header: MessageHeaderWithInitiatingParty, quote: Quote):
             </ReqdExctnDt>
             <Dbtr>
                 <CtctDtls>
-                    <MobNb>${quote.id}</MobNb>
+                    <MobNb>+1-574-265-1752</MobNb>
                 </CtctDtls>
             </Dbtr>
             <DbtrAcct>

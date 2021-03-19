@@ -107,7 +107,7 @@ export class Transaction {
       },
       body: requestMessage
     })
-    if(response.statusCode !== 200) {
+    if(response.statusCode !== 202) {
       throw new Error(`Invalid response to quote request: ${response.statusCode} ${response.statusMessage}`)
     }
 
@@ -179,6 +179,7 @@ export class Transaction {
     if(!this._quoteResultHandler) {
       throw new Error('Received quote response but no request was sent.')
     }
+
     this._quoteResponse = response
     // TODO Right now the Moja Quote Response is simply used as the API Quote Response, maybe that's a bad idea?
     this._quoteResultHandler.success(response)
