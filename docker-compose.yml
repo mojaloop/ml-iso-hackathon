@@ -160,7 +160,7 @@ services:
       - "traefik.docker.network=web"
       - "traefik.enable=true"
       - "traefik.port=3000"
-      - "traefik.frontend.rule=Host:sim.hackathon2.moja-lab.live"
+      - "traefik.frontend.rule=Host:hackathon2.moja-lab.live"
       - "traefik.protocol=http"
     volumes:
       - ./docker-compose.env:/opt/app/default.env
@@ -169,22 +169,22 @@ services:
   # This is just a default landing page to test out our website.
   # please replace with something more useful as a demo
   ##
-  landing-page:
-    image: sroze/landing-page:latest
-    container_name: landing-page
-    restart: always
-    ports:
-      - "6061:80"
-    networks:
-      - web
-    environment: 
-      - MESSAGE=Welcome to Mojaloop's Entry to the ISO 20022 Hackathon
-    labels:
-      - "traefik.docker.network=web"
-      - "traefik.enable=true"
-      - "traefik.frontend.rule=Host:hackathon2.moja-lab.live"
-      - "traefik.port=80"
-      - "traefik.protocol=http"
+  # landing-page:
+  #   image: sroze/landing-page:latest
+  #   container_name: landing-page
+  #   restart: always
+  #   ports:
+  #     - "6061:80"
+  #   networks:
+  #     - web
+  #   environment: 
+  #     - MESSAGE=Welcome to Mojaloop's Entry to the ISO 20022 Hackathon
+  #   labels:
+  #     - "traefik.docker.network=web"
+  #     - "traefik.enable=true"
+  #     - "traefik.frontend.rule=Host:hackathon2.moja-lab.live"
+  #     - "traefik.port=80"
+  #     - "traefik.protocol=http"
 
   traefik:
     image: traefik:1.7
