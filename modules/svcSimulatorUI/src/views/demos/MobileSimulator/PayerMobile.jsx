@@ -29,7 +29,7 @@ const { Text } = Typography
 class PayerMobile extends React.Component {
   state = {
     stage: null,
-    amount: 100,
+    amount: 2000,
     idType: 'MSISDN',
     idValue: '+250-788301607',
     quotesRequest: {},
