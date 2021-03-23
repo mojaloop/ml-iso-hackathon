@@ -95,7 +95,7 @@ class PayerMobile extends React.Component {
           <Card className='mr-3'>
             <Row>
               <Col span={24}>
-                <Text>Do you want to continue to send <b>RWF {this.state.quotesResponse && this.state.quotesResponse.sendAmount}</b> to <b>{this.state.quotesResponse && this.state.quotesResponse.receivingParticipantName && (this.state.quotesResponse.receivingPartyMsisdn + ' @ ' + this.state.quotesResponse.receivingParticipantName)}?</b></Text>
+                <Text>Do you want to continue to send <b>RWF {this.state.quotesResponse && this.state.quotesResponse.sendAmount}</b> to <b>{this.state.quotesResponse && this.state.quotesResponse.receivingPartyName && (this.state.quotesResponse.receivingPartyName + ' @ ' + this.state.quotesResponse.receivingPartyMsisdn)}?</b></Text>
               </Col>
             </Row>
             {/* <Row>

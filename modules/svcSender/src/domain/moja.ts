@@ -11,6 +11,7 @@ export interface MojaQuoteResponse {
   sendCurrency: string,
   receivingParticipantName: string,
   receivingParticipantBic: string,
+  receivingPartyName: string,
   receivingPartyMsisdn: string,
 }
 
@@ -27,6 +28,7 @@ export const MOJA_QUOTE_RESPONSE_JPATHS : MojaQuoteResponse = {
   sendCurrency: 'Document.CdtrPmtActvtnReq.PmtInf.CdtTrfTx.Amt.InstdAmt.attr.Ccy',
   receivingParticipantName: 'Document.CdtrPmtActvtnReq.PmtInf.CdtTrfTx.CdtrAgt.FinInstnId.Nm',
   receivingParticipantBic: 'Document.CdtrPmtActvtnReq.PmtInf.CdtTrfTx.CdtrAgt.FinInstnId.BICFI',
+  receivingPartyName: 'Document.CdtrPmtActvtnReq.PmtInf.CdtTrfTx.Cdtr.CtctDtls.Nm',
   receivingPartyMsisdn: 'Document.CdtrPmtActvtnReq.PmtInf.CdtTrfTx.Cdtr.CtctDtls.MobNb',
 }
 
