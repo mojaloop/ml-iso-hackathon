@@ -184,7 +184,7 @@ export class SenderServer {
   private async _handleQuoteResponseCallback (request: TApiXmlRequest, reply: TApiXmlReply): Promise<any> {
     console.log('Handling quote response from MojaBank (pain013). raw body', request.body?.raw)
 
-    reply.code(200).send(JSON.stringify({}))
+    await reply.code(200).send(JSON.stringify({}))
 
     const validationResults = XSD.validate(this._config.xsd.pain013, request.body!.raw as string)
     if (validationResults != null) {
@@ -244,7 +244,7 @@ export class SenderServer {
   private async _handlerTransferResponseCallback (request: TApiXmlRequest, reply: TApiXmlReply): Promise<any> {
     console.log('Handling transfer response from MojaBank (pain002). raw body', request.body?.raw)
 
-    reply.code(200).send(JSON.stringify({}))
+    await reply.code(200).send(JSON.stringify({}))
     
     const validationResults = XSD.validate(this._config.xsd.pain002, request.body!.raw as string)
     if (validationResults != null) {

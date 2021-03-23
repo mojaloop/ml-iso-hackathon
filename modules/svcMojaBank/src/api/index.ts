@@ -297,7 +297,7 @@ export class Server {
 
   private async _partiesResponseHandler (request: any, reply: any): Promise<void> {
     try {
-      reply.code(200).send("")
+      await reply.code(200).send("")
       const payload = request.body as PutPartiesBody
       this._logger.debug(`parties response=${JSON.stringify(payload)}`)
   
@@ -382,7 +382,7 @@ export class Server {
 
   private async _quoteResponseHandler (request: any, reply: any): Promise<void> {
     try {
-      reply.code(200).send("")
+      await reply.code(200).send("")
       // find quote
       const payload = request.body as PutQuotesBody
       const quoteId = request.params.id
@@ -527,7 +527,7 @@ export class Server {
 
   private async _swiftTransferHandler (request: any, reply: any): Promise<void> {
     try {
-      reply.code(202).send(JSON.stringify({}))
+      await reply.code(202).send(JSON.stringify({}))
 
       const endToEndId = JSONPath({ path: '$..CdtTrfTxInf.PmtId.EndToEndId', json: request.body })
       const transferId = endToEndId?.[0]
@@ -615,7 +615,7 @@ export class Server {
 
   private async _transferResponseHandler (request: any, reply: any): Promise<void> {
     try {
-      reply.code(200).send("")
+      await reply.code(200).send("")
       const payload = request.body as PutTransfersBody
 
       const quote = await this._redis.getQuoteForTransfer(request.params.id)
