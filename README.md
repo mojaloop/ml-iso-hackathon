@@ -17,7 +17,6 @@ Contents
 - [4. Deploying](#4-deploying)
 - [5. Flow](#5-Flow)
 - [6. ISO message schema changes](#6-iso-message-schema-changes)
-- [7. Todo](#7-todo)
 
 ## 1. Overview
 
@@ -175,8 +174,3 @@ While we generally expect to use standard ISO messages, we have made two changes
 2.4.2 An **ILPData** type which contains either a Condition or a Fulfilment, both of whose type is _BinaryString32_.<br/>
 
 Copies of the modified schemas are included in our submission (example messages are provided in **[api/example-messages](./apis/example-messages)** folder and xsds are in **[xsd](./xsd)** folder).
-
-## 7. Todo
-
-- [x] Deploy a landing page, or even just the ttk UI to get started
-- [ ] Some circleci config that deploys this project when we push a new tag (is this _really_ necessary?)
