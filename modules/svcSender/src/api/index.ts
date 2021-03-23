@@ -230,7 +230,7 @@ export class SenderServer {
       // Publish Activity Egress Event
 
       const egressActivityEvent: TPublishEvent = {
-        fromComponent: 'LAKE CITY BANK',
+        fromComponent: this._config.activityEvents.ISOSenderComponentName,
         toComponent: this._config.activityEvents.MBComponentName,
         // xmlData: '<?xml version="1.0" encoding="utf-8"?><Document xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:iso:std:iso:20022:tech:xsd:pain.013.001.06"></Document>'
         description: '200',
@@ -277,7 +277,7 @@ export class SenderServer {
       // Publish Activity Egress Event
 
       const egressActivityEvent: TPublishEvent = {
-        fromComponent: 'LAKE CITY BANK',
+        fromComponent: this._config.activityEvents.ISOSenderComponentName,
         toComponent: this._config.activityEvents.MBComponentName,
         // xmlData: '<?xml version="1.0" encoding="utf-8"?><Document xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:iso:std:iso:20022:tech:xsd:pain.013.001.06"></Document>'
         description: '200',

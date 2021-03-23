@@ -212,8 +212,10 @@ class TTKSocketMessageCollector {
 
   handleNotificationLog = (log) => {
     const hubName = 'Mojaloop Switch'
-    const payerBankName = 'Mojaloop Bank'
-    const payeeBankName = 'EQUITY BANK RWANDA LIMITED'
+    // const payerBankName = 'Mojaloop Bank'
+    const payerBankName = 'Equity Bank Rwanda Limited'
+    // const payeeBankName = 'EQUITY BANK RWANDA LIMITED'
+    const payeeBankName = 'RwandaPay'
 
     // *********** Payee Side Logs ********* //
     // Catch get Parties request
