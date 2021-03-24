@@ -248,8 +248,7 @@ export class SenderServer {
           description: '200',
           isResponse: true
         }
-        // TODO: This is added to make sure the sequences are displayed correctly in the SIM UI. This is because the SIM UI is attaining activities from both the Acitivity Service and the TTK, thus ordering is inconsistant. Fix this in future by using a single location for acticity logs (i.e. Redis?).
-        await new Promise(resolve => setTimeout(resolve, 500))
+
         await this._activityService.publish(this._config.activityEvents.SenderEgress, egressActivityEvent)
       }
     } catch (err) {
@@ -301,8 +300,6 @@ export class SenderServer {
           description: '200',
           isResponse: true
         }
-        // TODO: This is added to make sure the sequences are displayed correctly in the SIM UI. This is because the SIM UI is attaining activities from both the Acitivity Service and the TTK, thus ordering is inconsistant. Fix this in future by using a single location for acticity logs (i.e. Redis?).
-        await new Promise(resolve => setTimeout(resolve, 500))
         await this._activityService.publish(this._config.activityEvents.SenderEgress, egressActivityEvent)
       }
     } catch (err) {
