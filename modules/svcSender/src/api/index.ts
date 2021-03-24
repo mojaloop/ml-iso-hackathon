@@ -58,6 +58,7 @@ import {v4 as uuid} from 'uuid'
 import { JSONPath } from 'jsonpath-plus'
 import { MojaQuoteResponse, MojaTransferResponse, MOJA_QUOTE_RESPONSE_JPATHS, MOJA_TRANSFER_RESPONSE_JPATHS } from '../domain/moja'
 import { Participant } from '../xml/common'
+import { GlsLookupResponse } from '../domain/gls'
 
 /* eslint-disable-next-line @typescript-eslint/no-var-requires */
 const PACKAGE = require('../../package.json')
@@ -103,7 +104,8 @@ export class SenderServer {
   }
 
   async destroy (): Promise<void> {
-    await this._apiServer!.destroy()
+    await this._apiServer?.destroy()
+    await this._activityService?.destroy()
   }
 
   private async _registerRoutes (): Promise<void> {
@@ -143,22 +145,27 @@ export class SenderServer {
   }
 
   private async _requestQuote (request: FastifyRequest<QuoteTypes, Server, IncomingMessage>, reply: FastifyReply<Server, IncomingMessage, ServerResponse, QuoteTypes, unknown>): Promise<ApiQuoteResponse> {
+    let quoteResult: ApiQuoteResponse | undefined
+    try {
+      //Create a new Transaction
+      const {msisdn, currency, amount} = request.body
+      const tx = new Transaction(this._config, this._logger, this._activityService)
+      this._transactions.set(tx.id, tx)
 
-    //Create a new Transaction
-    const {msisdn, currency, amount} = request.body
-    const tx = new Transaction(this._config, this._logger, this._activityService)
-    this._transactions.set(tx.id, tx)
+      const lookupResult = await tx.lookup(msisdn)
 
-    const lookupResult = await tx.lookup(msisdn)
+      // TODO Get these values from somewhere
+      const initiatingParty: Participant = {
+        name: 'LAKE CITY BANK',
+        bic: 'LAKCUS33'
+      }
 
-    // TODO Get these values from somewhere
-    const initiatingParty: Participant = {
-      name: 'LAKE CITY BANK',
-      bic: 'LAKCUS33'
+      // Perform quote request
+      quoteResult = await tx.quote(initiatingParty, amount, currency)
+    } catch (err) {
+      this._logger.error(err.stack)
+      throw err
     }
-
-    // Perform quote request
-    const quoteResult = await tx.quote(initiatingParty, amount, currency)
 
     return reply
       .code(200)
@@ -166,15 +173,19 @@ export class SenderServer {
   }
 
   private async _submitTransfer (request: FastifyRequest<TransferTypes, Server, IncomingMessage>, reply: FastifyReply<Server, IncomingMessage, ServerResponse, TransferTypes, unknown>): Promise<ApiTransferResponse> {
-
     // TODO 
+    let transferResult: ApiTransferResponse | undefined
+    try {
+      const tx = this._transactions.get(request.body.transactionId)
+      if(tx === undefined) {
+        throw new Error(`Request to execute transfer for unknown tx id: ${request.body.transactionId}`)
+      }
 
-    const tx = this._transactions.get(request.body.transactionId)
-    if(tx === undefined) {
-      throw new Error(`Request to execute transfer for unknown tx id: ${request.body.transactionId}`)
+      transferResult = await tx.transfer()
+    } catch (err) {
+      this._logger.error(err.stack)
+      throw err
     }
-
-    const transferResult = await tx.transfer()
 
     return reply
       .code(200)
@@ -186,58 +197,64 @@ export class SenderServer {
 
     await reply.code(200).send(JSON.stringify({}))
 
-    const validationResults = XSD.validate(this._config.xsd.pain013, request.body!.raw as string)
-    if (validationResults != null) {
-      throw new Error(JSON.stringify(validationResults))
-    }
-    let json = request.body!.parsed
-     
-    const quoteResponse : MojaQuoteResponse = {
-      initiatingPartyName: '',
-      initiatingPartyBic: '',
-      quoteId: '',
-      sendingPartyMsisdn: '',
-      sendingParticipantBic: '',
-      sendingParticipantName: '',
-      transferCondition: '',
-      transactionId: '',
-      sendAmount: '',
-      sendCurrency: '',
-      receivingParticipantName: '',
-      receivingParticipantBic: '',
-      receivingPartyName: '',
-      receivingPartyMsisdn: '',
-    }
-
-    Object.keys(MOJA_QUOTE_RESPONSE_JPATHS).map((key: string) => {
-      const path = MOJA_QUOTE_RESPONSE_JPATHS[key as keyof MojaQuoteResponse]
-      const jsonPathResult = JSONPath({ path, json })
-      const value : string | undefined = (jsonPathResult.length > 0) ? jsonPathResult[0] : undefined
-      if (value === undefined) {
-        throw new Error(`No value found in response at path ${path}`)
+    try {
+      const validationResults = XSD.validate(this._config.xsd.pain013, request.body!.raw as string)
+      if (validationResults != null) {
+        throw new Error(JSON.stringify(validationResults))
       }
-      quoteResponse[key as keyof MojaQuoteResponse] = value
-    })
-
-    const tx = this._transactions.get(quoteResponse.transactionId)
-    if(tx === undefined) {
-      throw new Error(`Quote response received with unknown tx id: ${quoteResponse.transactionId}`)
-    }
-
-    await tx.handleQuoteResponse(quoteResponse)
-
-    if (this._config.activityEvents.isEnabled === true) {
-      // Publish Activity Egress Event
-
-      const egressActivityEvent: TPublishEvent = {
-        fromComponent: this._config.activityEvents.ISOSenderComponentName,
-        toComponent: this._config.activityEvents.MBComponentName,
-        // xmlData: '<?xml version="1.0" encoding="utf-8"?><Document xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:iso:std:iso:20022:tech:xsd:pain.013.001.06"></Document>'
-        description: '200',
-        isResponse: true
+      let json = request.body!.parsed
+      
+      const quoteResponse : MojaQuoteResponse = {
+        initiatingPartyName: '',
+        initiatingPartyBic: '',
+        quoteId: '',
+        sendingPartyMsisdn: '',
+        sendingParticipantBic: '',
+        sendingParticipantName: '',
+        transferCondition: '',
+        transactionId: '',
+        sendAmount: '',
+        sendCurrency: '',
+        receivingParticipantName: '',
+        receivingParticipantBic: '',
+        receivingPartyName: '',
+        receivingPartyMsisdn: '',
       }
 
-      await this._activityService.publish(this._config.activityEvents.SenderEgress, egressActivityEvent)
+      Object.keys(MOJA_QUOTE_RESPONSE_JPATHS).map((key: string) => {
+        const path = MOJA_QUOTE_RESPONSE_JPATHS[key as keyof MojaQuoteResponse]
+        const jsonPathResult = JSONPath({ path, json })
+        const value : string | undefined = (jsonPathResult.length > 0) ? jsonPathResult[0] : undefined
+        if (value === undefined) {
+          throw new Error(`No value found in response at path ${path}`)
+        }
+        quoteResponse[key as keyof MojaQuoteResponse] = value
+      })
+
+      const tx = this._transactions.get(quoteResponse.transactionId)
+      if(tx === undefined) {
+        throw new Error(`Quote response received with unknown tx id: ${quoteResponse.transactionId}`)
+      }
+
+      await tx.handleQuoteResponse(quoteResponse)
+
+      if (this._config.activityEvents.isEnabled === true) {
+        // Publish Activity Egress Event
+
+        const egressActivityEvent: TPublishEvent = {
+          fromComponent: this._config.activityEvents.ISOSenderComponentName,
+          toComponent: this._config.activityEvents.MBComponentName,
+          // xmlData: '<?xml version="1.0" encoding="utf-8"?><Document xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:iso:std:iso:20022:tech:xsd:pain.013.001.06"></Document>'
+          description: '200',
+          isResponse: true
+        }
+        // TODO: This is added to make sure the sequences are displayed correctly in the SIM UI. This is because the SIM UI is attaining activities from both the Acitivity Service and the TTK, thus ordering is inconsistant. Fix this in future by using a single location for acticity logs (i.e. Redis?).
+        await new Promise(resolve => setTimeout(resolve, 500))
+        await this._activityService.publish(this._config.activityEvents.SenderEgress, egressActivityEvent)
+      }
+    } catch (err) {
+      this._logger.error(err.stack)
+      throw err
     }
   }
 
@@ -246,45 +263,51 @@ export class SenderServer {
 
     await reply.code(200).send(JSON.stringify({}))
     
-    const validationResults = XSD.validate(this._config.xsd.pain002, request.body!.raw as string)
-    if (validationResults != null) {
-      throw new Error(JSON.stringify(validationResults))
-    }
-    let json = request.body!.parsed
-     
-    const transferResponse : MojaTransferResponse = {
-      transactionId: ''
-    }
-
-    Object.keys(MOJA_TRANSFER_RESPONSE_JPATHS).map((key: string) => {
-      const path = MOJA_TRANSFER_RESPONSE_JPATHS[key as keyof MojaTransferResponse]
-      const jsonPathResult = JSONPath({ path, json })
-      const value : string | undefined = (jsonPathResult.length > 0) ? jsonPathResult[0] : undefined
-      if (value === undefined) {
-        throw new Error(`No value found in response at path ${path}`)
+    try {
+      const validationResults = XSD.validate(this._config.xsd.pain002, request.body!.raw as string)
+      if (validationResults != null) {
+        throw new Error(JSON.stringify(validationResults))
       }
-      transferResponse[key as keyof MojaTransferResponse] = value
-    })
-
-    const tx = this._transactions.get(transferResponse.transactionId)
-    if(tx === undefined) {
-      throw new Error(`Transfer response received with unknown tx id: ${transferResponse.transactionId}`)
-    }
-
-    await tx.handleTransferResponse(transferResponse)
-
-    if (this._config.activityEvents.isEnabled === true) {
-      // Publish Activity Egress Event
-
-      const egressActivityEvent: TPublishEvent = {
-        fromComponent: this._config.activityEvents.ISOSenderComponentName,
-        toComponent: this._config.activityEvents.MBComponentName,
-        // xmlData: '<?xml version="1.0" encoding="utf-8"?><Document xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:iso:std:iso:20022:tech:xsd:pain.013.001.06"></Document>'
-        description: '200',
-        isResponse: true
+      let json = request.body!.parsed
+      
+      const transferResponse : MojaTransferResponse = {
+        transactionId: ''
       }
 
-      await this._activityService.publish(this._config.activityEvents.SenderEgress, egressActivityEvent)
+      Object.keys(MOJA_TRANSFER_RESPONSE_JPATHS).map((key: string) => {
+        const path = MOJA_TRANSFER_RESPONSE_JPATHS[key as keyof MojaTransferResponse]
+        const jsonPathResult = JSONPath({ path, json })
+        const value : string | undefined = (jsonPathResult.length > 0) ? jsonPathResult[0] : undefined
+        if (value === undefined) {
+          throw new Error(`No value found in response at path ${path}`)
+        }
+        transferResponse[key as keyof MojaTransferResponse] = value
+      })
+
+      const tx = this._transactions.get(transferResponse.transactionId)
+      if(tx === undefined) {
+        throw new Error(`Transfer response received with unknown tx id: ${transferResponse.transactionId}`)
+      }
+
+      await tx.handleTransferResponse(transferResponse)
+
+      if (this._config.activityEvents.isEnabled === true) {
+        // Publish Activity Egress Event
+
+        const egressActivityEvent: TPublishEvent = {
+          fromComponent: this._config.activityEvents.ISOSenderComponentName,
+          toComponent: this._config.activityEvents.MBComponentName,
+          // xmlData: '<?xml version="1.0" encoding="utf-8"?><Document xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:iso:std:iso:20022:tech:xsd:pain.013.001.06"></Document>'
+          description: '200',
+          isResponse: true
+        }
+        // TODO: This is added to make sure the sequences are displayed correctly in the SIM UI. This is because the SIM UI is attaining activities from both the Acitivity Service and the TTK, thus ordering is inconsistant. Fix this in future by using a single location for acticity logs (i.e. Redis?).
+        await new Promise(resolve => setTimeout(resolve, 500))
+        await this._activityService.publish(this._config.activityEvents.SenderEgress, egressActivityEvent)
+      }
+    } catch (err) {
+      this._logger.error(err.stack)
+      throw err
     }
   }
 }

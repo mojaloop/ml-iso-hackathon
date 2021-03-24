@@ -53,21 +53,20 @@
   },
   {
     "id": "payeeFspFee.currency",
-    "pattern": "USD"
+    "pattern": "RWF"
   },
   {
     "id": "payeeFspFee.amount",
-    "pattern": "2"
+    "pattern": "100"
   },
   {
     "id": "payeeFspCommission.currency",
-    "pattern": "USD"
+    "pattern": "RWF"
   },
   {
     "id": "payeeFspCommission.amount",
-    "pattern": "3"
+    "pattern": "0"
   },
-
   {
     "id": "errorInformation.errorCode",
     "pattern": "600[1-9]"

@@ -179,8 +179,7 @@ export class Server {
   }
 
   async destroy (): Promise<void> {
-    await this._apiServer.destroy()
-
+    await this._apiServer?.destroy()
     await this._activityService?.destroy()
   }
 
