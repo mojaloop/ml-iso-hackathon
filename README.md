@@ -22,7 +22,7 @@ Contents
 
 This repo contains "Team Mojaloop's Incredible Submission" for the ISO20022 Hackathon
 
-Go to http://hackathon2.moja-lab.live to see a live demo.
+Go to http://sim.hackathon2.moja-lab.live/mobilesimulator to see a live demo.
 
 ![](./docs/arch.png)
 
