@@ -19,4 +19,5 @@ cd app
 touch ./docker/traefik/acme.json
 chmod 600 ./docker/traefik/acme.json
 
+docker-compose pull
 docker-compose up -d

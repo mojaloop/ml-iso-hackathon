@@ -62,7 +62,7 @@ services:
     restart: always
 
   svc-global-discovery:
-    image: mojaloop/ml-iso-hackathon:snapshot.5
+    image: mojaloop/ml-iso-hackathon:snapshot.6
     container_name: hack_svc_global_disc
     ports:
       - "3003:3003"
@@ -81,7 +81,7 @@ services:
       - ./docker-compose.env:/opt/app/default.env
 
   svc-moja-bank:
-    image: mojaloop/ml-iso-hackathon:snapshot.5
+    image: mojaloop/ml-iso-hackathon:snapshot.6
     container_name: hack_svc_moja_bank
     command: npm run start:moja
     restart: always
@@ -104,7 +104,7 @@ services:
     build:
       context: ./
       dockerfile: modules/svcMojaBank/Dockerfile
-    image: mojaloop/ml-iso-hackathon:snapshot.5
+    image: mojaloop/ml-iso-hackathon:snapshot.6
     command: npm run start:sender:noconfig
     restart: always
     container_name: hack_svc_sender_bank
@@ -125,7 +125,7 @@ services:
        - ./docker-compose.env:/opt/app/default.env
 
   svc-activitylog-collector:
-    image: mojaloop/ml-iso-hackathon:snapshot.5
+    image: mojaloop/ml-iso-hackathon:snapshot.6
     container_name: hack_svc_activitylog_col
     env_file:
       - default.env
@@ -147,7 +147,7 @@ services:
       - ./docker-compose.env:/opt/app/default.env
 
   svc-simulator-ui:
-    image: mojaloop/ml-iso-hackathon:snapshot.5
+    image: mojaloop/ml-iso-hackathon:snapshot.6
     container_name: hack_svc_sim_ui
     ports:
       - "7070:3000"

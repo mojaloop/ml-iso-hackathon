@@ -281,6 +281,7 @@ class TTKSocketMessageCollector {
         type: 'payeePutParties',
         data: {
           resource: log.resource,
+          requestBody: log.additionalData.request.body,
           fromComponent: payeeBankName,
           toComponent: hubName,
           description: log.resource.method + ' ' + log.resource.path
@@ -405,6 +406,7 @@ class TTKSocketMessageCollector {
         type: 'payeePutQuotes',
         data: {
           resource: log.resource,
+          requestBody: log.additionalData.request.body,
           fromComponent: payeeBankName,
           toComponent: hubName,
           description: log.resource.method + ' ' + log.resource.path
@@ -436,6 +438,7 @@ class TTKSocketMessageCollector {
         type: 'payeePutQuotes',
         data: {
           resource: log.resource,
+          // requestBody: log.additionalData.request.body, // currently not available
           fromComponent: hubName,
           toComponent: payerBankName,
           description: log.resource.method + ' ' + log.resource.path
